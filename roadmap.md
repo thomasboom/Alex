@@ -7,8 +7,8 @@
 [x] Fix async context usage warning
 [x] Run dart format . and ensure all files are properly formatted
 [x] Address all remaining flutter analyze warnings
- [x] Export conversations to JSON format
- [x] Export conversations to plain text
+[x] Export conversations to JSON format
+[x] Export conversations to plain text
 [ ] Add AI temperature/creativity slider control
 [x] Add API endpoint configuration UI
 [x] Model selection dropdown
