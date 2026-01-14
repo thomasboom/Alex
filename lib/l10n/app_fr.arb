@@ -75,6 +75,7 @@
   "apiEndpoint": "Point de terminaison API",
   "enterEndpointDesc": "Entrez l'URL du point de terminaison de l'API Ollama",
   "endpointPlaceholder": "https://api.ollama.com",
+  "apiEndpointUpdated": "Point de terminaison API mis à jour",
   "enterPin": "Entrer le PIN",
   "enterPinToContinue": "Veuillez entrer votre code PIN à 4 chiffres pour continuer",
   "useDifferentMethod": "Utiliser une méthode différente",

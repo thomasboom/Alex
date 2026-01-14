@@ -250,6 +250,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get endpointPlaceholder => 'https://api.ollama.com';
 
   @override
+  String get apiEndpointUpdated => 'API-eindpunt bijgewerkt';
+
+  @override
   String get enterPin => 'PIN invoeren';
 
   @override

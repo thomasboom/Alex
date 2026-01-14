@@ -75,6 +75,7 @@
   "apiEndpoint": "API-eindpunt",
   "enterEndpointDesc": "Voer de URL van het Ollama API-eindpunt in",
   "endpointPlaceholder": "https://api.ollama.com",
+  "apiEndpointUpdated": "API-eindpunt bijgewerkt",
   "enterPin": "PIN invoeren",
   "enterPinToContinue": "Voer uw 4-cijferige PIN in om door te gaan",
   "useDifferentMethod": "Gebruik een andere methode",

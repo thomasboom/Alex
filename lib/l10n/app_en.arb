@@ -75,6 +75,7 @@
   "apiEndpoint": "API Endpoint",
   "enterEndpointDesc": "Enter the Ollama API endpoint URL",
   "endpointPlaceholder": "https://api.ollama.com",
+  "apiEndpointUpdated": "API endpoint updated",
   "enterPin": "Enter PIN",
   "enterPinToContinue": "Please enter your 4-digit PIN to continue",
   "useDifferentMethod": "Use Different Method",

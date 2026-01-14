@@ -295,7 +295,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'Color Palette',
+                  _l10n.colorPalette,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -312,7 +312,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Primary Color',
+                  _l10n.primaryColor,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -321,7 +321,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Choose the main color theme for the app',
+                  _l10n.chooseColorTheme,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 13,
                     color: Theme.of(
@@ -511,7 +511,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'API Configuration',
+                  _l10n.apiConfiguration,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -539,7 +539,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'API Key Source',
+          _l10n.apiKeySource,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -548,7 +548,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Choose whether to use the inbuilt API key or provide your own custom key',
+          _l10n.chooseApiKeySource,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -578,7 +578,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  '⚠️ Inbuilt API key will hit rate limits much sooner. Custom keys provide higher limits and better performance.',
+                  _l10n.inbuiltApiKeyWarning,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 12,
                     color: Theme.of(context).colorScheme.error,
@@ -604,8 +604,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             children: [
               _buildApiSourceOption(
-                title: 'Inbuilt API Key',
-                subtitle: 'Use the pre-configured API key',
+                title: _l10n.inbuiltApiKey,
+                subtitle: _l10n.usePreconfiguredKey,
                 value: 'inbuilt',
                 icon: Icons.key_outlined,
               ),
@@ -616,10 +616,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ).colorScheme.outline.withValues(alpha: 0.2),
               ),
               _buildApiSourceOption(
-                title: 'Custom API Key',
+                title: _l10n.customApiKey,
                 subtitle: hasCustomApiKey
-                    ? 'Custom key is configured'
-                    : 'Enter your own API key',
+                    ? _l10n.customKeyConfigured
+                    : _l10n.enterOwnApiKey,
                 value: 'custom',
                 icon: Icons.edit_outlined,
               ),
@@ -746,7 +746,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'Security',
+                  _l10n.security,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -780,7 +780,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'PIN Lock',
+                    _l10n.pinLock,
                     style: GoogleFonts.playfairDisplay(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -790,8 +790,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: 4),
                   Text(
                     isPinLockEnabled
-                        ? 'App is protected with a PIN code'
-                        : 'Secure your app with a 4-digit PIN',
+                        ? _l10n.pinLockEnabledDesc
+                        : _l10n.pinLockDisabledDesc,
                     style: GoogleFonts.playfairDisplay(
                       fontSize: 13,
                       color: Theme.of(
@@ -835,7 +835,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: _showChangePinDialog,
               icon: const Icon(Icons.edit_outlined),
               label: Text(
-                'Change PIN',
+                _l10n.changePin,
                 style: GoogleFonts.playfairDisplay(
                   fontWeight: FontWeight.w600,
                   fontSize: 15,
@@ -890,7 +890,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'Data Management',
+                  _l10n.dataManagement,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -928,7 +928,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Theme Preference',
+          _l10n.themePreference,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -937,7 +937,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Choose how the app looks and feels',
+          _l10n.chooseThemeDesc,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -960,8 +960,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Column(
             children: [
               _buildThemeOption(
-                title: 'System',
-                subtitle: 'Follow system theme',
+                title: _l10n.system,
+                subtitle: _l10n.followSystemTheme,
                 value: 'system',
                 icon: Icons.smartphone_outlined,
               ),
@@ -972,8 +972,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ).colorScheme.outline.withValues(alpha: 0.2),
               ),
               _buildThemeOption(
-                title: 'Light',
-                subtitle: 'Always use light theme',
+                title: _l10n.light,
+                subtitle: _l10n.alwaysLightTheme,
                 value: 'light',
                 icon: Icons.light_mode_outlined,
               ),
@@ -984,8 +984,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ).colorScheme.outline.withValues(alpha: 0.2),
               ),
               _buildThemeOption(
-                title: 'Dark',
-                subtitle: 'Always use dark theme',
+                title: _l10n.dark,
+                subtitle: _l10n.alwaysDarkTheme,
                 value: 'dark',
                 icon: Icons.dark_mode_outlined,
               ),
@@ -1079,7 +1079,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Export Conversations',
+          _l10n.exportConversations,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -1088,7 +1088,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Export your conversation history to a plain text file for backup or sharing.',
+          _l10n.exportConversationsDesc,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -1116,7 +1116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: _exportConversations,
             icon: const Icon(Icons.description_outlined),
             label: Text(
-              'Export to Plain Text',
+              _l10n.exportToPlainText,
               style: GoogleFonts.playfairDisplay(
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
@@ -1152,7 +1152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: _exportConversationsJSON,
             icon: const Icon(Icons.code_outlined),
             label: Text(
-              'Export to JSON',
+              _l10n.exportToJSON,
               style: GoogleFonts.playfairDisplay(
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
@@ -1178,7 +1178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Clear Data',
+          _l10n.clearData,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -1187,7 +1187,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Permanently delete Alex, including all conversation history and memories. This action cannot be undone.',
+          _l10n.clearDataWarning,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -1213,7 +1213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: _showDeleteConfirmationDialog,
             icon: const Icon(Icons.warning_amber_outlined),
             label: Text(
-              'Permanently Delete Alex',
+              _l10n.permanentlyDeleteAlex,
               style: GoogleFonts.playfairDisplay(
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
@@ -1247,17 +1247,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Permanently Delete Alex?',
+            _l10n.permanentlyDeleteConfirmTitle,
             style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
           ),
           content: Text(
-            'This action cannot be undone. Alex and all conversation history will be permanently deleted.',
+            _l10n.permanentlyDeleteConfirmDesc,
             style: GoogleFonts.playfairDisplay(),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
+              child: Text(_l10n.cancel, style: GoogleFonts.playfairDisplay()),
             ),
             ElevatedButton(
               onPressed: () {
@@ -1269,7 +1269,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 foregroundColor: Theme.of(context).colorScheme.onError,
               ),
               child: Text(
-                'Delete Permanently',
+                _l10n.deletePermanently,
                 style: GoogleFonts.playfairDisplay(),
               ),
             ),
@@ -1288,7 +1288,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Alex permanently deleted. All memories and conversation history removed.',
+              _l10n.alexDeletedSuccess,
               style: GoogleFonts.playfairDisplay(),
             ),
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -1301,7 +1301,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Failed to permanently delete Alex. Please try again.',
+              _l10n.deleteFailed,
               style: GoogleFonts.playfairDisplay(),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
@@ -1319,7 +1319,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final defaultFileName = 'alex_conversations_$timestamp.txt';
 
       final result = await FilePicker.platform.saveFile(
-        dialogTitle: 'Save Exported Conversations',
+        dialogTitle: _l10n.saveExportedConversations,
         fileName: defaultFileName,
         type: FileType.custom,
         allowedExtensions: ['txt'],
@@ -1334,14 +1334,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
       if (!mounted) return;
 
-      _showSuccessSnackBar('Conversations exported successfully');
+      _showSuccessSnackBar(_l10n.exportSuccess);
     } catch (e) {
       AppLogger.e('Error exporting conversations', e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Failed to export conversations. Please try again.',
+              _l10n.exportFailed,
               style: GoogleFonts.playfairDisplay(),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
@@ -1359,7 +1359,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       final defaultFileName = 'alex_conversations_$timestamp.json';
 
       final result = await FilePicker.platform.saveFile(
-        dialogTitle: 'Save Exported Conversations (JSON)',
+        dialogTitle: _l10n.saveExportedConversationsJSON,
         fileName: defaultFileName,
         type: FileType.custom,
         allowedExtensions: ['json'],
@@ -1374,14 +1374,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
       if (!mounted) return;
 
-      _showSuccessSnackBar('Conversations exported to JSON successfully');
+      _showSuccessSnackBar(_l10n.exportJSONSuccess);
     } catch (e) {
       AppLogger.e('Error exporting conversations to JSON', e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Failed to export conversations. Please try again.',
+              _l10n.exportFailed,
               style: GoogleFonts.playfairDisplay(),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
@@ -1402,20 +1402,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context, setState) {
             return AlertDialog(
               title: Text(
-                'Set PIN Lock',
+                _l10n.setPinLock,
                 style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Enter a 4-digit PIN to secure your app',
+                    _l10n.enterPinToSecure,
                     style: GoogleFonts.playfairDisplay(),
                   ),
                   const SizedBox(height: 20),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'New PIN',
+                      labelText: _l10n.newPin,
                       labelStyle: GoogleFonts.playfairDisplay(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -1431,7 +1431,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: 16),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Confirm PIN',
+                      labelText: _l10n.confirmPin,
                       labelStyle: GoogleFonts.playfairDisplay(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -1449,21 +1449,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
+                  child: Text(
+                    _l10n.cancel,
+                    style: GoogleFonts.playfairDisplay(),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: (newPin.length == 4 && newPin == confirmPin)
                       ? () {
                           SettingsService.setPinLock(newPin);
                           Navigator.of(context).pop();
-                          _showSuccessSnackBar('PIN lock enabled successfully');
+                          _showSuccessSnackBar(_l10n.pinLockEnabledSuccess);
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   ),
-                  child: Text('Set PIN', style: GoogleFonts.playfairDisplay()),
+                  child: Text(
+                    _l10n.setPin,
+                    style: GoogleFonts.playfairDisplay(),
+                  ),
                 ),
               ],
             );
@@ -1479,29 +1485,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Disable PIN Lock?',
+            _l10n.disablePinLock,
             style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
           ),
           content: Text(
-            'Are you sure you want to disable PIN lock? Your app will no longer require a PIN to access.',
+            _l10n.disablePinLockDesc,
             style: GoogleFonts.playfairDisplay(),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
+              child: Text(_l10n.cancel, style: GoogleFonts.playfairDisplay()),
             ),
             ElevatedButton(
               onPressed: () {
                 SettingsService.disablePinLock();
                 Navigator.of(context).pop();
-                _showSuccessSnackBar('PIN lock disabled');
+                _showSuccessSnackBar(_l10n.pinLockDisabledSuccess);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.tertiary,
                 foregroundColor: Theme.of(context).colorScheme.onTertiary,
               ),
-              child: Text('Disable', style: GoogleFonts.playfairDisplay()),
+              child: Text(_l10n.disable, style: GoogleFonts.playfairDisplay()),
             ),
           ],
         );
@@ -1521,7 +1527,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context, setState) {
             return AlertDialog(
               title: Text(
-                'Change PIN',
+                _l10n.changePin,
                 style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
               ),
               content: Column(
@@ -1529,7 +1535,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Current PIN',
+                      labelText: _l10n.currentPin,
                       labelStyle: GoogleFonts.playfairDisplay(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -1544,7 +1550,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: 16),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'New PIN',
+                      labelText: _l10n.newPin,
                       labelStyle: GoogleFonts.playfairDisplay(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -1560,7 +1566,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const SizedBox(height: 16),
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Confirm New PIN',
+                      labelText: _l10n.confirmNewPin,
                       labelStyle: GoogleFonts.playfairDisplay(),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -1578,7 +1584,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
+                  child: Text(
+                    _l10n.cancel,
+                    style: GoogleFonts.playfairDisplay(),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed:
@@ -1589,7 +1598,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ? () {
                           SettingsService.setPinLock(newPin);
                           Navigator.of(context).pop();
-                          _showSuccessSnackBar('PIN changed successfully');
+                          _showSuccessSnackBar(_l10n.pinChangedSuccess);
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -1597,7 +1606,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   ),
                   child: Text(
-                    'Change PIN',
+                    _l10n.changePin,
                     style: GoogleFonts.playfairDisplay(),
                   ),
                 ),
@@ -1628,7 +1637,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Custom API Key',
+          _l10n.customApiKeyLabel,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -1637,7 +1646,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Enter your custom Ollama API key. You can get one from https://ollama.com/settings/keys',
+          _l10n.enterCustomApiKeyDesc,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -1669,7 +1678,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  '🔒 Your API key is stored securely on your device only and is never transmitted to our servers.',
+                  _l10n.apiKeySecurityNote,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 11,
                     color: Theme.of(context).colorScheme.primary,
@@ -1685,10 +1694,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         TextField(
           controller: apiKeyController,
           decoration: InputDecoration(
-            labelText: 'API Key',
+            labelText: _l10n.apiKey,
             labelStyle: GoogleFonts.playfairDisplay(),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-            hintText: 'Enter your API key...',
+            hintText: _l10n.enterApiKey,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 12,
@@ -1719,7 +1728,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'AI Model',
+          _l10n.model,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -1728,7 +1737,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Select the AI model for responses. DeepSeek is recommended for optimal performance.',
+          _l10n.enterModelDesc,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -1815,7 +1824,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'API Endpoint',
+          _l10n.apiEndpoint,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -1824,7 +1833,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Custom API endpoint URL. Leave default for official Ollama Cloud.',
+          _l10n.enterEndpointDesc,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -1847,12 +1856,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: TextField(
             controller: TextEditingController(text: customEndpoint),
             decoration: InputDecoration(
-              labelText: 'API Endpoint URL',
+              labelText: _l10n.apiEndpoint,
               labelStyle: GoogleFonts.playfairDisplay(),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              hintText: 'https://ollama.com/api',
+              hintText: _l10n.endpointPlaceholder,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 12,
@@ -1865,7 +1874,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onSubmitted: (value) {
               if (value.trim().isNotEmpty) {
                 SettingsService.setApiEndpoint(value.trim());
-                _showSuccessSnackBar('API endpoint updated');
+                _showSuccessSnackBar(_l10n.apiEndpointUpdated);
               }
             },
           ),

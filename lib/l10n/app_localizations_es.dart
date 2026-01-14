@@ -253,6 +253,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get endpointPlaceholder => 'https://api.ollama.com';
 
   @override
+  String get apiEndpointUpdated => 'Punto final de API actualizado';
+
+  @override
   String get enterPin => 'Ingresar PIN';
 
   @override

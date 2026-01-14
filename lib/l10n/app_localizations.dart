@@ -552,6 +552,12 @@ abstract class AppLocalizations {
   /// **'https://api.ollama.com'**
   String get endpointPlaceholder;
 
+  /// No description provided for @apiEndpointUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'API endpoint updated'**
+  String get apiEndpointUpdated;
+
   /// No description provided for @enterPin.
   ///
   /// In en, this message translates to:
