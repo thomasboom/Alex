@@ -1,7 +1,9 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/settings_service.dart';
 import '../services/summarization_service.dart';
+import '../services/conversation_service.dart';
 import '../utils/logger.dart';
 
 /// Settings screen for app preferences and configuration
@@ -752,7 +754,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const Divider(height: 1),
           Padding(
             padding: const EdgeInsets.all(20),
-            child: _buildDeleteHistoryButton(),
+            child: Column(
+              children: [
+                _buildExportButton(),
+                const SizedBox(height: 24),
+                Container(
+                  height: 1,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.outline.withValues(alpha: 0.1),
+                ),
+                const SizedBox(height: 24),
+                _buildDeleteHistoryButton(),
+              ],
+            ),
           ),
         ],
       ),
@@ -910,6 +925,69 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Widget _buildExportButton() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Export Conversations',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          'Export your conversation history to a plain text file for backup or sharing.',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 13,
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.2),
+                blurRadius: 8,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: ElevatedButton.icon(
+            onPressed: _exportConversations,
+            icon: const Icon(Icons.download_outlined),
+            label: Text(
+              'Export to Plain Text',
+              style: GoogleFonts.playfairDisplay(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 0,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildDeleteHistoryButton() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1039,6 +1117,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
           SnackBar(
             content: Text(
               'Failed to permanently delete Alex. Please try again.',
+              style: GoogleFonts.playfairDisplay(),
+            ),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+      }
+    }
+  }
+
+  void _exportConversations() async {
+    try {
+      final content = await ConversationService.exportToPlainText();
+
+      final timestamp = DateTime.now().toIso8601String().split('T')[0];
+      final defaultFileName = 'alex_conversations_$timestamp.txt';
+
+      final result = await FilePicker.platform.saveFile(
+        dialogTitle: 'Save Exported Conversations',
+        fileName: defaultFileName,
+        type: FileType.custom,
+        allowedExtensions: ['txt'],
+      );
+
+      if (result == null) {
+        AppLogger.i('User cancelled file picker');
+        return;
+      }
+
+      await ConversationService.saveExportToPath(content, result);
+
+      if (!mounted) return;
+
+      _showSuccessSnackBar('Conversations exported successfully');
+    } catch (e) {
+      AppLogger.e('Error exporting conversations', e);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Failed to export conversations. Please try again.',
               style: GoogleFonts.playfairDisplay(),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,

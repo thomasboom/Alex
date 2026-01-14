@@ -387,4 +387,62 @@ class ConversationService {
 
     return recentMessages;
   }
+
+  static Future<String> exportToPlainText() async {
+    AppLogger.i('Exporting conversations to plain text');
+
+    final buffer = StringBuffer();
+    buffer.writeln('Alex Conversation Export');
+    buffer.writeln('=' * 50);
+    buffer.writeln('Export Date: ${DateTime.now().toIso8601String()}');
+    buffer.writeln('Total Messages: ${_context.messages.length}');
+    buffer.writeln('');
+
+    if (_context.summary.isNotEmpty) {
+      buffer.writeln('CONVERSATION SUMMARY');
+      buffer.writeln('-' * 50);
+      buffer.writeln(_context.summary);
+      buffer.writeln('');
+    }
+
+    buffer.writeln('MESSAGES');
+    buffer.writeln('=' * 50);
+    buffer.writeln('');
+
+    for (final message in _context.messages) {
+      final sender = message.isUser ? 'You' : 'Alex';
+      final timestamp = message.timestamp.toIso8601String();
+
+      buffer.writeln('[$sender]');
+      buffer.writeln('Time: $timestamp');
+      buffer.writeln(message.text);
+      buffer.writeln('');
+      buffer.writeln('-' * 30);
+      buffer.writeln('');
+    }
+
+    final content = buffer.toString();
+    AppLogger.i('Export completed, content length: ${content.length}');
+
+    return content;
+  }
+
+  static Future<File> saveExportToFile(String content) async {
+    final path = await _localPath;
+    final timestamp = DateTime.now().toIso8601String().replaceAll(':', '-');
+    final fileName = 'alex_conversation_$timestamp.txt';
+    final file = File('$path/$fileName');
+
+    await file.writeAsString(content);
+    AppLogger.i('Export saved to: ${file.path}');
+
+    return file;
+  }
+
+  static Future<File> saveExportToPath(String content, String filePath) async {
+    final file = File(filePath);
+    await file.writeAsString(content);
+    AppLogger.i('Export saved to: ${file.path}');
+    return file;
+  }
 }

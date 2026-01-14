@@ -8,7 +8,7 @@
 [x] Run dart format . and ensure all files are properly formatted
 [x] Address all remaining flutter analyze warnings
 [ ] Export conversations to JSON format
-[ ] Export conversations to plain text
+[x] Export conversations to plain text
 [ ] Export conversations to PDF
 [ ] Add AI temperature/creativity slider control
 [x] Add API endpoint configuration UI
