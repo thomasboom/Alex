@@ -6,7 +6,10 @@ import '../models/chat_state.dart';
 /// UI components for the chat screen
 class ChatUIComponents {
   /// Build empty state widget
-  static Widget buildEmptyState(BuildContext context, String currentWelcomeMessage) {
+  static Widget buildEmptyState(
+    BuildContext context,
+    String currentWelcomeMessage,
+  ) {
     return Center(
       child: Container(
         margin: const EdgeInsets.only(bottom: 24),
@@ -18,12 +21,16 @@ class ChatUIComponents {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.12),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.12),
                     blurRadius: 40,
                     spreadRadius: 5,
                   ),
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.06),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.06),
                     blurRadius: 80,
                     spreadRadius: 15,
                   ),
@@ -34,7 +41,9 @@ class ChatUIComponents {
             ),
             Container(
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * AppConstants.chatBubbleMaxWidth,
+                maxWidth:
+                    MediaQuery.of(context).size.width *
+                    AppConstants.chatBubbleMaxWidth,
               ),
               child: Text(
                 currentWelcomeMessage,
@@ -45,7 +54,9 @@ class ChatUIComponents {
                   height: 1.5,
                   shadows: [
                     Shadow(
-                      color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.shadow.withValues(alpha: 0.1),
                       blurRadius: 3,
                       offset: const Offset(0, 2),
                     ),
@@ -61,7 +72,11 @@ class ChatUIComponents {
   }
 
   /// Build send button
-  static Widget buildSendButton(BuildContext context, bool isLoading, VoidCallback onPressed) {
+  static Widget buildSendButton(
+    BuildContext context,
+    bool isLoading,
+    VoidCallback onPressed,
+  ) {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
@@ -110,28 +125,32 @@ class ChatUIComponents {
           hintText: currentPlaceholderText,
           hintStyle: GoogleFonts.playfairDisplay(
             fontSize: 20,
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.5),
           ),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 18,
           ),
-          suffixIcon: state.speechEnabled ? Container(
-            margin: const EdgeInsets.only(right: 8),
-            child: IconButton(
-              onPressed: state.isLoading ? null : onSpeechToggle,
-              icon: Icon(
-                state.isListening ? Icons.mic_off : Icons.mic,
-                color: state.isListening ? Theme.of(context).colorScheme.error : Theme.of(context).colorScheme.primary,
-                size: 20,
-              ),
-            ),
-          ) : null,
+          suffixIcon: state.speechEnabled
+              ? Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  child: IconButton(
+                    onPressed: state.isLoading ? null : onSpeechToggle,
+                    icon: Icon(
+                      state.isListening ? Icons.mic_off : Icons.mic,
+                      color: state.isListening
+                          ? Theme.of(context).colorScheme.error
+                          : Theme.of(context).colorScheme.primary,
+                      size: 20,
+                    ),
+                  ),
+                )
+              : null,
         ),
-        style: GoogleFonts.playfairDisplay(
-          fontSize: 20,
-        ),
+        style: GoogleFonts.playfairDisplay(fontSize: 20),
         onSubmitted: onSubmitted,
         autofocus: true,
       ),
@@ -160,11 +179,7 @@ class ChatUIComponents {
         child: Stack(
           children: [
             // Centered chat content
-            Positioned.fill(
-              top: 0,
-              bottom: 120,
-              child: child,
-            ),
+            Positioned.fill(top: 0, bottom: 120, child: child),
 
             // Floating input at bottom
             Positioned(
@@ -177,7 +192,9 @@ class ChatUIComponents {
                   color: Theme.of(context).colorScheme.surface,
                   border: Border(
                     top: BorderSide(
-                      color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outline.withValues(alpha: 0.2),
                     ),
                   ),
                 ),
@@ -187,12 +204,14 @@ class ChatUIComponents {
           ],
         ),
       ),
-      floatingActionButton: floatingActionButton != null ? Container(
-        width: 40,
-        height: 40,
-        margin: const EdgeInsets.only(top: 16),
-        child: floatingActionButton,
-      ) : null,
+      floatingActionButton: floatingActionButton != null
+          ? Container(
+              width: 40,
+              height: 40,
+              margin: const EdgeInsets.only(top: 16),
+              child: floatingActionButton,
+            )
+          : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }

@@ -1,5 +1,6 @@
 /// Model representing the entire conversation context including messages and summary
 library;
+
 import 'conversation_message.dart';
 import 'memory_segment.dart';
 
@@ -28,19 +29,27 @@ class ConversationContext {
     'memoryMetrics': memoryMetrics.toJson(),
   };
 
-  factory ConversationContext.fromJson(Map<String, dynamic> json) => ConversationContext(
-    messages: (json['messages'] as List<dynamic>?)
-        ?.map((m) => ConversationMessage.fromJson(m as Map<String, dynamic>))
-        .toList() ?? [],
-    summary: json['summary'] ?? '',
-    lastUpdated: DateTime.parse(json['lastUpdated']),
-    memorySegments: (json['memorySegments'] as List<dynamic>?)
-        ?.map((m) => MemorySegment.fromJson(m as Map<String, dynamic>))
-        .toList() ?? [],
-    memoryMetrics: json['memoryMetrics'] != null
-        ? MemoryMetrics.fromJson(json['memoryMetrics'])
-        : MemoryMetrics.empty(),
-  );
+  factory ConversationContext.fromJson(Map<String, dynamic> json) =>
+      ConversationContext(
+        messages:
+            (json['messages'] as List<dynamic>?)
+                ?.map(
+                  (m) =>
+                      ConversationMessage.fromJson(m as Map<String, dynamic>),
+                )
+                .toList() ??
+            [],
+        summary: json['summary'] ?? '',
+        lastUpdated: DateTime.parse(json['lastUpdated']),
+        memorySegments:
+            (json['memorySegments'] as List<dynamic>?)
+                ?.map((m) => MemorySegment.fromJson(m as Map<String, dynamic>))
+                .toList() ??
+            [],
+        memoryMetrics: json['memoryMetrics'] != null
+            ? MemoryMetrics.fromJson(json['memoryMetrics'])
+            : MemoryMetrics.empty(),
+      );
 
   ConversationContext copyWith({
     List<ConversationMessage>? messages,

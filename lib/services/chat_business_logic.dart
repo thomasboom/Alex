@@ -42,7 +42,7 @@ class ChatBusinessLogic {
         isUser: false,
         timestamp: DateTime.now(),
         isLoading: true,
-      )
+      ),
     ]);
 
     try {
@@ -59,7 +59,7 @@ class ChatBusinessLogic {
           isUser: false,
           timestamp: DateTime.now(),
           isLoading: false,
-        )
+        ),
       ]);
 
       AppLogger.i('AI response sent to user, length: ${aiResponse.length}');
@@ -71,7 +71,7 @@ class ChatBusinessLogic {
           isUser: false,
           timestamp: DateTime.now(),
           isLoading: false,
-        )
+        ),
       ]);
     } finally {
       setLoading(false);
@@ -99,15 +99,18 @@ class ChatBusinessLogic {
 
     // Check if dialog already shown this session
     if (state.safetyDialogShownThisSession) {
-      AppLogger.i('Safety dialog already shown this session, showing brief reminder');
+      AppLogger.i(
+        'Safety dialog already shown this session, showing brief reminder',
+      );
 
       updateMessages([
         ChatMessage(
-          text: "I've noticed you're struggling. Please consider reaching out to a crisis hotline - they have trained professionals who can help. Resources like the 988 Lifeline are available 24/7.",
+          text:
+              "I've noticed you're struggling. Please consider reaching out to a crisis hotline - they have trained professionals who can help. Resources like the 988 Lifeline are available 24/7.",
           isUser: false,
           timestamp: DateTime.now(),
           isLoading: false,
-        )
+        ),
       ]);
       setLoading(false);
       return;
@@ -123,7 +126,7 @@ class ChatBusinessLogic {
         isUser: false,
         timestamp: DateTime.now(),
         isLoading: false,
-      )
+      ),
     ]);
 
     setLoading(false);
@@ -152,7 +155,9 @@ class ChatBusinessLogic {
               color: Theme.of(context).colorScheme.surface,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                color: Theme.of(
+                  context,
+                ).colorScheme.outline.withValues(alpha: 0.3),
                 width: 1,
               ),
             ),
@@ -192,7 +197,9 @@ class ChatBusinessLogic {
                         'Here are resources for professional support',
                         style: GoogleFonts.playfairDisplay(
                           fontSize: 16,
-                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.7),
                           fontWeight: FontWeight.w400,
                         ),
                         textAlign: TextAlign.center,
@@ -208,26 +215,34 @@ class ChatBusinessLogic {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Crisis resources
-                      ...helpResources.take(4).map((resource) => Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                      ...helpResources
+                          .take(4)
+                          .map(
+                            (resource) => Container(
+                              width: double.infinity,
+                              margin: const EdgeInsets.only(bottom: 12),
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.outline.withValues(alpha: 0.2),
+                                ),
+                              ),
+                              child: Text(
+                                resource,
+                                style: GoogleFonts.playfairDisplay(
+                                  fontSize: 15,
+                                  height: 1.4,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          resource,
-                          style: GoogleFonts.playfairDisplay(
-                            fontSize: 15,
-                            height: 1.4,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                        ),
-                      )),
 
                       const SizedBox(height: 16),
 
@@ -266,8 +281,12 @@ class ChatBusinessLogic {
                             Navigator.of(context).pop();
                           },
                           style: TextButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.surface,
-                            foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surface,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.onSurface,
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),

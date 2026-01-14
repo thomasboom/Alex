@@ -24,11 +24,13 @@ class SettingsService {
   static Map<String, dynamic> _settings = Map.from(_defaultSettings);
 
   // Stream controller for theme changes
-  static final StreamController<String> _themeController = StreamController<String>.broadcast();
+  static final StreamController<String> _themeController =
+      StreamController<String>.broadcast();
   static Stream<String> get themeChangeStream => _themeController.stream;
 
   // Stream controller for color changes
-  static final StreamController<String> _colorController = StreamController<String>.broadcast();
+  static final StreamController<String> _colorController =
+      StreamController<String>.broadcast();
   static Stream<String> get colorChangeStream => _colorController.stream;
 
   static Future<String> get _localPath async {

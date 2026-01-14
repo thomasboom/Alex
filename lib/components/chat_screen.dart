@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/chat_state.dart';
-import '../widgets/chat_message.dart';
 import '../widgets/chat_ui_components.dart';
 import '../services/chat_business_logic.dart';
 import '../services/chat_speech_handler.dart';
@@ -42,18 +41,26 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
-  /// Initialize all services
   Future<void> _initializeServices() async {
     AppLogger.i('Initializing chat screen services');
     await ConversationService.initialize();
     await ChatSafetyHandler.initializeSafetyService();
-    await ChatSpeechHandler.initializeSpeech(context, _state, (fn) => setState(fn));
+    if (mounted) {
+      await ChatSpeechHandler.initializeSpeech(
+        context,
+        _state,
+        (fn) => setState(fn),
+      );
+    }
     AppLogger.i('Chat screen services initialized');
   }
 
   /// Start periodic timer for time-based summarization
   void _startSummarizationTimer() {
-    ChatSummarizationHandler.startSummarizationTimer(_state, (fn) => setState(fn));
+    ChatSummarizationHandler.startSummarizationTimer(
+      _state,
+      (fn) => setState(fn),
+    );
   }
 
   /// Send a message using the business logic service
@@ -80,18 +87,18 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Focus(
       autofocus: true,
-      child: RawKeyboardListener(
+      child: KeyboardListener(
         focusNode: _focusNode,
-        onKey: (RawKeyEvent event) {
-          if (event is RawKeyDownEvent) {
-            if (event.logicalKey == LogicalKeyboardKey.keyQ && HardwareKeyboard.instance.isControlPressed) {
+        onKeyEvent: (KeyEvent event) {
+          if (event is KeyDownEvent) {
+            if (event.logicalKey == LogicalKeyboardKey.keyQ &&
+                HardwareKeyboard.instance.isControlPressed) {
               exit(0);
-            } else if (event.logicalKey == LogicalKeyboardKey.comma && HardwareKeyboard.instance.isControlPressed) {
+            } else if (event.logicalKey == LogicalKeyboardKey.comma &&
+                HardwareKeyboard.instance.isControlPressed) {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SettingsScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
               );
             }
           }
@@ -99,10 +106,13 @@ class _ChatScreenState extends State<ChatScreen> {
         child: ChatUIComponents.buildChatLayout(
           context: context,
           child: _state.messages.isEmpty
-              ? ChatUIComponents.buildEmptyState(context, _state.currentWelcomeMessage)
+              ? ChatUIComponents.buildEmptyState(
+                  context,
+                  _state.currentWelcomeMessage,
+                )
               : _state.messages.isNotEmpty
-                  ? Center(child: _state.messages[0])
-                  : const SizedBox(),
+              ? Center(child: _state.messages[0])
+              : const SizedBox(),
           bottomInput: Row(
             children: [
               Expanded(
@@ -126,9 +136,7 @@ class _ChatScreenState extends State<ChatScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const SettingsScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
               );
             },
             backgroundColor: Theme.of(context).colorScheme.primary,

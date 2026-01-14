@@ -1,4 +1,6 @@
 /// Service for monitoring memory performance and metrics
+library;
+
 import 'dart:async';
 
 class MemoryMonitor {
@@ -7,7 +9,9 @@ class MemoryMonitor {
   static bool _isMonitoring = false;
 
   /// Start monitoring memory performance
-  static void startMonitoring({Duration interval = const Duration(minutes: 5)}) {
+  static void startMonitoring({
+    Duration interval = const Duration(minutes: 5),
+  }) {
     if (_isMonitoring) return;
 
     _isMonitoring = true;
@@ -28,7 +32,9 @@ class MemoryMonitor {
   static void _takeSnapshot() {
     final snapshot = MemoryPerformanceSnapshot(
       timestamp: DateTime.now(),
-      totalSegments: _snapshots.values.isEmpty ? 0 : _snapshots.values.last.totalSegments,
+      totalSegments: _snapshots.values.isEmpty
+          ? 0
+          : _snapshots.values.last.totalSegments,
       memoryUsage: _calculateMemoryUsage(),
       consolidationCount: _snapshots.length,
       averageResponseTime: _calculateAverageResponseTime(),
@@ -42,7 +48,10 @@ class MemoryMonitor {
   static int _calculateMemoryUsage() {
     // This is an approximation - in a real implementation you might use
     // platform channels to get actual memory usage
-    final totalChars = _snapshots.values.fold(0, (sum, snapshot) => sum + snapshot.totalSegments);
+    final totalChars = _snapshots.values.fold(
+      0,
+      (sum, snapshot) => sum + snapshot.totalSegments,
+    );
     return totalChars * 2; // Approximate 2 bytes per character
   }
 
@@ -60,7 +69,8 @@ class MemoryMonitor {
 
   /// Get performance history
   static List<MemoryPerformanceSnapshot> getPerformanceHistory() {
-    return _snapshots.values.toList()..sort((a, b) => a.timestamp.compareTo(b.timestamp));
+    return _snapshots.values.toList()
+      ..sort((a, b) => a.timestamp.compareTo(b.timestamp));
   }
 
   /// Get current performance metrics
@@ -82,8 +92,11 @@ class MemoryMonitor {
       return MemoryUsageTrend.stable;
     }
 
-    final recentAvg = recent.map((s) => s.memoryUsage).reduce((a, b) => a + b) / recent.length;
-    final olderAvg = older.map((s) => s.memoryUsage).reduce((a, b) => a + b) / older.length;
+    final recentAvg =
+        recent.map((s) => s.memoryUsage).reduce((a, b) => a + b) /
+        recent.length;
+    final olderAvg =
+        older.map((s) => s.memoryUsage).reduce((a, b) => a + b) / older.length;
 
     final change = (recentAvg - olderAvg) / olderAvg;
 
@@ -101,7 +114,9 @@ class MemoryMonitor {
   static Map<String, dynamic> exportPerformanceData() {
     return {
       'isMonitoring': _isMonitoring,
-      'snapshots': _snapshots.map((key, value) => MapEntry(key, value.toJson())),
+      'snapshots': _snapshots.map(
+        (key, value) => MapEntry(key, value.toJson()),
+      ),
       'trend': getUsageTrend().toString(),
       'currentMetrics': getCurrentMetrics()?.toJson(),
     };
@@ -135,19 +150,16 @@ class MemoryPerformanceSnapshot {
     'cacheHitRate': cacheHitRate,
   };
 
-  factory MemoryPerformanceSnapshot.fromJson(Map<String, dynamic> json) => MemoryPerformanceSnapshot(
-    timestamp: DateTime.parse(json['timestamp']),
-    totalSegments: json['totalSegments'],
-    memoryUsage: json['memoryUsage'],
-    consolidationCount: json['consolidationCount'],
-    averageResponseTime: json['averageResponseTime'],
-    cacheHitRate: json['cacheHitRate'],
-  );
+  factory MemoryPerformanceSnapshot.fromJson(Map<String, dynamic> json) =>
+      MemoryPerformanceSnapshot(
+        timestamp: DateTime.parse(json['timestamp']),
+        totalSegments: json['totalSegments'],
+        memoryUsage: json['memoryUsage'],
+        consolidationCount: json['consolidationCount'],
+        averageResponseTime: json['averageResponseTime'],
+        cacheHitRate: json['cacheHitRate'],
+      );
 }
 
 /// Trend of memory usage over time
-enum MemoryUsageTrend {
-  increasing,
-  decreasing,
-  stable,
-}
+enum MemoryUsageTrend { increasing, decreasing, stable }

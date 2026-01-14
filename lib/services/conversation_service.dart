@@ -51,7 +51,9 @@ class ConversationService {
 
     await loadContext();
 
-    AppLogger.i('Conversation service initialized with enhanced memory management');
+    AppLogger.i(
+      'Conversation service initialized with enhanced memory management',
+    );
   }
 
   static Future<void> loadContext() async {
@@ -68,9 +70,13 @@ class ConversationService {
           _memoryManager.restoreMemorySegment(segment);
         }
 
-        AppLogger.i('Conversation context loaded successfully. Messages: ${_context.messages.length}, Summary length: ${_context.summary.length}, Memory segments: ${_context.memorySegments.length}');
+        AppLogger.i(
+          'Conversation context loaded successfully. Messages: ${_context.messages.length}, Summary length: ${_context.summary.length}, Memory segments: ${_context.memorySegments.length}',
+        );
       } else {
-        AppLogger.i('No existing conversation context file found, starting fresh');
+        AppLogger.i(
+          'No existing conversation context file found, starting fresh',
+        );
         _context = ConversationContext(
           messages: [],
           summary: '',
@@ -132,14 +138,19 @@ class ConversationService {
       final file = await _localFile;
       final contents = jsonEncode(_context.toJson());
       await file.writeAsString(contents);
-      AppLogger.i('Conversation context saved successfully. Messages: ${_context.messages.length}, Summary length: ${_context.summary.length}, Memory segments: ${_context.memorySegments.length}');
+      AppLogger.i(
+        'Conversation context saved successfully. Messages: ${_context.messages.length}, Summary length: ${_context.summary.length}, Memory segments: ${_context.memorySegments.length}',
+      );
     } catch (e) {
       AppLogger.e('Error saving conversation context', e);
     }
   }
 
   /// Get relevant memories for a given query
-  static List<MemorySegment> getRelevantMemories(String query, {int limit = 10}) {
+  static List<MemorySegment> getRelevantMemories(
+    String query, {
+    int limit = 10,
+  }) {
     // Use optimized limit from memory config to reduce token usage
     final optimizedLimit = min(limit, _memoryConfig.maxContextMessages);
     return _memoryManager.getRelevantMemories(query, limit: optimizedLimit);
@@ -233,14 +244,18 @@ class ConversationService {
       final optimizedConfig = _memoryConfig.copyWith(
         consolidationInterval: Duration(hours: 3),
         maxShortTermMessages: max(50, _memoryConfig.maxShortTermMessages - 20),
-        maxMediumTermSegments: max(30, _memoryConfig.maxMediumTermSegments - 10),
+        maxMediumTermSegments: max(
+          30,
+          _memoryConfig.maxMediumTermSegments - 10,
+        ),
       );
 
       updateMemoryConfig(optimizedConfig);
       await saveMemoryConfig();
 
       AppLogger.i('Memory configuration optimized for high usage');
-    } else if (trend == MemoryUsageTrend.decreasing || metrics.totalSegments < 50) {
+    } else if (trend == MemoryUsageTrend.decreasing ||
+        metrics.totalSegments < 50) {
       // Memory usage is low, can be more permissive
       final optimizedConfig = _memoryConfig.copyWith(
         consolidationInterval: Duration(hours: 12),
@@ -283,10 +298,15 @@ class ConversationService {
     // Process the new message with memory manager
     _processMessageWithMemoryManager(message, previousMessages);
 
-    AppLogger.userAction('Message added - isUser: $isUser, length: ${text.length}, total: ${_context.messages.length}');
+    AppLogger.userAction(
+      'Message added - isUser: $isUser, length: ${text.length}, total: ${_context.messages.length}',
+    );
   }
 
-  static Future<void> _processMessageWithMemoryManager(ConversationMessage message, List<ConversationMessage> previousMessages) async {
+  static Future<void> _processMessageWithMemoryManager(
+    ConversationMessage message,
+    List<ConversationMessage> previousMessages,
+  ) async {
     try {
       // Use optimized context limit from memory config to reduce token usage
       final contextLimit = min(_memoryConfig.maxContextMessages, 20);
@@ -326,7 +346,9 @@ class ConversationService {
       memoryMetrics: MemoryMetrics.empty(),
     );
 
-    AppLogger.userAction('Conversation context cleared - previous messages: $previousMessageCount');
+    AppLogger.userAction(
+      'Conversation context cleared - previous messages: $previousMessageCount',
+    );
   }
 
   static Future<void> clearAllHistory() async {
@@ -345,7 +367,9 @@ class ConversationService {
       if (await file.exists()) {
         await file.delete();
       }
-      AppLogger.userAction('All conversation history cleared - previous messages: $previousMessageCount');
+      AppLogger.userAction(
+        'All conversation history cleared - previous messages: $previousMessageCount',
+      );
     } catch (e) {
       AppLogger.e('Error deleting conversation history file', e);
       rethrow;
@@ -357,7 +381,9 @@ class ConversationService {
         ? _context.messages
         : _context.messages.sublist(_context.messages.length - limit);
 
-    AppLogger.d('Retrieved recent messages - requested: $limit, actual: ${recentMessages.length}, total: ${_context.messages.length}');
+    AppLogger.d(
+      'Retrieved recent messages - requested: $limit, actual: ${recentMessages.length}, total: ${_context.messages.length}',
+    );
 
     return recentMessages;
   }

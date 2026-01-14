@@ -20,25 +20,34 @@ class ChatSummarizationHandler {
     bool shouldSummarizeByCount = false;
     if (context.summary.isEmpty) {
       // No summary exists yet - wait for initial threshold
-      shouldSummarizeByCount = messageCount >= AppConstants.summarizationThreshold;
+      shouldSummarizeByCount =
+          messageCount >= AppConstants.summarizationThreshold;
     } else {
       // Summary exists - wait for update threshold
-      shouldSummarizeByCount = messageCount >= AppConstants.summarizationUpdateThreshold;
+      shouldSummarizeByCount =
+          messageCount >= AppConstants.summarizationUpdateThreshold;
     }
 
     // Check if we should summarize based on time interval
     bool shouldSummarizeByTime = false;
     if (state.lastSummarizationTime != null) {
-      final timeSinceLastSummary = DateTime.now().difference(state.lastSummarizationTime!);
-      shouldSummarizeByTime = timeSinceLastSummary.inMinutes >= AppConstants.summarizationTimeIntervalMinutes;
+      final timeSinceLastSummary = DateTime.now().difference(
+        state.lastSummarizationTime!,
+      );
+      shouldSummarizeByTime =
+          timeSinceLastSummary.inMinutes >=
+          AppConstants.summarizationTimeIntervalMinutes;
     } else if (context.summary.isNotEmpty) {
       // If we have a summary but no recorded time, assume it was recent
       shouldSummarizeByTime = false;
     }
 
     // Only summarize if we have enough messages and meet either criteria
-    if (messageCount > 10 && (shouldSummarizeByCount || shouldSummarizeByTime)) {
-      AppLogger.i('Triggering batched summarization - messages: $messageCount, time-based: $shouldSummarizeByTime');
+    if (messageCount > 10 &&
+        (shouldSummarizeByCount || shouldSummarizeByTime)) {
+      AppLogger.i(
+        'Triggering batched summarization - messages: $messageCount, time-based: $shouldSummarizeByTime',
+      );
       try {
         await performSummarization(state);
         state.lastSummarizationTime = DateTime.now();
@@ -53,8 +62,12 @@ class ChatSummarizationHandler {
   static Future<void> performSummarization(ChatState state) async {
     try {
       final messages = ConversationService.context.messages;
-      AppLogger.d('Performing batched summarization for ${messages.length} messages');
-      final summary = await SummarizationService.summarizeConversation(messages);
+      AppLogger.d(
+        'Performing batched summarization for ${messages.length} messages',
+      );
+      final summary = await SummarizationService.summarizeConversation(
+        messages,
+      );
       ConversationService.updateSummary(summary);
       await ConversationService.saveContext();
       state.lastSummarizationTime = DateTime.now();
@@ -62,12 +75,9 @@ class ChatSummarizationHandler {
       // Note: _lastSummarizationTime is tracked in memory for this session
       // In a production app, you might want to persist this to shared preferences
     } catch (e) {
-      // Log the UI error message for debugging
-      AppLogger.e('Summarization failed - showing user-friendly message in chat: $e');
-
-      // Show user-friendly error message as AI response in chat
-      String errorMessage = "I'm so sorry, but your hourly limit is reached.";
-
+      AppLogger.e(
+        'Summarization failed - showing user-friendly message in chat: $e',
+      );
       rethrow;
     }
   }
@@ -79,7 +89,9 @@ class ChatSummarizationHandler {
 
     // Always summarize any conversation when app closes (user's preference)
     if (messageCount > 0) {
-      AppLogger.i('Triggering summarization on app close - $messageCount messages');
+      AppLogger.i(
+        'Triggering summarization on app close - $messageCount messages',
+      );
       try {
         await performSummarization(state);
       } catch (e) {
@@ -92,11 +104,15 @@ class ChatSummarizationHandler {
   }
 
   /// Start periodic timer for time-based summarization
-  static void startSummarizationTimer(ChatState state, Function(void Function()) setState) {
+  static void startSummarizationTimer(
+    ChatState state,
+    Function(void Function()) setState,
+  ) {
     state.summarizationTimer = Timer.periodic(
       const Duration(minutes: AppConstants.summarizationTimeIntervalMinutes),
       (timer) {
-        if (timer.tick > 0) { // Skip the first immediate execution
+        if (timer.tick > 0) {
+          // Skip the first immediate execution
           checkAndTriggerSummarization(state, (messages) {
             setState(() {
               // Update UI if needed

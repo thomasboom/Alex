@@ -107,10 +107,10 @@ class MemorySegment {
 }
 
 enum MemoryType {
-  shortTerm,    // Recent conversations, expires quickly
-  mediumTerm,   // Important topics, expires in days
-  longTerm,     // Core preferences and facts, expires in weeks
-  critical,     // Essential information, never expires
+  shortTerm, // Recent conversations, expires quickly
+  mediumTerm, // Important topics, expires in days
+  longTerm, // Core preferences and facts, expires in weeks
+  critical, // Essential information, never expires
 }
 
 class MemoryMetrics {

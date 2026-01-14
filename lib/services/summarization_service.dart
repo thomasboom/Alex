@@ -487,7 +487,7 @@ class SummarizationService {
       for (var i = 0; i < min(relevantMemories.length, 3); i++) {
         final memory = relevantMemories[i];
         buffer.writeln(
-          '${memory.content.substring(0, min(100, memory.content.length))}',
+          memory.content.substring(0, min(100, memory.content.length)),
         );
       }
     }

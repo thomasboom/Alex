@@ -26,7 +26,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 0,
-        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -35,7 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             end: Alignment.bottomCenter,
             colors: [
               Theme.of(context).colorScheme.surface,
-              Theme.of(context).colorScheme.surface.withOpacity(0.95),
+              Theme.of(context).colorScheme.surface.withValues(alpha: 0.95),
             ],
           ),
         ),
@@ -62,18 +64,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-
   Widget _buildThemeSection() {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             spreadRadius: 2,
           ),
@@ -119,11 +120,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
             blurRadius: 10,
             spreadRadius: 2,
           ),
@@ -172,7 +173,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   'Choose the main color theme for the app',
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 13,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.7),
                     height: 1.4,
                   ),
                 ),
@@ -182,7 +185,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outline.withValues(alpha: 0.2),
                     ),
                   ),
                   child: Column(
@@ -195,7 +200,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Divider(
                         height: 1,
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
                         title: 'Purple',
@@ -205,7 +212,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Divider(
                         height: 1,
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
                         title: 'Green',
@@ -215,7 +224,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Divider(
                         height: 1,
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
                         title: 'Orange',
@@ -225,7 +236,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Divider(
                         height: 1,
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
                         title: 'Pink',
@@ -235,7 +248,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Divider(
                         height: 1,
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
                         title: 'Teal',
@@ -245,7 +260,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       Divider(
                         height: 1,
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
                         title: 'Indigo',
@@ -274,9 +291,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: isSelected
-            ? color.withOpacity(0.08)
-            : null,
+        color: isSelected ? color.withValues(alpha: 0.08) : null,
       ),
       child: ListTile(
         leading: Container(
@@ -286,7 +301,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             border: Border.all(
               color: isSelected
                   ? color
-                  : Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                  : Theme.of(
+                      context,
+                    ).colorScheme.outline.withValues(alpha: 0.3),
               width: 2,
             ),
           ),
@@ -302,17 +319,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         trailing: isSelected
             ? Container(
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
                 width: 24,
                 height: 24,
-                child: const Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 16,
-                ),
+                child: const Icon(Icons.check, color: Colors.white, size: 16),
               )
             : null,
         onTap: () => _updateSetting(settingKey, value),
@@ -326,11 +336,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
             blurRadius: 10,
             spreadRadius: 2,
           ),
@@ -390,7 +400,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           'Choose whether to use the inbuilt API key or provide your own custom key',
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
             height: 1.4,
           ),
         ),
@@ -398,10 +410,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.error.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: Theme.of(context).colorScheme.error.withOpacity(0.3),
+              color: Theme.of(context).colorScheme.error.withValues(alpha: 0.3),
             ),
           ),
           child: Row(
@@ -433,7 +445,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+              color: Theme.of(
+                context,
+              ).colorScheme.outline.withValues(alpha: 0.2),
             ),
           ),
           child: Column(
@@ -446,11 +460,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               Divider(
                 height: 1,
-                color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                color: Theme.of(
+                  context,
+                ).colorScheme.outline.withValues(alpha: 0.2),
               ),
               _buildApiSourceOption(
                 title: 'Custom API Key',
-                subtitle: hasCustomApiKey ? 'Custom key is configured' : 'Enter your own API key',
+                subtitle: hasCustomApiKey
+                    ? 'Custom key is configured'
+                    : 'Enter your own API key',
                 value: 'custom',
                 icon: Icons.edit_outlined,
               ),
@@ -465,7 +483,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.2),
                   blurRadius: 8,
                   spreadRadius: 2,
                 ),
@@ -475,7 +495,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: _showCustomApiKeyDialog,
               icon: const Icon(Icons.key),
               label: Text(
-                hasCustomApiKey ? 'Update Custom API Key' : 'Set Custom API Key',
+                hasCustomApiKey
+                    ? 'Update Custom API Key'
+                    : 'Set Custom API Key',
                 style: GoogleFonts.playfairDisplay(
                   fontWeight: FontWeight.w600,
                   fontSize: 15,
@@ -484,7 +506,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -508,20 +533,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       decoration: BoxDecoration(
         color: isSelected
-            ? Theme.of(context).colorScheme.primary.withOpacity(0.08)
+            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.08)
             : null,
       ),
       child: ListTile(
         leading: Container(
           decoration: BoxDecoration(
             color: isSelected
-                ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
                 : Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: isSelected
                   ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                  : Theme.of(
+                      context,
+                    ).colorScheme.outline.withValues(alpha: 0.3),
             ),
           ),
           width: 40,
@@ -530,7 +557,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             icon,
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                : Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
             size: 20,
           ),
         ),
@@ -545,7 +574,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           subtitle,
           style: GoogleFonts.playfairDisplay(
             fontSize: 12,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
             height: 1.3,
           ),
         ),
@@ -580,9 +611,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return AlertDialog(
           title: Text(
             'Custom API Key',
-            style: GoogleFonts.playfairDisplay(
-              fontWeight: FontWeight.w600,
-            ),
+            style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -595,10 +624,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(
@@ -643,10 +676,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.playfairDisplay(),
-              ),
+              child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
             ),
             ElevatedButton(
               onPressed: () {
@@ -661,10 +691,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
               ),
-              child: Text(
-                'Save',
-                style: GoogleFonts.playfairDisplay(),
-              ),
+              child: Text('Save', style: GoogleFonts.playfairDisplay()),
             ),
           ],
         );
@@ -678,11 +705,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
             blurRadius: 10,
             spreadRadius: 2,
           ),
@@ -750,7 +777,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         : 'Secure your app with a 4-digit PIN',
                     style: GoogleFonts.playfairDisplay(
                       fontSize: 13,
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
                       height: 1.4,
                     ),
                   ),
@@ -777,7 +806,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: 0.2),
                   blurRadius: 8,
                   spreadRadius: 2,
                 ),
@@ -796,7 +827,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 20,
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -815,11 +849,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.05),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
             blurRadius: 10,
             spreadRadius: 2,
           ),
@@ -859,7 +893,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-
   Widget _buildThemeModeSetting() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -877,7 +910,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           'Choose how the app looks and feels',
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
             height: 1.4,
           ),
         ),
@@ -887,7 +922,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+              color: Theme.of(
+                context,
+              ).colorScheme.outline.withValues(alpha: 0.2),
             ),
           ),
           child: Column(
@@ -900,7 +937,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               Divider(
                 height: 1,
-                color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                color: Theme.of(
+                  context,
+                ).colorScheme.outline.withValues(alpha: 0.2),
               ),
               _buildThemeOption(
                 title: 'Light',
@@ -910,7 +949,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               Divider(
                 height: 1,
-                color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                color: Theme.of(
+                  context,
+                ).colorScheme.outline.withValues(alpha: 0.2),
               ),
               _buildThemeOption(
                 title: 'Dark',
@@ -936,20 +977,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       decoration: BoxDecoration(
         color: isSelected
-            ? Theme.of(context).colorScheme.primary.withOpacity(0.08)
+            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.08)
             : null,
       ),
       child: ListTile(
         leading: Container(
           decoration: BoxDecoration(
             color: isSelected
-                ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
                 : Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: isSelected
                   ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                  : Theme.of(
+                      context,
+                    ).colorScheme.outline.withValues(alpha: 0.3),
             ),
           ),
           width: 40,
@@ -958,7 +1001,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             icon,
             color: isSelected
                 ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                : Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withValues(alpha: 0.7),
             size: 20,
           ),
         ),
@@ -973,7 +1018,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           subtitle,
           style: GoogleFonts.playfairDisplay(
             fontSize: 12,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
             height: 1.3,
           ),
         ),
@@ -997,7 +1044,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-
   Widget _buildDeleteHistoryButton() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1015,7 +1061,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           'Permanently delete Alex, including all conversation history and memories. This action cannot be undone.',
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
             height: 1.4,
           ),
         ),
@@ -1026,7 +1074,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.red.withOpacity(0.2),
+                color: Colors.red.withValues(alpha: 0.2),
                 blurRadius: 8,
                 spreadRadius: 2,
               ),
@@ -1057,7 +1105,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-
   void _updateSetting(String key, dynamic value) {
     setState(() {
       SettingsService.setSetting(key, value);
@@ -1072,9 +1119,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return AlertDialog(
           title: Text(
             'Permanently Delete Alex?',
-            style: GoogleFonts.playfairDisplay(
-              fontWeight: FontWeight.w600,
-            ),
+            style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
           ),
           content: Text(
             'This action cannot be undone. Alex and all conversation history will be permanently deleted.',
@@ -1083,10 +1128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.playfairDisplay(),
-              ),
+              child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
             ),
             ElevatedButton(
               onPressed: () {
@@ -1152,9 +1194,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             return AlertDialog(
               title: Text(
                 'Set PIN Lock',
-                style: GoogleFonts.playfairDisplay(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -1200,10 +1240,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text(
-                    'Cancel',
-                    style: GoogleFonts.playfairDisplay(),
-                  ),
+                  child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
                 ),
                 ElevatedButton(
                   onPressed: (newPin.length == 4 && newPin == confirmPin)
@@ -1217,10 +1254,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   ),
-                  child: Text(
-                    'Set PIN',
-                    style: GoogleFonts.playfairDisplay(),
-                  ),
+                  child: Text('Set PIN', style: GoogleFonts.playfairDisplay()),
                 ),
               ],
             );
@@ -1237,9 +1271,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return AlertDialog(
           title: Text(
             'Disable PIN Lock?',
-            style: GoogleFonts.playfairDisplay(
-              fontWeight: FontWeight.w600,
-            ),
+            style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
           ),
           content: Text(
             'Are you sure you want to disable PIN lock? Your app will no longer require a PIN to access.',
@@ -1248,10 +1280,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.playfairDisplay(),
-              ),
+              child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
             ),
             ElevatedButton(
               onPressed: () {
@@ -1263,10 +1292,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 backgroundColor: Theme.of(context).colorScheme.tertiary,
                 foregroundColor: Theme.of(context).colorScheme.onTertiary,
               ),
-              child: Text(
-                'Disable',
-                style: GoogleFonts.playfairDisplay(),
-              ),
+              child: Text('Disable', style: GoogleFonts.playfairDisplay()),
             ),
           ],
         );
@@ -1287,9 +1313,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             return AlertDialog(
               title: Text(
                 'Change PIN',
-                style: GoogleFonts.playfairDisplay(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
               ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -1345,16 +1369,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text(
-                    'Cancel',
-                    style: GoogleFonts.playfairDisplay(),
-                  ),
+                  child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
                 ),
                 ElevatedButton(
-                  onPressed: (currentPin.length == 4 &&
-                           newPin.length == 4 &&
-                           newPin == confirmPin &&
-                           SettingsService.verifyPin(currentPin))
+                  onPressed:
+                      (currentPin.length == 4 &&
+                          newPin.length == 4 &&
+                          newPin == confirmPin &&
+                          SettingsService.verifyPin(currentPin))
                       ? () {
                           SettingsService.setPinLock(newPin);
                           Navigator.of(context).pop();
@@ -1381,10 +1403,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _showSuccessSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-          style: GoogleFonts.playfairDisplay(),
-        ),
+        content: Text(message, style: GoogleFonts.playfairDisplay()),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

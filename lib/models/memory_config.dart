@@ -52,9 +52,19 @@ class MemoryConfig {
     this.minMessageImportance = 0.1,
     this.minMessageLength = 3,
     this.priorityKeywords = const [
-      'important', 'remember', 'never forget', 'critical',
-      'urgent', 'priority', 'essential', 'key', 'main',
-      'preferences', 'goals', 'objectives', 'plans'
+      'important',
+      'remember',
+      'never forget',
+      'critical',
+      'urgent',
+      'priority',
+      'essential',
+      'key',
+      'main',
+      'preferences',
+      'goals',
+      'objectives',
+      'plans',
     ],
     this.enableImportanceFiltering = true,
     this.messageBatchSize = 5,
@@ -86,24 +96,34 @@ class MemoryConfig {
   }) {
     return MemoryConfig(
       maxShortTermMessages: maxShortTermMessages ?? this.maxShortTermMessages,
-      maxMediumTermSegments: maxMediumTermSegments ?? this.maxMediumTermSegments,
+      maxMediumTermSegments:
+          maxMediumTermSegments ?? this.maxMediumTermSegments,
       maxLongTermSegments: maxLongTermSegments ?? this.maxLongTermSegments,
-      criticalImportanceThreshold: criticalImportanceThreshold ?? this.criticalImportanceThreshold,
-      longTermImportanceThreshold: longTermImportanceThreshold ?? this.longTermImportanceThreshold,
-      mediumTermImportanceThreshold: mediumTermImportanceThreshold ?? this.mediumTermImportanceThreshold,
+      criticalImportanceThreshold:
+          criticalImportanceThreshold ?? this.criticalImportanceThreshold,
+      longTermImportanceThreshold:
+          longTermImportanceThreshold ?? this.longTermImportanceThreshold,
+      mediumTermImportanceThreshold:
+          mediumTermImportanceThreshold ?? this.mediumTermImportanceThreshold,
       shortTermExpiry: shortTermExpiry ?? this.shortTermExpiry,
       mediumTermExpiry: mediumTermExpiry ?? this.mediumTermExpiry,
       longTermExpiry: longTermExpiry ?? this.longTermExpiry,
-      consolidationInterval: consolidationInterval ?? this.consolidationInterval,
-      maxSummarizationLength: maxSummarizationLength ?? this.maxSummarizationLength,
-      cacheCleanupThreshold: cacheCleanupThreshold ?? this.cacheCleanupThreshold,
+      consolidationInterval:
+          consolidationInterval ?? this.consolidationInterval,
+      maxSummarizationLength:
+          maxSummarizationLength ?? this.maxSummarizationLength,
+      cacheCleanupThreshold:
+          cacheCleanupThreshold ?? this.cacheCleanupThreshold,
       cacheExpiry: cacheExpiry ?? this.cacheExpiry,
-      enableAutoConsolidation: enableAutoConsolidation ?? this.enableAutoConsolidation,
-      enableMemoryCompression: enableMemoryCompression ?? this.enableMemoryCompression,
+      enableAutoConsolidation:
+          enableAutoConsolidation ?? this.enableAutoConsolidation,
+      enableMemoryCompression:
+          enableMemoryCompression ?? this.enableMemoryCompression,
       minMessageImportance: minMessageImportance ?? this.minMessageImportance,
       minMessageLength: minMessageLength ?? this.minMessageLength,
       priorityKeywords: priorityKeywords ?? this.priorityKeywords,
-      enableImportanceFiltering: enableImportanceFiltering ?? this.enableImportanceFiltering,
+      enableImportanceFiltering:
+          enableImportanceFiltering ?? this.enableImportanceFiltering,
       messageBatchSize: messageBatchSize ?? this.messageBatchSize,
       maxContextMessages: maxContextMessages ?? this.maxContextMessages,
     );
@@ -140,10 +160,18 @@ class MemoryConfig {
     criticalImportanceThreshold: json['criticalImportanceThreshold'] ?? 0.9,
     longTermImportanceThreshold: json['longTermImportanceThreshold'] ?? 0.7,
     mediumTermImportanceThreshold: json['mediumTermImportanceThreshold'] ?? 0.4,
-    shortTermExpiry: Duration(milliseconds: json['shortTermExpiry'] ?? 86400000),
-    mediumTermExpiry: Duration(milliseconds: json['mediumTermExpiry'] ?? 604800000),
-    longTermExpiry: Duration(milliseconds: json['longTermExpiry'] ?? 2592000000),
-    consolidationInterval: Duration(milliseconds: json['consolidationInterval'] ?? 21600000),
+    shortTermExpiry: Duration(
+      milliseconds: json['shortTermExpiry'] ?? 86400000,
+    ),
+    mediumTermExpiry: Duration(
+      milliseconds: json['mediumTermExpiry'] ?? 604800000,
+    ),
+    longTermExpiry: Duration(
+      milliseconds: json['longTermExpiry'] ?? 2592000000,
+    ),
+    consolidationInterval: Duration(
+      milliseconds: json['consolidationInterval'] ?? 21600000,
+    ),
     maxSummarizationLength: json['maxSummarizationLength'] ?? 4000,
     cacheCleanupThreshold: json['cacheCleanupThreshold'] ?? 20,
     cacheExpiry: Duration(milliseconds: json['cacheExpiry'] ?? 7200000),
@@ -151,11 +179,23 @@ class MemoryConfig {
     enableMemoryCompression: json['enableMemoryCompression'] ?? true,
     minMessageImportance: json['minMessageImportance'] ?? 0.1,
     minMessageLength: json['minMessageLength'] ?? 3,
-    priorityKeywords: (json['priorityKeywords'] as List<dynamic>?)?.cast<String>() ?? const [
-      'important', 'remember', 'never forget', 'critical',
-      'urgent', 'priority', 'essential', 'key', 'main',
-      'preferences', 'goals', 'objectives', 'plans'
-    ],
+    priorityKeywords:
+        (json['priorityKeywords'] as List<dynamic>?)?.cast<String>() ??
+        const [
+          'important',
+          'remember',
+          'never forget',
+          'critical',
+          'urgent',
+          'priority',
+          'essential',
+          'key',
+          'main',
+          'preferences',
+          'goals',
+          'objectives',
+          'plans',
+        ],
     enableImportanceFiltering: json['enableImportanceFiltering'] ?? true,
     messageBatchSize: json['messageBatchSize'] ?? 5,
     maxContextMessages: json['maxContextMessages'] ?? 10,
@@ -190,40 +230,39 @@ class MemoryConfig {
   // Optimized for low token usage - reduces API calls by ~70%
   static const MemoryConfig tokenEfficient = MemoryConfig(
     // Reduce memory storage to minimize processing
-    maxShortTermMessages: 30,        // Reduced from 100
-    maxMediumTermSegments: 15,       // Reduced from 50
-    maxLongTermSegments: 8,          // Reduced from 25
-
+    maxShortTermMessages: 30, // Reduced from 100
+    maxMediumTermSegments: 15, // Reduced from 50
+    maxLongTermSegments: 8, // Reduced from 25
     // Higher importance thresholds to store only valuable content
-    criticalImportanceThreshold: 0.95,    // Increased from 0.9
-    longTermImportanceThreshold: 0.8,     // Increased from 0.7
-    mediumTermImportanceThreshold: 0.6,   // Increased from 0.4
-
+    criticalImportanceThreshold: 0.95, // Increased from 0.9
+    longTermImportanceThreshold: 0.8, // Increased from 0.7
+    mediumTermImportanceThreshold: 0.6, // Increased from 0.4
     // Longer consolidation intervals to reduce processing frequency
-    consolidationInterval: Duration(hours: 24),  // Increased from 6 hours
-
+    consolidationInterval: Duration(hours: 24), // Increased from 6 hours
     // Reduce summarization length and frequency
-    maxSummarizationLength: 2000,    // Reduced from 4000
-
+    maxSummarizationLength: 2000, // Reduced from 4000
     // Filter out trivial messages
-    minMessageImportance: 0.3,       // Increased from 0.1
-    minMessageLength: 10,            // Increased from 3
-
+    minMessageImportance: 0.3, // Increased from 0.1
+    minMessageLength: 10, // Increased from 3
     // Reduce auto-processing
-    enableAutoConsolidation: false,  // Disabled auto-consolidation
-
+    enableAutoConsolidation: false, // Disabled auto-consolidation
     // Keep compression for storage efficiency
     enableMemoryCompression: true,
 
     // Shorter expiry to naturally prune old content
-    shortTermExpiry: Duration(hours: 12),    // Reduced from 24 hours
-    mediumTermExpiry: Duration(days: 3),     // Reduced from 7 days
-    longTermExpiry: Duration(days: 14),      // Reduced from 30 days
-
+    shortTermExpiry: Duration(hours: 12), // Reduced from 24 hours
+    mediumTermExpiry: Duration(days: 3), // Reduced from 7 days
+    longTermExpiry: Duration(days: 14), // Reduced from 30 days
     // Focused priority keywords only
-    priorityKeywords: const [
-      'important', 'critical', 'urgent', 'remember',
-      'goals', 'plans', 'preferences', 'never forget'
+    priorityKeywords: [
+      'important',
+      'critical',
+      'urgent',
+      'remember',
+      'goals',
+      'plans',
+      'preferences',
+      'never forget',
     ],
 
     // Enable importance filtering to skip trivial messages

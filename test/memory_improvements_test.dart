@@ -1,4 +1,6 @@
 /// Tests for the improved memory management system
+library;
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:alex/models/conversation_message.dart';
 import 'package:alex/models/conversation_context.dart';
@@ -29,7 +31,8 @@ void main() {
           timestamp: DateTime.now(),
         ),
         ConversationMessage(
-          text: 'That is great! Flutter is an excellent framework for mobile development.',
+          text:
+              'That is great! Flutter is an excellent framework for mobile development.',
           isUser: false,
           timestamp: DateTime.now().add(Duration(minutes: 1)),
         ),
@@ -56,7 +59,8 @@ void main() {
 
     test('Memory processes messages with different importance levels', () async {
       final highImportanceMessage = ConversationMessage(
-        text: 'I want to remember this important goal for my career development',
+        text:
+            'I want to remember this important goal for my career development',
         isUser: true,
         timestamp: DateTime.now(),
       );
@@ -75,7 +79,10 @@ void main() {
         memoryMetrics: MemoryMetrics.empty(),
       );
 
-      await memoryManager.processMessages([highImportanceMessage, lowImportanceMessage], context);
+      await memoryManager.processMessages([
+        highImportanceMessage,
+        lowImportanceMessage,
+      ], context);
 
       final segments = memoryManager.getAllMemories();
       expect(segments.isNotEmpty, true);
@@ -87,7 +94,8 @@ void main() {
 
     test('Memory segments are created with topics', () async {
       final message = ConversationMessage(
-        text: 'I love programming in Dart and want to build mobile apps with Flutter',
+        text:
+            'I love programming in Dart and want to build mobile apps with Flutter',
         isUser: true,
         timestamp: DateTime.now(),
       );
@@ -111,11 +119,15 @@ void main() {
 
     test('Memory consolidation works', () async {
       // Create multiple related messages
-      final messages = List.generate(10, (index) => ConversationMessage(
-        text: 'Message about programming and Flutter development number $index',
-        isUser: true,
-        timestamp: DateTime.now().add(Duration(minutes: index)),
-      ));
+      final messages = List.generate(
+        10,
+        (index) => ConversationMessage(
+          text:
+              'Message about programming and Flutter development number $index',
+          isUser: true,
+          timestamp: DateTime.now().add(Duration(minutes: index)),
+        ),
+      );
 
       final context = ConversationContext(
         messages: messages,
@@ -157,7 +169,10 @@ void main() {
 
       await memoryManager.processMessages([message], context);
 
-      final relevantMemories = memoryManager.getRelevantMemories(query, limit: 5);
+      final relevantMemories = memoryManager.getRelevantMemories(
+        query,
+        limit: 5,
+      );
 
       expect(relevantMemories.isNotEmpty, true);
       expect(relevantMemories.first.relevanceScore, greaterThan(0.0));
@@ -255,8 +270,14 @@ void main() {
 
   group('Memory Configuration', () {
     test('MemoryConfig presets work correctly', () {
-      expect(MemoryConfig.minimal.maxShortTermMessages, lessThan(MemoryConfig.standard.maxShortTermMessages));
-      expect(MemoryConfig.comprehensive.maxShortTermMessages, greaterThan(MemoryConfig.standard.maxShortTermMessages));
+      expect(
+        MemoryConfig.minimal.maxShortTermMessages,
+        lessThan(MemoryConfig.standard.maxShortTermMessages),
+      );
+      expect(
+        MemoryConfig.comprehensive.maxShortTermMessages,
+        greaterThan(MemoryConfig.standard.maxShortTermMessages),
+      );
 
       expect(MemoryConfig.minimal.enableAutoConsolidation, false);
       expect(MemoryConfig.comprehensive.enableAutoConsolidation, true);
@@ -267,7 +288,10 @@ void main() {
       final modifiedConfig = config.copyWith(maxShortTermMessages: 200);
 
       expect(modifiedConfig.maxShortTermMessages, equals(200));
-      expect(modifiedConfig.maxMediumTermSegments, equals(config.maxMediumTermSegments));
+      expect(
+        modifiedConfig.maxMediumTermSegments,
+        equals(config.maxMediumTermSegments),
+      );
     });
 
     test('MemoryConfig serialization works', () {
@@ -275,8 +299,14 @@ void main() {
       final json = config.toJson();
       final restoredConfig = MemoryConfig.fromJson(json);
 
-      expect(restoredConfig.maxShortTermMessages, equals(config.maxShortTermMessages));
-      expect(restoredConfig.enableAutoConsolidation, equals(config.enableAutoConsolidation));
+      expect(
+        restoredConfig.maxShortTermMessages,
+        equals(config.maxShortTermMessages),
+      );
+      expect(
+        restoredConfig.enableAutoConsolidation,
+        equals(config.enableAutoConsolidation),
+      );
     });
   });
 }

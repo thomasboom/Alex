@@ -16,9 +16,10 @@ class ConversationMessage {
     'timestamp': timestamp.toIso8601String(),
   };
 
-  factory ConversationMessage.fromJson(Map<String, dynamic> json) => ConversationMessage(
-    text: json['text'],
-    isUser: json['isUser'],
-    timestamp: DateTime.parse(json['timestamp']),
-  );
+  factory ConversationMessage.fromJson(Map<String, dynamic> json) =>
+      ConversationMessage(
+        text: json['text'],
+        isUser: json['isUser'],
+        timestamp: DateTime.parse(json['timestamp']),
+      );
 }

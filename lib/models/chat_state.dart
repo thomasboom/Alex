@@ -39,13 +39,17 @@ class ChatState {
 
   /// Get a random welcome message from the available options
   String _getRandomWelcomeMessage() {
-    final random = DateTime.now().millisecondsSinceEpoch % ChatConstants.welcomeMessages.length;
+    final random =
+        DateTime.now().millisecondsSinceEpoch %
+        ChatConstants.welcomeMessages.length;
     return ChatConstants.welcomeMessages[random];
   }
 
   /// Get a random placeholder text from the available options
   String _getRandomPlaceholderText() {
-    final random = DateTime.now().millisecondsSinceEpoch % ChatConstants.placeholderTexts.length;
+    final random =
+        DateTime.now().millisecondsSinceEpoch %
+        ChatConstants.placeholderTexts.length;
     return ChatConstants.placeholderTexts[random];
   }
 

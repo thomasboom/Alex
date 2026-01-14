@@ -105,8 +105,8 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     final padding = isDesktop ? 24.0 : 32.0; // Reduced desktop padding
     final buttonSize = isDesktop ? 60.0 : 80.0; // Smaller desktop buttons
 
-    return WillPopScope(
-      onWillPop: () async => widget.showBackButton,
+    return PopScope(
+      canPop: widget.showBackButton,
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
@@ -118,7 +118,7 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
               end: Alignment.bottomCenter,
               colors: [
                 Theme.of(context).colorScheme.surface,
-                Theme.of(context).colorScheme.surface.withOpacity(0.95),
+                Theme.of(context).colorScheme.surface.withValues(alpha: 0.95),
               ],
             ),
           ),
@@ -148,7 +148,9 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                           widget.subtitle,
                           style: GoogleFonts.playfairDisplay(
                             fontSize: isDesktop ? 18 : 16,
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.7),
                             height: 1.4,
                           ),
                           textAlign: TextAlign.center,
@@ -161,16 +163,23 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
 
                   // PIN Display
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: isDesktop ? 20 : 32, horizontal: isDesktop ? 16 : 24),
+                    padding: EdgeInsets.symmetric(
+                      vertical: isDesktop ? 20 : 32,
+                      horizontal: isDesktop ? 16 : 24,
+                    ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(isDesktop ? 16 : 20),
                       border: Border.all(
-                        color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.3),
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.shadow.withValues(alpha: 0.1),
                           blurRadius: 10,
                           offset: const Offset(0, 2),
                         ),
@@ -180,56 +189,74 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(4, (index) {
                         return Container(
-                          margin: EdgeInsets.symmetric(horizontal: isDesktop ? 6 : 12),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: isDesktop ? 6 : 12,
+                          ),
                           width: isDesktop ? 14 : 20,
                           height: isDesktop ? 14 : 20,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: index < _enteredPin.length
                                 ? Theme.of(context).colorScheme.primary
-                                : Theme.of(context).colorScheme.outline.withOpacity(0.3),
-                            boxShadow: index < _enteredPin.length ? [
-                              BoxShadow(
-                                color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
-                                blurRadius: 4,
-                                offset: const Offset(0, 2),
-                              ),
-                            ] : null,
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.outline.withValues(alpha: 0.3),
+                            boxShadow: index < _enteredPin.length
+                                ? [
+                                    BoxShadow(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary
+                                          .withValues(alpha: 0.3),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ]
+                                : null,
                           ),
                         );
                       }),
                     ),
                   ),
 
-                  // Keyboard input support using RawKeyboardListener
-                  RawKeyboardListener(
+                  KeyboardListener(
                     focusNode: _focusNode,
-                    onKey: (RawKeyEvent event) {
+                    onKeyEvent: (KeyEvent event) {
                       if (_isVerifying) return;
 
-                      if (event is RawKeyDownEvent) {
+                      if (event is KeyDownEvent) {
                         final key = event.logicalKey;
 
                         // Handle number keys
-                        if (key == LogicalKeyboardKey.digit0 || key == LogicalKeyboardKey.numpad0) {
+                        if (key == LogicalKeyboardKey.digit0 ||
+                            key == LogicalKeyboardKey.numpad0) {
                           _addDigit('0');
-                        } else if (key == LogicalKeyboardKey.digit1 || key == LogicalKeyboardKey.numpad1) {
+                        } else if (key == LogicalKeyboardKey.digit1 ||
+                            key == LogicalKeyboardKey.numpad1) {
                           _addDigit('1');
-                        } else if (key == LogicalKeyboardKey.digit2 || key == LogicalKeyboardKey.numpad2) {
+                        } else if (key == LogicalKeyboardKey.digit2 ||
+                            key == LogicalKeyboardKey.numpad2) {
                           _addDigit('2');
-                        } else if (key == LogicalKeyboardKey.digit3 || key == LogicalKeyboardKey.numpad3) {
+                        } else if (key == LogicalKeyboardKey.digit3 ||
+                            key == LogicalKeyboardKey.numpad3) {
                           _addDigit('3');
-                        } else if (key == LogicalKeyboardKey.digit4 || key == LogicalKeyboardKey.numpad4) {
+                        } else if (key == LogicalKeyboardKey.digit4 ||
+                            key == LogicalKeyboardKey.numpad4) {
                           _addDigit('4');
-                        } else if (key == LogicalKeyboardKey.digit5 || key == LogicalKeyboardKey.numpad5) {
+                        } else if (key == LogicalKeyboardKey.digit5 ||
+                            key == LogicalKeyboardKey.numpad5) {
                           _addDigit('5');
-                        } else if (key == LogicalKeyboardKey.digit6 || key == LogicalKeyboardKey.numpad6) {
+                        } else if (key == LogicalKeyboardKey.digit6 ||
+                            key == LogicalKeyboardKey.numpad6) {
                           _addDigit('6');
-                        } else if (key == LogicalKeyboardKey.digit7 || key == LogicalKeyboardKey.numpad7) {
+                        } else if (key == LogicalKeyboardKey.digit7 ||
+                            key == LogicalKeyboardKey.numpad7) {
                           _addDigit('7');
-                        } else if (key == LogicalKeyboardKey.digit8 || key == LogicalKeyboardKey.numpad8) {
+                        } else if (key == LogicalKeyboardKey.digit8 ||
+                            key == LogicalKeyboardKey.numpad8) {
                           _addDigit('8');
-                        } else if (key == LogicalKeyboardKey.digit9 || key == LogicalKeyboardKey.numpad9) {
+                        } else if (key == LogicalKeyboardKey.digit9 ||
+                            key == LogicalKeyboardKey.numpad9) {
                           _addDigit('9');
                         }
                         // Handle backspace
@@ -237,7 +264,8 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                           _removeDigit();
                         }
                         // Handle Enter key for verification
-                        else if (key == LogicalKeyboardKey.enter && _enteredPin.length == 4) {
+                        else if (key == LogicalKeyboardKey.enter &&
+                            _enteredPin.length == 4) {
                           _verifyPin();
                         }
                       }
@@ -288,14 +316,20 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                         onPressed: () => Navigator.of(context).pop(false),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
-                          foregroundColor: Theme.of(context).colorScheme.primary,
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
                           side: BorderSide(
                             color: Theme.of(context).colorScheme.primary,
                             width: 1,
                           ),
-                          padding: EdgeInsets.symmetric(vertical: isDesktop ? 18 : 16),
+                          padding: EdgeInsets.symmetric(
+                            vertical: isDesktop ? 18 : 16,
+                          ),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(isDesktop ? 14 : 12),
+                            borderRadius: BorderRadius.circular(
+                              isDesktop ? 14 : 12,
+                            ),
                           ),
                         ),
                         child: Text(
@@ -331,16 +365,18 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     final borderRadius = buttonSize * 0.3; // Responsive border radius
 
     return Container(
-      padding: EdgeInsets.all(isDesktop ? containerPadding * 0.8 : containerPadding),
+      padding: EdgeInsets.all(
+        isDesktop ? containerPadding * 0.8 : containerPadding,
+      ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(borderRadius),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -372,7 +408,7 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                     color: _getKeyColor(key),
                     boxShadow: [
                       BoxShadow(
-                        color: _getKeyColor(key).withOpacity(0.3),
+                        color: _getKeyColor(key).withValues(alpha: 0.3),
                         blurRadius: buttonSize * 0.1,
                         offset: const Offset(0, 2),
                       ),

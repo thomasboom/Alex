@@ -6,7 +6,6 @@ import '../models/conversation_context.dart';
 import '../models/memory_segment.dart';
 import '../models/memory_config.dart';
 import '../utils/logger.dart';
-import 'summarization_service.dart';
 
 /// Advanced memory manager with intelligent importance scoring and hierarchical memory
 class MemoryManager {
@@ -407,7 +406,7 @@ class MemoryManager {
 
         final consolidatedMemory = MemorySegment(
           id: _uuid.v4(),
-          content: await _compressContent(combinedContent),
+          content: _compressContent(combinedContent),
           type: averageImportance >= _config.mediumTermImportanceThreshold
               ? MemoryType.mediumTerm
               : MemoryType.shortTerm,
@@ -452,7 +451,7 @@ class MemoryManager {
 
       final consolidatedMemory = MemorySegment(
         id: _uuid.v4(),
-        content: await _compressContent(combinedContent),
+        content: _compressContent(combinedContent),
         type: averageImportance >= _config.longTermImportanceThreshold
             ? MemoryType.longTerm
             : MemoryType.mediumTerm,

@@ -19,7 +19,8 @@ class PermissionUtils {
         if (context.mounted) {
           FloatingSnackbar.show(
             context,
-            message: 'Microphone permission is required for speech recognition. Please grant permission in app settings.',
+            message:
+                'Microphone permission is required for speech recognition. Please grant permission in app settings.',
             actionLabel: 'Settings',
             onActionPressed: openAppSettings,
             duration: const Duration(seconds: 4),
@@ -30,7 +31,8 @@ class PermissionUtils {
         if (context.mounted) {
           FloatingSnackbar.show(
             context,
-            message: 'Microphone permission is permanently denied. Please enable it in app settings to use speech recognition.',
+            message:
+                'Microphone permission is permanently denied. Please enable it in app settings to use speech recognition.',
             actionLabel: 'Settings',
             onActionPressed: openAppSettings,
             duration: const Duration(seconds: 4),

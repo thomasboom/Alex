@@ -41,7 +41,9 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
     final isPinLockEnabled = SettingsService.pinLockEnabled;
     final hasPinCode = SettingsService.pinCode.isNotEmpty;
 
-    AppLogger.d('PIN Lock Status - Enabled: $isPinLockEnabled, Has Code: $hasPinCode');
+    AppLogger.d(
+      'PIN Lock Status - Enabled: $isPinLockEnabled, Has Code: $hasPinCode',
+    );
 
     if (isPinLockEnabled && hasPinCode && !_showPinDialog) {
       AppLogger.i('PIN lock is active, showing PIN dialog');
@@ -166,9 +168,7 @@ class _FraintedAppState extends State<FraintedApp> {
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode: _getThemeMode(),
-              home: const PinLockWrapper(
-                child: ChatScreen(),
-              ),
+              home: const PinLockWrapper(child: ChatScreen()),
             );
           },
         );

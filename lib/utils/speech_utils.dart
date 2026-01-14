@@ -13,10 +13,7 @@ class SpeechUtils {
     try {
       final speech = stt.SpeechToText();
 
-      return await speech.initialize(
-        onError: onError,
-        onStatus: onStatus,
-      );
+      return await speech.initialize(onError: onError, onStatus: onStatus);
     } catch (e) {
       return false;
     }
@@ -52,11 +49,14 @@ class SpeechUtils {
     String errorMessage = 'Speech recognition error occurred';
 
     if (error.toString().contains('no speech input')) {
-      errorMessage = 'No speech input detected. Please speak louder or check your microphone.';
+      errorMessage =
+          'No speech input detected. Please speak louder or check your microphone.';
     } else if (error.toString().contains('recognizer not available')) {
-      errorMessage = 'Speech recognizer not available. Please check microphone permissions.';
+      errorMessage =
+          'Speech recognizer not available. Please check microphone permissions.';
     } else if (error.toString().contains('permission')) {
-      errorMessage = 'Microphone permission denied. Please enable microphone access in settings.';
+      errorMessage =
+          'Microphone permission denied. Please enable microphone access in settings.';
     } else if (error.toString().contains('network')) {
       errorMessage = 'Network error. Please check your internet connection.';
     } else if (error.toString().contains('timeout')) {
@@ -67,10 +67,14 @@ class SpeechUtils {
       FloatingSnackbar.show(
         context,
         message: errorMessage,
-        actionLabel: error.toString().contains('permission') ? 'Settings' : null,
-        onActionPressed: error.toString().contains('permission') ? () {
-          // User should be directed to app settings
-        } : null,
+        actionLabel: error.toString().contains('permission')
+            ? 'Settings'
+            : null,
+        onActionPressed: error.toString().contains('permission')
+            ? () {
+                // User should be directed to app settings
+              }
+            : null,
         duration: const Duration(seconds: 4),
       );
     }

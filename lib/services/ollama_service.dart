@@ -8,8 +8,10 @@ import 'settings_service.dart';
 import '../utils/logger.dart';
 
 class OllamaService {
-  static String get _baseUrl => dotenv.env['OLLAMA_BASE_URL'] ?? 'https://ollama.com/api';
-  static String get _model => dotenv.env['OLLAMA_MODEL'] ?? 'deepseek-v3.1:671b';
+  static String get _baseUrl =>
+      dotenv.env['OLLAMA_BASE_URL'] ?? 'https://ollama.com/api';
+  static String get _model =>
+      dotenv.env['OLLAMA_MODEL'] ?? 'deepseek-v3.1:671b';
 
   static String get _apiKey {
     final apiKeySource = SettingsService.apiKeySource;
@@ -23,7 +25,9 @@ class OllamaService {
   static Future<String> _loadSystemPrompt() async {
     AppLogger.d('Loading system prompt from assets/system_prompt.json');
     try {
-      final String response = await rootBundle.loadString('assets/system_prompt.json');
+      final String response = await rootBundle.loadString(
+        'assets/system_prompt.json',
+      );
       final data = jsonDecode(response);
       final systemPrompt = data['systemPrompt'] ?? '';
       AppLogger.i('System prompt loaded successfully');
@@ -53,7 +57,9 @@ class OllamaService {
     // Add recent messages for immediate context (last 10 messages)
     if (context.messages.isNotEmpty) {
       final recentMessages = ConversationService.getRecentMessages(limit: 10);
-      buffer.writeln('RECENT CONVERSATION (last ${recentMessages.length} exchanges):');
+      buffer.writeln(
+        'RECENT CONVERSATION (last ${recentMessages.length} exchanges):',
+      );
       buffer.writeln();
 
       for (var message in recentMessages) {
@@ -64,11 +70,17 @@ class OllamaService {
     }
 
     buffer.writeln('INSTRUCTIONS:');
-    buffer.writeln('- Use this context to inform your responses and maintain continuity');
+    buffer.writeln(
+      '- Use this context to inform your responses and maintain continuity',
+    );
     buffer.writeln('- Reference previous topics naturally when relevant');
     buffer.writeln('- Remember important details the user has shared');
-    buffer.writeln('- Build on our established friendship and conversation history');
-    buffer.writeln('- Be consistent with your personality and our relationship');
+    buffer.writeln(
+      '- Build on our established friendship and conversation history',
+    );
+    buffer.writeln(
+      '- Be consistent with your personality and our relationship',
+    );
 
     return buffer.toString();
   }
@@ -92,7 +104,9 @@ class OllamaService {
 
       // Combine system prompt with conversation context
       final enhancedSystemPrompt = '$baseSystemPrompt\n\n$contextPrompt';
-      AppLogger.d('Enhanced system prompt created, length: ${enhancedSystemPrompt.length}');
+      AppLogger.d(
+        'Enhanced system prompt created, length: ${enhancedSystemPrompt.length}',
+      );
 
       AppLogger.d('API POST $_baseUrl/chat');
       final stopwatch = Stopwatch()..start();
@@ -106,14 +120,8 @@ class OllamaService {
         body: jsonEncode({
           'model': _model,
           'messages': [
-            {
-              'role': 'system',
-              'content': enhancedSystemPrompt
-            },
-            {
-              'role': 'user',
-              'content': prompt
-            }
+            {'role': 'system', 'content': enhancedSystemPrompt},
+            {'role': 'user', 'content': prompt},
           ],
           'stream': false,
         }),
@@ -125,11 +133,17 @@ class OllamaService {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final content = data['message']['content'].trim();
-        AppLogger.i('AI completion successful, status: ${response.statusCode}, response length: ${content.length}');
+        AppLogger.i(
+          'AI completion successful, status: ${response.statusCode}, response length: ${content.length}',
+        );
         return content;
       } else {
-        AppLogger.e('AI API request failed with status: ${response.statusCode}');
-        throw Exception('Failed to get AI response: ${response.statusCode} - ${response.body}');
+        AppLogger.e(
+          'AI API request failed with status: ${response.statusCode}',
+        );
+        throw Exception(
+          'Failed to get AI response: ${response.statusCode} - ${response.body}',
+        );
       }
     } catch (e) {
       AppLogger.e('Error connecting to Ollama Cloud API', e);

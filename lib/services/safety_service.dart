@@ -26,8 +26,12 @@ class SafetyService {
   /// Load sensitive keywords from assets
   static Future<void> _loadSensitiveKeywords() async {
     try {
-      AppLogger.d('Loading sensitive keywords from assets/sensitive_keywords.json');
-      final String response = await rootBundle.loadString('assets/sensitive_keywords.json');
+      AppLogger.d(
+        'Loading sensitive keywords from assets/sensitive_keywords.json',
+      );
+      final String response = await rootBundle.loadString(
+        'assets/sensitive_keywords.json',
+      );
       final data = jsonDecode(response);
       _sensitiveKeywords = List<String>.from(data['keywords'] ?? []);
       AppLogger.i('Loaded ${_sensitiveKeywords.length} sensitive keywords');
@@ -35,17 +39,45 @@ class SafetyService {
       AppLogger.e('Failed to load sensitive keywords', e);
       // Fallback keywords if file doesn't exist
       _sensitiveKeywords = [
-        'kill myself', 'kill me', 'end it all', 'end my life', 'take my life',
-        'hang myself', 'shoot myself', 'jump off', 'jump from', 'overdose',
-        'cut myself', 'cutting', 'self harm', 'self-harm', 'hurt myself',
-        'harm myself', 'suicide', 'suicidal', 'want to die', 'wish I was dead',
-        'rather be dead', 'feel like dying', 'thinking about ending it',
-        'planning to end it', 'how to kill myself', 'ways to die',
-        'not worth living', 'life not worth living', 'can\'t go on',
-        'don\'t want to live', 'no reason to live', 'life is meaningless',
-        'can\'t take it anymore', 'at my breaking point', 'feel like ending it'
+        'kill myself',
+        'kill me',
+        'end it all',
+        'end my life',
+        'take my life',
+        'hang myself',
+        'shoot myself',
+        'jump off',
+        'jump from',
+        'overdose',
+        'cut myself',
+        'cutting',
+        'self harm',
+        'self-harm',
+        'hurt myself',
+        'harm myself',
+        'suicide',
+        'suicidal',
+        'want to die',
+        'wish I was dead',
+        'rather be dead',
+        'feel like dying',
+        'thinking about ending it',
+        'planning to end it',
+        'how to kill myself',
+        'ways to die',
+        'not worth living',
+        'life not worth living',
+        'can\'t go on',
+        'don\'t want to live',
+        'no reason to live',
+        'life is meaningless',
+        'can\'t take it anymore',
+        'at my breaking point',
+        'feel like ending it',
       ];
-      AppLogger.i('Using fallback sensitive keywords: ${_sensitiveKeywords.length}');
+      AppLogger.i(
+        'Using fallback sensitive keywords: ${_sensitiveKeywords.length}',
+      );
     }
   }
 
@@ -53,7 +85,9 @@ class SafetyService {
   static Future<void> _loadHelpResources() async {
     try {
       AppLogger.d('Loading help resources from assets/help_resources.json');
-      final String response = await rootBundle.loadString('assets/help_resources.json');
+      final String response = await rootBundle.loadString(
+        'assets/help_resources.json',
+      );
       final data = jsonDecode(response);
       final Map<String, dynamic> resourcesData = data['resources'] ?? {};
 
@@ -63,7 +97,9 @@ class SafetyService {
         _helpResources[category] = List<String>.from(resourceList ?? []);
       });
 
-      AppLogger.i('Loaded help resources for ${_helpResources.length} categories');
+      AppLogger.i(
+        'Loaded help resources for ${_helpResources.length} categories',
+      );
     } catch (e) {
       AppLogger.e('Failed to load help resources', e);
       // Fallback help resources if file doesn't exist
@@ -71,17 +107,17 @@ class SafetyService {
         'crisis': [
           '988 Suicide & Crisis Lifeline (US): Call or text 988',
           'Crisis Text Line: Text HOME to 741741',
-          'International Association for Suicide Prevention: Find local help at befrienders.org'
+          'International Association for Suicide Prevention: Find local help at befrienders.org',
         ],
         'mental_health': [
           'National Alliance on Mental Illness (NAMI): 1-800-950-6264',
           'Mental Health America: mhanational.org/find-support',
-          'Psychology Today: psychologytoday.com to find therapists'
+          'Psychology Today: psychologytoday.com to find therapists',
         ],
         'emergency': [
           'Emergency Services: Call 911 (US) or your local emergency number',
-          'If you are in immediate danger, please contact emergency services immediately'
-        ]
+          'If you are in immediate danger, please contact emergency services immediately',
+        ],
       };
       AppLogger.i('Using fallback help resources');
     }

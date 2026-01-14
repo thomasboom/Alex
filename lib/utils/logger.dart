@@ -10,9 +10,7 @@ class AppLogger {
   static void init() {
     if (_initialized) return;
 
-    _logger = Logger(
-      printer: SimplePrinter(),
-    );
+    _logger = Logger(printer: SimplePrinter());
 
     _initialized = true;
     _logger.i('AppLogger initialized');
@@ -57,12 +55,19 @@ class AppLogger {
   }
 
   /// Log API requests
-  static void api(String method, String url, {int? statusCode, String? responseBody}) {
+  static void api(
+    String method,
+    String url, {
+    int? statusCode,
+    String? responseBody,
+  }) {
     _ensureInitialized();
     if (statusCode != null) {
       _logger.i('API $method $url - Status: $statusCode');
       if (responseBody != null && responseBody.length > 500) {
-        _logger.d('API Response (truncated): ${responseBody.substring(0, 500)}...');
+        _logger.d(
+          'API Response (truncated): ${responseBody.substring(0, 500)}...',
+        );
       } else if (responseBody != null) {
         _logger.d('API Response: $responseBody');
       }
@@ -87,9 +92,7 @@ class AppLogger {
   static void _ensureInitialized() {
     if (!_initialized) {
       // Fallback initialization if not properly initialized
-      _logger = Logger(
-        printer: SimplePrinter(),
-      );
+      _logger = Logger(printer: SimplePrinter());
       _initialized = true;
     }
   }

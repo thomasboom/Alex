@@ -73,10 +73,7 @@ class _FloatingSnackbarState extends State<FloatingSnackbar>
       vsync: this,
     );
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOut,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
     );
     _animationController.forward();
   }
@@ -109,16 +106,22 @@ class _FloatingSnackbarState extends State<FloatingSnackbar>
                 color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.outline.withValues(alpha: 0.2),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.1),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.shadow.withValues(alpha: 0.1),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.05),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.shadow.withValues(alpha: 0.05),
                     blurRadius: 24,
                     offset: const Offset(0, 8),
                   ),
@@ -137,7 +140,8 @@ class _FloatingSnackbarState extends State<FloatingSnackbar>
                       ),
                     ),
                   ),
-                  if (widget.actionLabel != null && widget.onActionPressed != null) ...[
+                  if (widget.actionLabel != null &&
+                      widget.onActionPressed != null) ...[
                     const SizedBox(width: 8),
                     TextButton(
                       onPressed: () {
@@ -145,7 +149,10 @@ class _FloatingSnackbarState extends State<FloatingSnackbar>
                         _dismiss();
                       },
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
@@ -166,7 +173,9 @@ class _FloatingSnackbarState extends State<FloatingSnackbar>
                       icon: Icon(
                         Icons.close,
                         size: 16,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(

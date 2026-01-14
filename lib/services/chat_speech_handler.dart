@@ -20,7 +20,9 @@ class ChatSpeechHandler {
 
       // Request microphone permission first on Android
       if (PlatformUtils.isAndroid) {
-        bool hasPermission = await PermissionUtils.requestMicrophonePermission(context);
+        bool hasPermission = await PermissionUtils.requestMicrophonePermission(
+          context,
+        );
         if (!hasPermission) {
           AppLogger.w('Microphone permission denied on Android');
           state.speechEnabled = false;
@@ -34,7 +36,9 @@ class ChatSpeechHandler {
         onStatus: (status) => handleSpeechStatus(state, status, setState),
       );
 
-      AppLogger.i('Speech recognition initialized - enabled: ${state.speechEnabled}');
+      AppLogger.i(
+        'Speech recognition initialized - enabled: ${state.speechEnabled}',
+      );
       setState(() {});
 
       // Show platform-specific messages if needed
@@ -99,19 +103,29 @@ class ChatSpeechHandler {
       }
     }
 
-    AppLogger.d('Speech recognition result: ${recognizedWords.length} characters');
+    AppLogger.d(
+      'Speech recognition result: ${recognizedWords.length} characters',
+    );
     state.lastWords = recognizedWords;
     state.messageController.text = recognizedWords;
   }
 
   /// Handle speech recognition errors
-  static void handleSpeechError(BuildContext context, ChatState state, dynamic error) {
+  static void handleSpeechError(
+    BuildContext context,
+    ChatState state,
+    dynamic error,
+  ) {
     state.isListening = false;
     SpeechUtils.handleSpeechError(context, error);
   }
 
   /// Handle speech recognition status changes
-  static void handleSpeechStatus(ChatState state, String status, Function(void Function()) setState) {
+  static void handleSpeechStatus(
+    ChatState state,
+    String status,
+    Function(void Function()) setState,
+  ) {
     if (status == 'done' || status == 'notListening') {
       state.isListening = false;
       setState(() {});
