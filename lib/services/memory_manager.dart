@@ -23,7 +23,10 @@ class MemoryManager {
   }
 
   /// Calculate importance score for a message based on multiple factors
-  double _calculateMessageImportance(ConversationMessage message, List<ConversationMessage> context) {
+  double _calculateMessageImportance(
+    ConversationMessage message,
+    List<ConversationMessage> context,
+  ) {
     double importance = 0.0;
 
     // Base importance from message length (longer messages tend to be more important)
@@ -66,7 +69,16 @@ class MemoryManager {
     }
 
     // Emotional indicators
-    final emotionalWords = ['love', 'hate', 'angry', 'happy', 'sad', 'excited', 'worried', 'frustrated'];
+    final emotionalWords = [
+      'love',
+      'hate',
+      'angry',
+      'happy',
+      'sad',
+      'excited',
+      'worried',
+      'frustrated',
+    ];
     for (final word in emotionalWords) {
       if (lowerText.contains(word)) {
         importance += 0.15;
@@ -75,7 +87,15 @@ class MemoryManager {
     }
 
     // Personal information indicators
-    final personalWords = ['my name', 'i am', 'i work', 'i live', 'my goal', 'i want', 'i need'];
+    final personalWords = [
+      'my name',
+      'i am',
+      'i work',
+      'i live',
+      'my goal',
+      'i want',
+      'i need',
+    ];
     for (final word in personalWords) {
       if (lowerText.contains(word)) {
         importance += 0.2;
@@ -93,14 +113,60 @@ class MemoryManager {
 
     // Define topic keywords
     final topicKeywords = {
-      'work': ['work', 'job', 'career', 'office', 'project', 'meeting', 'colleague'],
+      'work': [
+        'work',
+        'job',
+        'career',
+        'office',
+        'project',
+        'meeting',
+        'colleague',
+      ],
       'family': ['family', 'parent', 'child', 'sibling', 'relative', 'home'],
-      'hobbies': ['hobby', 'game', 'sport', 'music', 'movie', 'book', 'reading'],
-      'goals': ['goal', 'objective', 'plan', 'target', 'aim', 'want to', 'need to'],
-      'preferences': ['like', 'love', 'prefer', 'favorite', 'enjoy', 'hate', 'dislike'],
-      'schedule': ['schedule', 'time', 'when', 'meeting', 'appointment', 'calendar'],
+      'hobbies': [
+        'hobby',
+        'game',
+        'sport',
+        'music',
+        'movie',
+        'book',
+        'reading',
+      ],
+      'goals': [
+        'goal',
+        'objective',
+        'plan',
+        'target',
+        'aim',
+        'want to',
+        'need to',
+      ],
+      'preferences': [
+        'like',
+        'love',
+        'prefer',
+        'favorite',
+        'enjoy',
+        'hate',
+        'dislike',
+      ],
+      'schedule': [
+        'schedule',
+        'time',
+        'when',
+        'meeting',
+        'appointment',
+        'calendar',
+      ],
       'location': ['live', 'location', 'city', 'country', 'address', 'place'],
-      'technical': ['code', 'programming', 'computer', 'software', 'app', 'website'],
+      'technical': [
+        'code',
+        'programming',
+        'computer',
+        'software',
+        'app',
+        'website',
+      ],
     };
 
     for (final topic in topicKeywords.entries) {
@@ -129,7 +195,10 @@ class MemoryManager {
   }
 
   /// Create a memory segment from conversation messages
-  MemorySegment _createMemorySegment(List<ConversationMessage> messages, String content) {
+  MemorySegment _createMemorySegment(
+    List<ConversationMessage> messages,
+    String content,
+  ) {
     final allTopics = <String>{};
     double totalImportance = 0.0;
 
@@ -139,8 +208,13 @@ class MemoryManager {
       totalImportance += _calculateMessageImportance(message, messages);
     }
 
-    final averageImportance = messages.isEmpty ? 0.0 : totalImportance / messages.length;
-    final memoryType = _determineMemoryType(averageImportance, allTopics.toList());
+    final averageImportance = messages.isEmpty
+        ? 0.0
+        : totalImportance / messages.length;
+    final memoryType = _determineMemoryType(
+      averageImportance,
+      allTopics.toList(),
+    );
 
     return MemorySegment(
       id: _uuid.v4(),
@@ -153,8 +227,12 @@ class MemoryManager {
       topics: allTopics.toList(),
       metadata: {
         'messageCount': messages.length,
-        'startTime': messages.isEmpty ? DateTime.now().toIso8601String() : messages.first.timestamp.toIso8601String(),
-        'endTime': messages.isEmpty ? DateTime.now().toIso8601String() : messages.last.timestamp.toIso8601String(),
+        'startTime': messages.isEmpty
+            ? DateTime.now().toIso8601String()
+            : messages.first.timestamp.toIso8601String(),
+        'endTime': messages.isEmpty
+            ? DateTime.now().toIso8601String()
+            : messages.last.timestamp.toIso8601String(),
         'containsUserMessages': messages.any((m) => m.isUser),
         'containsAIMessages': messages.any((m) => !m.isUser),
       },
@@ -162,34 +240,46 @@ class MemoryManager {
   }
 
   /// Process new messages and create appropriate memory segments
-  Future<void> processMessages(List<ConversationMessage> newMessages, ConversationContext context) async {
+  Future<void> processMessages(
+    List<ConversationMessage> newMessages,
+    ConversationContext context,
+  ) async {
     if (newMessages.isEmpty) return;
 
     // Filter out trivial messages to reduce token usage
     final importantMessages = newMessages.where((message) {
       final importance = _calculateMessageImportance(message, newMessages);
       return importance >= _config.minMessageImportance &&
-             message.text.length >= _config.minMessageLength;
+          message.text.length >= _config.minMessageLength;
     }).toList();
 
     if (importantMessages.isEmpty) {
-      AppLogger.d('No important messages to process, skipping memory management');
+      AppLogger.d(
+        'No important messages to process, skipping memory management',
+      );
       return;
     }
 
-    AppLogger.d('Processing ${importantMessages.length}/${newMessages.length} important messages for memory management');
+    AppLogger.d(
+      'Processing ${importantMessages.length}/${newMessages.length} important messages for memory management',
+    );
 
     // Group messages into logical segments (e.g., by topic or time gaps)
     final segments = await _createMessageSegments(importantMessages, context);
 
     for (final segment in segments) {
-      final memorySegment = _createMemorySegment(segment.messages, segment.summary);
+      final memorySegment = _createMemorySegment(
+        segment.messages,
+        segment.summary,
+      );
 
       // Check if we need to consolidate or cleanup before adding
       await _checkMemoryLimits();
 
       _memorySegments[memorySegment.id] = memorySegment;
-      AppLogger.d('Created memory segment: ${memorySegment.id} (${memorySegment.type}, importance: ${memorySegment.importance})');
+      AppLogger.d(
+        'Created memory segment: ${memorySegment.id} (${memorySegment.type}, importance: ${memorySegment.importance})',
+      );
     }
 
     // Update memory metrics
@@ -197,7 +287,10 @@ class MemoryManager {
   }
 
   /// Create logical segments from messages
-  Future<List<_MessageSegment>> _createMessageSegments(List<ConversationMessage> messages, ConversationContext context) async {
+  Future<List<_MessageSegment>> _createMessageSegments(
+    List<ConversationMessage> messages,
+    ConversationContext context,
+  ) async {
     final segments = <_MessageSegment>[];
     final currentSegment = <_MessageSegment>[];
 
@@ -205,15 +298,15 @@ class MemoryManager {
       final message = messages[i];
       final segment = _MessageSegment([message], '');
 
-      // Check if we should start a new segment
       if (i == 0 || _shouldStartNewSegment(messages[i - 1], message)) {
         if (currentSegment.isNotEmpty) {
-          // Summarize the current segment before starting a new one
-          final summary = await _summarizeMessageSegment(currentSegment);
-          segments.add(_MessageSegment(
-            currentSegment.expand((s) => s.messages).toList(),
-            summary,
-          ));
+          final summary = _createSegmentSummary(currentSegment);
+          segments.add(
+            _MessageSegment(
+              currentSegment.expand((s) => s.messages).toList(),
+              summary,
+            ),
+          );
         }
         currentSegment.clear();
       }
@@ -221,20 +314,31 @@ class MemoryManager {
       currentSegment.add(segment);
     }
 
-    // Add the final segment
     if (currentSegment.isNotEmpty) {
-      final summary = await _summarizeMessageSegment(currentSegment);
-      segments.add(_MessageSegment(
-        currentSegment.expand((s) => s.messages).toList(),
-        summary,
-      ));
+      final summary = _createSegmentSummary(currentSegment);
+      segments.add(
+        _MessageSegment(
+          currentSegment.expand((s) => s.messages).toList(),
+          summary,
+        ),
+      );
     }
 
     return segments;
   }
 
+  String _createSegmentSummary(List<_MessageSegment> segments) {
+    if (segments.isEmpty) return '';
+    final allMessages = segments.expand((s) => s.messages).toList();
+    final text = allMessages.map((m) => m.text.trim()).join(' ');
+    return text.length > 200 ? '${text.substring(0, 200)}...' : text;
+  }
+
   /// Determine if we should start a new memory segment
-  bool _shouldStartNewSegment(ConversationMessage previous, ConversationMessage current) {
+  bool _shouldStartNewSegment(
+    ConversationMessage previous,
+    ConversationMessage current,
+  ) {
     final timeGap = current.timestamp.difference(previous.timestamp);
 
     // Start new segment if there's a significant time gap
@@ -250,20 +354,6 @@ class MemoryManager {
     final topicSimilarity = commonTopics.length / max(prevTopics.length, 1);
 
     return topicSimilarity < 0.3; // Less than 30% topic overlap
-  }
-
-  /// Summarize a message segment
-  Future<String> _summarizeMessageSegment(List<_MessageSegment> segments) async {
-    if (segments.isEmpty) return '';
-
-    try {
-      final allMessages = segments.expand((s) => s.messages).toList();
-      return await SummarizationService.summarizeConversation(allMessages);
-    } catch (e) {
-      AppLogger.e('Failed to summarize message segment', e);
-      // Fallback to simple concatenation
-      return segments.map((s) => s.messages.map((m) => m.text).join(' ')).join(' ');
-    }
   }
 
   /// Check memory limits and consolidate if necessary
@@ -311,7 +401,9 @@ class MemoryManager {
     for (final group in topicGroups.values) {
       if (group.length >= 2) {
         final combinedContent = group.map((m) => m.content).join(' ');
-        final averageImportance = group.map((m) => m.importance).reduce((a, b) => a + b) / group.length;
+        final averageImportance =
+            group.map((m) => m.importance).reduce((a, b) => a + b) /
+            group.length;
 
         final consolidatedMemory = MemorySegment(
           id: _uuid.v4(),
@@ -355,7 +447,8 @@ class MemoryManager {
 
     for (final group in consolidatedGroups) {
       final combinedContent = group.map((m) => m.content).join(' ');
-      final averageImportance = group.map((m) => m.importance).reduce((a, b) => a + b) / group.length;
+      final averageImportance =
+          group.map((m) => m.importance).reduce((a, b) => a + b) / group.length;
 
       final consolidatedMemory = MemorySegment(
         id: _uuid.v4(),
@@ -395,7 +488,11 @@ class MemoryManager {
 
     // Only consolidate very old, low-access long-term memories
     final oldMemories = longTermMemories
-        .where((m) => m.lastAccessed.isBefore(DateTime.now().subtract(Duration(days: 7))))
+        .where(
+          (m) => m.lastAccessed.isBefore(
+            DateTime.now().subtract(Duration(days: 7)),
+          ),
+        )
         .toList();
 
     if (oldMemories.length >= 3) {
@@ -404,7 +501,9 @@ class MemoryManager {
   }
 
   /// Find related memories for consolidation
-  Future<List<List<MemorySegment>>> _findRelatedMemories(List<MemorySegment> memories) async {
+  Future<List<List<MemorySegment>>> _findRelatedMemories(
+    List<MemorySegment> memories,
+  ) async {
     final groups = <List<MemorySegment>>[];
 
     for (final memory in memories) {
@@ -412,7 +511,8 @@ class MemoryManager {
 
       for (final group in groups) {
         final similarity = _calculateMemorySimilarity(memory, group.first);
-        if (similarity > 0.6) { // 60% similarity threshold
+        if (similarity > 0.6) {
+          // 60% similarity threshold
           group.add(memory);
           addedToGroup = true;
           break;
@@ -433,49 +533,39 @@ class MemoryManager {
     // Topic overlap similarity
     final commonTopics = a.topics.toSet().intersection(b.topics.toSet());
     final maxTopics = max(a.topics.length, b.topics.length);
-    final topicSimilarity = maxTopics == 0 ? 0.0 : commonTopics.length / maxTopics;
+    final topicSimilarity = maxTopics == 0
+        ? 0.0
+        : commonTopics.length / maxTopics;
 
     // Content similarity (simple word overlap)
     final wordsA = a.content.toLowerCase().split(RegExp(r'\s+')).toSet();
     final wordsB = b.content.toLowerCase().split(RegExp(r'\s+')).toSet();
     final commonWords = wordsA.intersection(wordsB);
     final maxWords = max(wordsA.length, wordsB.length);
-    final contentSimilarity = maxWords == 0 ? 0.0 : commonWords.length / maxWords;
+    final contentSimilarity = maxWords == 0
+        ? 0.0
+        : commonWords.length / maxWords;
 
     // Time proximity (more recent memories are more similar)
     final timeDiff = a.created.difference(b.created).inDays.abs();
-    final timeSimilarity = max(0, 1.0 - (timeDiff / 30.0)); // Decay over 30 days
+    final timeSimilarity = max(
+      0,
+      1.0 - (timeDiff / 30.0),
+    ); // Decay over 30 days
 
-    return (topicSimilarity * 0.4) + (contentSimilarity * 0.4) + (timeSimilarity * 0.2);
+    return (topicSimilarity * 0.4) +
+        (contentSimilarity * 0.4) +
+        (timeSimilarity * 0.2);
   }
 
-  /// Compress content for storage efficiency
-  Future<String> _compressContent(String content) async {
-    if (!_config.enableMemoryCompression) {
-      return content;
-    }
-
-    // Simple compression: remove extra whitespace and truncate if too long
+  String _compressContent(String content) {
     final compressed = content.replaceAll(RegExp(r'\s+'), ' ').trim();
 
     if (compressed.length <= _config.maxSummarizationLength) {
       return compressed;
     }
 
-    // If still too long, summarize the content itself
-    try {
-      final messages = [
-        ConversationMessage(
-          text: 'Please summarize this content concisely: $compressed',
-          isUser: true,
-          timestamp: DateTime.now(),
-        )
-      ];
-      return await SummarizationService.summarizeConversation(messages);
-    } catch (e) {
-      AppLogger.e('Failed to compress content, truncating instead', e);
-      return compressed.substring(0, _config.maxSummarizationLength - 100) + '...';
-    }
+    return '${compressed.substring(0, _config.maxSummarizationLength - 50)}...';
   }
 
   /// Clean up expired memories
@@ -506,13 +596,22 @@ class MemoryManager {
 
     return MemoryMetrics(
       totalSegments: segments.length,
-      shortTermCount: segments.where((m) => m.type == MemoryType.shortTerm).length,
-      mediumTermCount: segments.where((m) => m.type == MemoryType.mediumTerm).length,
-      longTermCount: segments.where((m) => m.type == MemoryType.longTerm).length,
-      criticalCount: segments.where((m) => m.type == MemoryType.critical).length,
+      shortTermCount: segments
+          .where((m) => m.type == MemoryType.shortTerm)
+          .length,
+      mediumTermCount: segments
+          .where((m) => m.type == MemoryType.mediumTerm)
+          .length,
+      longTermCount: segments
+          .where((m) => m.type == MemoryType.longTerm)
+          .length,
+      criticalCount: segments
+          .where((m) => m.type == MemoryType.critical)
+          .length,
       averageImportance: segments.isEmpty
           ? 0.0
-          : segments.map((m) => m.importance).reduce((a, b) => a + b) / segments.length,
+          : segments.map((m) => m.importance).reduce((a, b) => a + b) /
+                segments.length,
       lastConsolidation: _lastConsolidation.values.isEmpty
           ? DateTime.now()
           : _lastConsolidation.values.reduce((a, b) => a.isAfter(b) ? a : b),
@@ -525,7 +624,9 @@ class MemoryManager {
   /// Start automatic consolidation timer
   void _startAutoConsolidation() {
     _consolidationTimer?.cancel();
-    _consolidationTimer = Timer.periodic(_config.consolidationInterval, (timer) async {
+    _consolidationTimer = Timer.periodic(_config.consolidationInterval, (
+      timer,
+    ) async {
       await _checkMemoryLimits();
     });
   }
@@ -538,13 +639,19 @@ class MemoryManager {
       double relevance = 0.0;
 
       // Topic relevance
-      final commonTopics = queryTopics.toSet().intersection(memory.topics.toSet());
+      final commonTopics = queryTopics.toSet().intersection(
+        memory.topics.toSet(),
+      );
       final maxTopics = max(queryTopics.length, memory.topics.length);
-      relevance += (maxTopics == 0 ? 0.0 : commonTopics.length / maxTopics) * 0.5;
+      relevance +=
+          (maxTopics == 0 ? 0.0 : commonTopics.length / maxTopics) * 0.5;
 
       // Content similarity
       final queryWords = query.toLowerCase().split(RegExp(r'\s+')).toSet();
-      final memoryWords = memory.content.toLowerCase().split(RegExp(r'\s+')).toSet();
+      final memoryWords = memory.content
+          .toLowerCase()
+          .split(RegExp(r'\s+'))
+          .toSet();
       final commonWords = queryWords.intersection(memoryWords);
       final maxWords = max(queryWords.length, memoryWords.length);
       relevance += (maxWords == 0 ? 0.0 : commonWords.length / maxWords) * 0.3;
@@ -558,10 +665,7 @@ class MemoryManager {
     // Sort by relevance and return top results
     scoredMemories.sort((a, b) => b.relevance.compareTo(a.relevance));
 
-    return scoredMemories
-        .take(limit)
-        .map((scored) => scored.memory)
-        .toList();
+    return scoredMemories.take(limit).map((scored) => scored.memory).toList();
   }
 
   /// Access a memory segment (increases access count and updates last accessed time)
