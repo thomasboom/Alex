@@ -1,12 +1,12 @@
- [x] Replace RawKeyboardListener with KeyboardListener
- [x] Replace all .withOpacity() with .withValues() in settings_screen.dart
- [ ] Fix widget test expecting "Alex" text that can't be found
- [ ] Fix SafetyService test binding initialization warnings
- [ ] Add TestWidgetsFlutterBinding.ensureInitialized() to test setup
- [ ] Remove unused import chat_message.dart
- [x] Fix async context usage warning
- [x] Run dart format . and ensure all files are properly formatted
- [x] Address all remaining flutter analyze warnings
+[x] Replace RawKeyboardListener with KeyboardListener
+[x] Replace all .withOpacity() with .withValues() in settings_screen.dart
+[ ] Fix widget test expecting "Alex" text that can't be found
+[ ] Fix SafetyService test binding initialization warnings
+[ ] Add TestWidgetsFlutterBinding.ensureInitialized() to test setup
+[ ] Remove unused import chat_message.dart
+[x] Fix async context usage warning
+[x] Run dart format . and ensure all files are properly formatted
+[x] Address all remaining flutter analyze warnings
 [ ] Export conversations to JSON format
 [ ] Export conversations to plain text
 [ ] Export conversations to PDF
