@@ -7,7 +7,6 @@
  [x] Fix async context usage warning
  [x] Run dart format . and ensure all files are properly formatted
  [x] Address all remaining flutter analyze warnings
-[ ] Delete individual conversations
 [ ] Export conversations to JSON format
 [ ] Export conversations to plain text
 [ ] Export conversations to PDF
