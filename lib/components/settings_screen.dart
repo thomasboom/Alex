@@ -477,46 +477,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         if (apiKeySource == 'custom') ...[
           const SizedBox(height: 20),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withValues(alpha: 0.2),
-                  blurRadius: 8,
-                  spreadRadius: 2,
-                ),
-              ],
-            ),
-            child: ElevatedButton.icon(
-              onPressed: _showCustomApiKeyDialog,
-              icon: const Icon(Icons.key),
-              label: Text(
-                hasCustomApiKey
-                    ? 'Update Custom API Key'
-                    : 'Set Custom API Key',
-                style: GoogleFonts.playfairDisplay(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 20,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                elevation: 0,
-              ),
-            ),
-          ),
+          _buildCustomApiKeyInput(),
+          const SizedBox(height: 24),
+          _buildModelSetting(),
+          const SizedBox(height: 24),
+          _buildEndpointSetting(),
         ],
       ],
     );
@@ -597,105 +562,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             : null,
         onTap: () => _updateSetting('apiKeySource', value),
       ),
-    );
-  }
-
-  void _showCustomApiKeyDialog() {
-    final TextEditingController apiKeyController = TextEditingController(
-      text: SettingsService.customApiKey,
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Custom API Key',
-            style: GoogleFonts.playfairDisplay(fontWeight: FontWeight.w600),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Enter your custom Ollama API key. You can get one from https://ollama.com/settings/keys',
-                style: GoogleFonts.playfairDisplay(),
-              ),
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.primary.withValues(alpha: 0.3),
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.security_outlined,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 16,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        '🔒 Your API key is stored securely on your device only and is never transmitted to our servers.',
-                        style: GoogleFonts.playfairDisplay(
-                          fontSize: 11,
-                          color: Theme.of(context).colorScheme.primary,
-                          height: 1.3,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                controller: apiKeyController,
-                decoration: InputDecoration(
-                  labelText: 'API Key',
-                  labelStyle: GoogleFonts.playfairDisplay(),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  hintText: 'Enter your API key...',
-                ),
-                style: GoogleFonts.playfairDisplay(),
-                obscureText: true,
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel', style: GoogleFonts.playfairDisplay()),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                final apiKey = apiKeyController.text.trim();
-                if (apiKey.isNotEmpty) {
-                  SettingsService.setCustomApiKey(apiKey);
-                  Navigator.of(context).pop();
-                  _showSuccessSnackBar('Custom API key updated successfully');
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.onPrimary,
-              ),
-              child: Text('Save', style: GoogleFonts.playfairDisplay()),
-            ),
-          ],
-        );
-      },
     );
   }
 
@@ -1406,6 +1272,262 @@ class _SettingsScreenState extends State<SettingsScreen> {
         content: Text(message, style: GoogleFonts.playfairDisplay()),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+    );
+  }
+
+  Widget _buildCustomApiKeyInput() {
+    final customApiKey = SettingsService.customApiKey;
+    final TextEditingController apiKeyController = TextEditingController(
+      text: customApiKey,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Custom API Key',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          'Enter your custom Ollama API key. You can get one from https://ollama.com/settings/keys',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 13,
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.primary.withValues(alpha: 0.3),
+            ),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.security_outlined,
+                color: Theme.of(context).colorScheme.primary,
+                size: 16,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  '🔒 Your API key is stored securely on your device only and is never transmitted to our servers.',
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 11,
+                    color: Theme.of(context).colorScheme.primary,
+                    height: 1.3,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        TextField(
+          controller: apiKeyController,
+          decoration: InputDecoration(
+            labelText: 'API Key',
+            labelStyle: GoogleFonts.playfairDisplay(),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            hintText: 'Enter your API key...',
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
+          ),
+          style: GoogleFonts.playfairDisplay(),
+          obscureText: true,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              SettingsService.setCustomApiKey(value);
+            }
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildModelSetting() {
+    final selectedModel = SettingsService.customModel;
+    final modelOptions = [
+      'deepseek-v3.1:671b',
+      'ministral-3:14b-cloud',
+      'gpt-oss:20b-cloud',
+      'devstral-small-2:24b-cloud',
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'AI Model',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          'Select the AI model for responses. DeepSeek is recommended for optimal performance.',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 13,
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.outline.withValues(alpha: 0.2),
+            ),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: modelOptions.contains(selectedModel)
+                  ? selectedModel
+                  : modelOptions[0],
+              dropdownColor: Theme.of(context).colorScheme.surface,
+              icon: Icon(
+                Icons.arrow_drop_down,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              style: GoogleFonts.playfairDisplay(
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              items: modelOptions.map((model) {
+                return DropdownMenuItem<String>(
+                  value: model,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      _getModelDisplayName(model),
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (value != null) {
+                  SettingsService.setCustomModel(value);
+                  setState(() {});
+                  _showSuccessSnackBar(
+                    'Model changed to ${_getModelDisplayName(value)}',
+                  );
+                }
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _getModelDisplayName(String model) {
+    switch (model) {
+      case 'deepseek-v3.1:671b':
+        return 'DeepSeek v3.1 (671B) - Recommended';
+      case 'ministral-3:14b-cloud':
+        return 'Mistral 3 (14B Cloud)';
+      case 'gpt-oss:20b-cloud':
+        return 'GPT-OSS (20B Cloud)';
+      case 'devstral-small-2:24b-cloud':
+        return 'Devstral Small 2 (24B Cloud)';
+      default:
+        return model;
+    }
+  }
+
+  Widget _buildEndpointSetting() {
+    final customEndpoint = SettingsService.apiEndpoint;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'API Endpoint',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Text(
+          'Custom API endpoint URL. Leave default for official Ollama Cloud.',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 13,
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
+            height: 1.4,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(
+                context,
+              ).colorScheme.outline.withValues(alpha: 0.2),
+            ),
+          ),
+          child: TextField(
+            controller: TextEditingController(text: customEndpoint),
+            decoration: InputDecoration(
+              labelText: 'API Endpoint URL',
+              labelStyle: GoogleFonts.playfairDisplay(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              hintText: 'https://ollama.com/api',
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
+            ),
+            style: GoogleFonts.playfairDisplay(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            onSubmitted: (value) {
+              if (value.trim().isNotEmpty) {
+                SettingsService.setApiEndpoint(value.trim());
+                _showSuccessSnackBar('API endpoint updated');
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }

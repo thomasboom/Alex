@@ -19,6 +19,8 @@ class SettingsService {
     'customApiKey': '', // Custom API key if using custom source
     'primaryColor': 'blue', // Primary color for the theme
     'accentColor': 'blue', // Accent color for highlights
+    'apiEndpoint': 'https://ollama.com/api', // Custom API endpoint
+    'customModel': 'deepseek-v3.1:671b', // Custom model selection
   };
 
   static Map<String, dynamic> _settings = Map.from(_defaultSettings);
@@ -113,6 +115,10 @@ class SettingsService {
   static String get customApiKey => getSetting('customApiKey', '');
   static String get primaryColor => getSetting('primaryColor', 'blue');
   static String get accentColor => getSetting('accentColor', 'blue');
+  static String get apiEndpoint =>
+      getSetting('apiEndpoint', 'https://ollama.com/api');
+  static String get customModel =>
+      getSetting('customModel', 'deepseek-v3.1:671b');
 
   /// Set PIN lock with hashed password
   static void setPinLock(String pin) {
@@ -169,6 +175,20 @@ class SettingsService {
     }
     // Return inbuilt API key from .env (this would need to be handled by the calling service)
     return 'INBUILT_API_KEY'; // Placeholder - OllamaService will handle reading from .env
+  }
+
+  /// Set custom API endpoint
+  static void setApiEndpoint(String endpoint) {
+    setSetting('apiEndpoint', endpoint);
+    saveSettings();
+    AppLogger.i('API endpoint set to: $endpoint');
+  }
+
+  /// Set custom model
+  static void setCustomModel(String model) {
+    setSetting('customModel', model);
+    saveSettings();
+    AppLogger.i('Custom model set to: $model');
   }
 
   /// Clear all conversation history

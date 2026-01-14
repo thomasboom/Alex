@@ -11,8 +11,8 @@
 [ ] Export conversations to plain text
 [ ] Export conversations to PDF
 [ ] Add AI temperature/creativity slider control
-[ ] Add API endpoint configuration UI
-[ ] Model selection dropdown
+[x] Add API endpoint configuration UI
+[x] Model selection dropdown
 [ ] Reset all settings to defaults
 [ ] Create onboarding flow for first-time users
 [ ] Add keyboard shortcuts help dialog

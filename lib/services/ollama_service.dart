@@ -8,10 +8,8 @@ import 'settings_service.dart';
 import '../utils/logger.dart';
 
 class OllamaService {
-  static String get _baseUrl =>
-      dotenv.env['OLLAMA_BASE_URL'] ?? 'https://ollama.com/api';
-  static String get _model =>
-      dotenv.env['OLLAMA_MODEL'] ?? 'deepseek-v3.1:671b';
+  static String get _baseUrl => SettingsService.apiEndpoint;
+  static String get _model => SettingsService.customModel;
 
   static String get _apiKey {
     final apiKeySource = SettingsService.apiKeySource;
