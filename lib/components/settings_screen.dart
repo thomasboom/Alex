@@ -965,9 +965,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           child: ElevatedButton.icon(
             onPressed: _exportConversations,
-            icon: const Icon(Icons.download_outlined),
+            icon: const Icon(Icons.description_outlined),
             label: Text(
               'Export to Plain Text',
+              style: GoogleFonts.playfairDisplay(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              elevation: 0,
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(
+                  context,
+                ).colorScheme.primary.withValues(alpha: 0.2),
+                blurRadius: 8,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: ElevatedButton.icon(
+            onPressed: _exportConversationsJSON,
+            icon: const Icon(Icons.code_outlined),
+            label: Text(
+              'Export to JSON',
               style: GoogleFonts.playfairDisplay(
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
@@ -1152,6 +1188,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _showSuccessSnackBar('Conversations exported successfully');
     } catch (e) {
       AppLogger.e('Error exporting conversations', e);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Failed to export conversations. Please try again.',
+              style: GoogleFonts.playfairDisplay(),
+            ),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+      }
+    }
+  }
+
+  void _exportConversationsJSON() async {
+    try {
+      final content = await ConversationService.exportToJSON();
+
+      final timestamp = DateTime.now().toIso8601String().split('T')[0];
+      final defaultFileName = 'alex_conversations_$timestamp.json';
+
+      final result = await FilePicker.platform.saveFile(
+        dialogTitle: 'Save Exported Conversations (JSON)',
+        fileName: defaultFileName,
+        type: FileType.custom,
+        allowedExtensions: ['json'],
+      );
+
+      if (result == null) {
+        AppLogger.i('User cancelled file picker');
+        return;
+      }
+
+      await ConversationService.saveExportToPath(content, result);
+
+      if (!mounted) return;
+
+      _showSuccessSnackBar('Conversations exported to JSON successfully');
+    } catch (e) {
+      AppLogger.e('Error exporting conversations to JSON', e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

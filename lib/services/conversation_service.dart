@@ -427,6 +427,23 @@ class ConversationService {
     return content;
   }
 
+  static Future<String> exportToJSON() async {
+    AppLogger.i('Exporting conversations to JSON');
+
+    final exportData = {
+      'exportDate': DateTime.now().toIso8601String(),
+      'totalMessages': _context.messages.length,
+      'summary': _context.summary,
+      'messages': _context.messages.map((m) => m.toJson()).toList(),
+      'lastUpdated': _context.lastUpdated.toIso8601String(),
+    };
+
+    final content = jsonEncode(exportData);
+    AppLogger.i('JSON export completed, content length: ${content.length}');
+
+    return content;
+  }
+
   static Future<File> saveExportToFile(String content) async {
     final path = await _localPath;
     final timestamp = DateTime.now().toIso8601String().replaceAll(':', '-');
