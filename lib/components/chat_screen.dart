@@ -112,14 +112,17 @@ class _ChatScreenState extends State<ChatScreen> {
                 )
               : _state.messages.isNotEmpty
               ? Center(child: _state.messages[0])
-              : const SizedBox(),
+              : ChatUIComponents.buildEmptyState(
+                  context,
+                  _state.getLocalizedWelcomeMessage(context),
+                ),
           bottomInput: Row(
             children: [
               Expanded(
                 child: ChatUIComponents.buildInputField(
                   context,
                   _state,
-                  _state.currentPlaceholderText,
+                  _state.getLocalizedPlaceholderText(context),
                   _sendMessage,
                   _toggleSpeechRecognition,
                 ),

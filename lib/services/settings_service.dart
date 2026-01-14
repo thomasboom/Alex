@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:crypto/crypto.dart';
 import '../utils/logger.dart';
@@ -10,6 +11,9 @@ import 'conversation_service.dart';
 class SettingsService {
   static const String _fileName = 'user_settings.json';
 
+  // Supported locales
+  static const List<String> supportedLocales = ['en', 'nl', 'es', 'fr'];
+
   // Default settings - theme and security preferences
   static const Map<String, dynamic> _defaultSettings = {
     'themeMode': 'system', // 'light', 'dark', 'system'
@@ -17,10 +21,11 @@ class SettingsService {
     'pinCode': '', // Hashed PIN code for security
     'apiKeySource': 'inbuilt', // 'inbuilt' or 'custom'
     'customApiKey': '', // Custom API key if using custom source
-    'primaryColor': 'blue', // Primary color for the theme
+    'primaryColor': 'blue', // Primary color for theme
     'accentColor': 'blue', // Accent color for highlights
     'apiEndpoint': 'https://ollama.com/api', // Custom API endpoint
     'customModel': 'deepseek-v3.1:671b', // Custom model selection
+    'locale': 'en', // App locale: 'en', 'nl', 'es', 'fr'
   };
 
   static Map<String, dynamic> _settings = Map.from(_defaultSettings);
@@ -34,6 +39,11 @@ class SettingsService {
   static final StreamController<String> _colorController =
       StreamController<String>.broadcast();
   static Stream<String> get colorChangeStream => _colorController.stream;
+
+  // Stream controller for locale changes
+  static final StreamController<String> _localeController =
+      StreamController<String>.broadcast();
+  static Stream<String> get localeChangeStream => _localeController.stream;
 
   static Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
@@ -87,6 +97,14 @@ class SettingsService {
 
   /// Set a specific setting value
   static void setSetting(String key, dynamic value) {
+    // Validate locale before setting
+    if (key == 'locale' && value is String) {
+      if (!supportedLocales.contains(value)) {
+        AppLogger.w('Invalid locale: $value, defaulting to en');
+        value = 'en';
+      }
+    }
+
     _settings[key] = value;
     AppLogger.d('Setting updated: $key = $value');
 
@@ -98,6 +116,11 @@ class SettingsService {
     // Notify listeners if color settings changed
     if (key == 'primaryColor' || key == 'accentColor') {
       _colorController.add(value);
+    }
+
+    // Notify listeners if locale changed
+    if (key == 'locale') {
+      _localeController.add(value);
     }
   }
 
@@ -119,6 +142,13 @@ class SettingsService {
       getSetting('apiEndpoint', 'https://ollama.com/api');
   static String get customModel =>
       getSetting('customModel', 'deepseek-v3.1:671b');
+
+  static String get localeCode {
+    final locale = getSetting('locale', 'en');
+    return supportedLocales.contains(locale) ? locale : 'en';
+  }
+
+  static Locale get locale => Locale(localeCode);
 
   /// Set PIN lock with hashed password
   static void setPinLock(String pin) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/settings_service.dart';
+import '../l10n/app_localizations.dart';
 
 // Add this import for keyboard key handling
 
@@ -30,16 +31,21 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
   bool _isVerifying = false;
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _textController = TextEditingController();
+  late AppLocalizations _l10n;
 
   @override
   void initState() {
     super.initState();
-    // Show soft keyboard for PIN entry
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChannels.textInput.invokeMethod('TextInput.show');
-      // Focus the text field for keyboard input
       _focusNode.requestFocus();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _l10n = AppLocalizations.of(context)!;
   }
 
   @override
@@ -92,7 +98,7 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     } else {
       setState(() {
         _enteredPin = '';
-        _errorMessage = 'Incorrect PIN. Please try again.';
+        _errorMessage = _l10n.incorrectPin;
         _isVerifying = false;
       });
     }
@@ -333,7 +339,7 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                           ),
                         ),
                         child: Text(
-                          'Use Different Method',
+                          _l10n.useDifferentMethod,
                           style: GoogleFonts.playfairDisplay(
                             fontSize: isDesktop ? 18 : 16,
                             fontWeight: FontWeight.w500,
@@ -450,16 +456,17 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
 /// Show PIN entry dialog and return true if PIN is correct
 Future<bool> showPinEntryDialog(
   BuildContext context, {
-  String title = 'Enter PIN',
-  String subtitle = 'Please enter your 4-digit PIN to continue',
+  String? title,
+  String? subtitle,
   VoidCallback? onSuccess,
   bool showBackButton = false,
 }) async {
+  final l10n = AppLocalizations.of(context)!;
   final result = await Navigator.of(context).push<bool>(
     MaterialPageRoute(
       builder: (context) => PinEntryDialog(
-        title: title,
-        subtitle: subtitle,
+        title: title ?? l10n.enterPin,
+        subtitle: subtitle ?? l10n.enterPinToContinue,
         onSuccess: onSuccess,
         showBackButton: showBackButton,
       ),

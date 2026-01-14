@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 class AppConstants {
   /// App metadata
-  static const String appTitle = 'Alex - AI Companion';
   static const String appName = 'Alex';
 
   /// Speech recognition constants

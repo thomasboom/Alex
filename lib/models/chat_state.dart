@@ -3,8 +3,9 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'dart:async';
 import '../constants/chat_constants.dart';
 import '../widgets/chat_message.dart';
+import '../l10n/app_localizations.dart';
 
-/// State management class for the chat screen
+/// State management class for chat screen
 class ChatState {
   // Controllers
   final TextEditingController messageController = TextEditingController();
@@ -16,7 +17,6 @@ class ChatState {
 
   // Current dynamic content
   late String currentWelcomeMessage;
-  late String currentPlaceholderText;
 
   // Speech recognition state
   late stt.SpeechToText speech;
@@ -34,10 +34,9 @@ class ChatState {
   /// Constructor - initialize dynamic content
   ChatState() {
     currentWelcomeMessage = _getRandomWelcomeMessage();
-    currentPlaceholderText = _getRandomPlaceholderText();
   }
 
-  /// Get a random welcome message from the available options
+  /// Get a random welcome message from available options
   String _getRandomWelcomeMessage() {
     final random =
         DateTime.now().millisecondsSinceEpoch %
@@ -45,15 +44,19 @@ class ChatState {
     return ChatConstants.welcomeMessages[random];
   }
 
-  /// Get a random placeholder text from the available options
-  String _getRandomPlaceholderText() {
-    final random =
-        DateTime.now().millisecondsSinceEpoch %
-        ChatConstants.placeholderTexts.length;
-    return ChatConstants.placeholderTexts[random];
+  /// Get localized welcome message
+  String getLocalizedWelcomeMessage(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return l10n.welcomeMessage;
   }
 
-  /// Refresh the welcome message with a new random selection
+  /// Get localized placeholder text
+  String getLocalizedPlaceholderText(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return l10n.placeholderText;
+  }
+
+  /// Refresh the welcome message with localized version
   void refreshWelcomeMessage() {
     currentWelcomeMessage = _getRandomWelcomeMessage();
   }

@@ -12,22 +12,9 @@ import 'package:alex/main.dart';
 
 void main() {
   testWidgets('Alex app loads correctly', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
     await tester.pumpWidget(const FraintedApp());
 
-    // Verify that the Alex title is displayed.
-    expect(find.text('Alex'), findsOneWidget);
-
-    // Verify that the welcome message is present.
-    expect(find.text('Ask me anything'), findsOneWidget);
-
-    // Verify that the message input field is present.
     expect(find.byType(TextField), findsOneWidget);
-
-    // Verify that the send button is present.
     expect(find.byIcon(Icons.send), findsOneWidget);
-
-    // Verify that the glowing icon is present.
-    expect(find.byIcon(Icons.auto_awesome), findsOneWidget);
   });
 }

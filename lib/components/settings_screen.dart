@@ -5,6 +5,7 @@ import '../services/settings_service.dart';
 import '../services/summarization_service.dart';
 import '../services/conversation_service.dart';
 import '../utils/logger.dart';
+import '../l10n/app_localizations.dart';
 
 /// Settings screen for app preferences and configuration
 class SettingsScreen extends StatefulWidget {
@@ -15,12 +16,15 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  late AppLocalizations _l10n;
+
   @override
   Widget build(BuildContext context) {
+    _l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Settings',
+          _l10n.settings,
           style: GoogleFonts.playfairDisplay(
             fontSize: 22,
             fontWeight: FontWeight.w600,
@@ -52,7 +56,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       children: [
-        // Settings sections
+        _buildLanguageSection(),
+        const SizedBox(height: 24),
         _buildThemeSection(),
         const SizedBox(height: 24),
         _buildColorPaletteSection(),
@@ -63,6 +68,150 @@ class _SettingsScreenState extends State<SettingsScreen> {
         const SizedBox(height: 24),
         _buildDataSection(),
       ],
+    );
+  }
+
+  Widget _buildLanguageSection() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.language_outlined,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 24,
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  _l10n.language,
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _l10n.chooseLanguage,
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 13,
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outline.withValues(alpha: 0.2),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      _buildLanguageOption(title: _l10n.english, value: 'en'),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildLanguageOption(title: _l10n.dutch, value: 'nl'),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildLanguageOption(title: _l10n.spanish, value: 'es'),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildLanguageOption(title: _l10n.french, value: 'fr'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLanguageOption({required String title, required String value}) {
+    final isSelected = SettingsService.localeCode == value;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: isSelected
+            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.08)
+            : null,
+      ),
+      child: ListTile(
+        title: Text(
+          title,
+          style: GoogleFonts.playfairDisplay(
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ),
+        trailing: isSelected
+            ? Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  shape: BoxShape.circle,
+                ),
+                width: 24,
+                height: 24,
+                child: Icon(
+                  Icons.check,
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  size: 16,
+                ),
+              )
+            : null,
+        onTap: () async {
+          setState(() {
+            SettingsService.setSetting('locale', value);
+          });
+          await SettingsService.saveSettings();
+        },
+      ),
     );
   }
 
@@ -96,7 +245,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  'Appearance',
+                  _l10n.appearance,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -195,7 +344,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Column(
                     children: [
                       _buildColorOption(
-                        title: 'Blue',
+                        title: _l10n.colorBlue,
                         color: Colors.blue,
                         value: 'blue',
                         settingKey: 'primaryColor',
@@ -207,7 +356,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
-                        title: 'Purple',
+                        title: _l10n.colorPurple,
                         color: Colors.purple,
                         value: 'purple',
                         settingKey: 'primaryColor',
@@ -219,7 +368,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
-                        title: 'Green',
+                        title: _l10n.colorGreen,
                         color: Colors.green,
                         value: 'green',
                         settingKey: 'primaryColor',
@@ -231,7 +380,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
-                        title: 'Orange',
+                        title: _l10n.colorOrange,
                         color: Colors.orange,
                         value: 'orange',
                         settingKey: 'primaryColor',
@@ -243,7 +392,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
-                        title: 'Pink',
+                        title: _l10n.colorPink,
                         color: Colors.pink,
                         value: 'pink',
                         settingKey: 'primaryColor',
@@ -255,7 +404,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
-                        title: 'Teal',
+                        title: _l10n.colorTeal,
                         color: Colors.teal,
                         value: 'teal',
                         settingKey: 'primaryColor',
@@ -267,7 +416,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildColorOption(
-                        title: 'Indigo',
+                        title: _l10n.colorIndigo,
                         color: Colors.indigo,
                         value: 'indigo',
                         settingKey: 'primaryColor',

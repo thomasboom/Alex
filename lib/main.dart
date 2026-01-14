@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'components/chat_screen.dart';
 import 'constants/app_theme.dart';
@@ -6,6 +7,7 @@ import 'constants/app_constants.dart';
 import 'services/settings_service.dart';
 import 'utils/logger.dart';
 import 'widgets/pin_entry_dialog.dart';
+import 'l10n/app_localizations.dart';
 
 /// Widget that wraps the main app content and handles PIN lock
 class PinLockWrapper extends StatefulWidget {
@@ -67,10 +69,11 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
   }
 
   Future<void> _showPinEntryDialog() async {
+    final l10n = AppLocalizations.of(context)!;
     final pinCorrect = await showPinEntryDialog(
       context,
-      title: 'Welcome Back',
-      subtitle: 'Enter your PIN to access the app',
+      title: l10n.welcomeBack,
+      subtitle: l10n.enterPinSubtitle,
     );
 
     if (pinCorrect && mounted) {
@@ -78,14 +81,12 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
         _showPinDialog = false;
       });
     } else if (mounted) {
-      // If PIN is incorrect, show error and try again
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Incorrect PIN. Please try again.'),
+          content: Text(l10n.incorrectPin),
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
-      // Show PIN dialog again after a short delay
       Future.delayed(const Duration(seconds: 1), () {
         if (mounted) {
           _showPinEntryDialog();
@@ -133,12 +134,23 @@ class FraintedApp extends StatefulWidget {
 class _FraintedAppState extends State<FraintedApp> {
   late Stream<String> _themeStream;
   late Stream<String> _colorStream;
+  late Stream<String> _localeStream;
+  Locale _currentLocale = const Locale('en');
 
   @override
   void initState() {
     super.initState();
     _themeStream = SettingsService.themeChangeStream;
     _colorStream = SettingsService.colorChangeStream;
+    _localeStream = SettingsService.localeChangeStream;
+    _currentLocale = SettingsService.locale;
+    _localeStream.listen((localeCode) {
+      if (mounted) {
+        setState(() {
+          _currentLocale = Locale(localeCode);
+        });
+      }
+    });
   }
 
   ThemeMode _getThemeMode() {
@@ -163,11 +175,24 @@ class _FraintedAppState extends State<FraintedApp> {
           stream: _colorStream,
           builder: (context, colorSnapshot) {
             return MaterialApp(
-              title: AppConstants.appTitle,
+              title: AppConstants.appName,
               debugShowCheckedModeBanner: false,
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode: _getThemeMode(),
+              locale: _currentLocale,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en'),
+                Locale('nl'),
+                Locale('es'),
+                Locale('fr'),
+              ],
               home: const PinLockWrapper(child: ChatScreen()),
             );
           },
