@@ -22,6 +22,7 @@ class SettingsService {
     'apiEndpoint': 'https://ollama.com/api',
     'customModel': 'deepseek-v3.1:671b',
     'locale': 'en',
+    'isOver18': false,
   };
 
   static Map<String, dynamic> _settings = Map.from(_defaultSettings);
@@ -138,6 +139,8 @@ class SettingsService {
     return supportedLocales.contains(locale) ? locale : 'en';
   }
 
+  static bool get isOver18 => getSetting('isOver18', false);
+
   static bool get hasApiKeyConfigured {
     return apiKeySource == 'custom' && customApiKey.isNotEmpty;
   }
@@ -203,6 +206,12 @@ class SettingsService {
     setSetting('customModel', model);
     saveSettings();
     AppLogger.i('Custom model set to: $model');
+  }
+
+  static void setIsOver18(bool value) {
+    setSetting('isOver18', value);
+    saveSettings();
+    AppLogger.i('Age verification set to: $value');
   }
 
   static Future<void> clearAllHistory() async {

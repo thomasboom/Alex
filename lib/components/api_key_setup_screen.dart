@@ -24,6 +24,7 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
   final TextEditingController _endpointController = TextEditingController();
   bool _isSaving = false;
   bool _obscureApiKey = true;
+  bool _isOver18 = false;
   String _selectedModel = 'deepseek-v3.1:671b';
 
   final List<String> _modelOptions = [
@@ -42,6 +43,7 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
         ? SettingsService.customModel
         : _modelOptions[0];
     _endpointController.text = SettingsService.apiEndpoint;
+    _isOver18 = SettingsService.isOver18;
   }
 
   @override
@@ -64,6 +66,7 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
       SettingsService.setCustomApiKey(_apiKeyController.text.trim());
       SettingsService.setCustomModel(_selectedModel);
       SettingsService.setApiEndpoint(_endpointController.text.trim());
+      SettingsService.setIsOver18(_isOver18);
 
       if (mounted) {
         if (widget.isInitialSetup && widget.onCompleted != null) {
@@ -130,6 +133,8 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
                         _buildModelInput(l10n),
                         const SizedBox(height: 24),
                         _buildEndpointInput(l10n),
+                        const SizedBox(height: 24),
+                        _buildAgeVerification(l10n),
                         const SizedBox(height: 32),
                         _buildSaveButton(l10n),
                         const SizedBox(height: 16),
@@ -415,6 +420,45 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
             ),
           ),
           style: GoogleFonts.playfairDisplay(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAgeVerification(AppLocalizations l10n) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: 24,
+          height: 24,
+          child: Checkbox(
+            value: _isOver18,
+            activeColor: Theme.of(context).colorScheme.primary,
+            onChanged: (value) {
+              setState(() {
+                _isOver18 = value ?? false;
+              });
+            },
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _isOver18 = !_isOver18;
+              });
+            },
+            child: Text(
+              'I am 18 or older (unlocks full personality)',
+              style: GoogleFonts.playfairDisplay(
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.onSurface,
+                height: 1.4,
+              ),
+            ),
+          ),
         ),
       ],
     );

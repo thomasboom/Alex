@@ -20,13 +20,15 @@ class OllamaService {
 
   static Future<String> _loadSystemPrompt() async {
     final localeCode = SettingsService.localeCode;
+    final isOver18 = SettingsService.isOver18;
+    final promptFile = isOver18
+        ? 'system_prompt_$localeCode.json'
+        : 'system_prompt_${localeCode}_safe.json';
     AppLogger.d(
-      'Loading system prompt from assets/system_prompt_$localeCode.json',
+      'Loading system prompt from assets/$promptFile (isOver18: $isOver18)',
     );
     try {
-      final String response = await rootBundle.loadString(
-        'assets/system_prompt_$localeCode.json',
-      );
+      final String response = await rootBundle.loadString('assets/$promptFile');
       final data = jsonDecode(response);
       final systemPrompt = data['systemPrompt'] ?? '';
       AppLogger.i('System prompt loaded successfully');
@@ -34,9 +36,12 @@ class OllamaService {
     } catch (e) {
       AppLogger.e('Failed to load system prompt for locale: $localeCode', e);
       AppLogger.w('Falling back to default locale: en');
+      final fallbackFile = isOver18
+          ? 'system_prompt_en.json'
+          : 'system_prompt_en_safe.json';
       try {
         final String response = await rootBundle.loadString(
-          'assets/system_prompt_en.json',
+          'assets/$fallbackFile',
         );
         final data = jsonDecode(response);
         final systemPrompt = data['systemPrompt'] ?? '';
