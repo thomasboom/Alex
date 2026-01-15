@@ -55,8 +55,9 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
   }
 
   Future<void> _saveApiKey() async {
+    final l10n = AppLocalizations.of(context) ?? AppLocalizationsEn();
     if (_apiKeyController.text.trim().isEmpty) {
-      _showErrorSnackBar('Please enter your API key');
+      _showErrorSnackBar(l10n.enterApiKeyError);
       return;
     }
 
@@ -76,7 +77,7 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
         }
       }
     } catch (e) {
-      _showErrorSnackBar('Failed to save API key. Please try again.');
+      _showErrorSnackBar(l10n.saveApiKeyError);
     } finally {
       if (mounted) {
         setState(() => _isSaving = false);
@@ -165,8 +166,8 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
         const SizedBox(height: 12),
         Text(
           widget.isInitialSetup
-              ? 'To start using Alex, you need to configure your Ollama API key.'
-              : 'Update your Ollama API configuration.',
+              ? l10n.startUsingAlexDescription
+              : l10n.updateApiConfiguration,
           style: GoogleFonts.playfairDisplay(
             fontSize: 15,
             color: Theme.of(
@@ -198,7 +199,7 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'Get your API key from https://ollama.com/settings/keys\n\nYour API key is stored securely on your device only.',
+                  l10n.getApiKeyUrl,
                   style: GoogleFonts.playfairDisplay(
                     fontSize: 13,
                     color: Theme.of(
@@ -451,7 +452,7 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
               });
             },
             child: Text(
-              'I am 18 or older (unlocks full personality)',
+              l10n.ageVerificationText,
               style: GoogleFonts.playfairDisplay(
                 fontSize: 14,
                 color: Theme.of(context).colorScheme.onSurface,
@@ -488,7 +489,7 @@ class _ApiKeySetupScreenState extends State<ApiKeySetupScreen> {
                 ),
               )
             : Text(
-                widget.isInitialSetup ? 'Get Started' : l10n.settings,
+                widget.isInitialSetup ? l10n.getStarted : l10n.settings,
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,

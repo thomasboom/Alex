@@ -1,6 +1,7 @@
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter/material.dart';
 import '../widgets/floating_snackbar.dart';
+import '../l10n/app_localizations.dart';
 import 'platform_utils.dart';
 
 /// Utility class for speech recognition operations
@@ -46,21 +47,19 @@ class SpeechUtils {
 
   /// Handle speech recognition errors
   static void handleSpeechError(BuildContext context, dynamic error) {
-    String errorMessage = 'Speech recognition error occurred';
+    final l10n = AppLocalizations.of(context)!;
+    String errorMessage = l10n.speechRecognitionError;
 
     if (error.toString().contains('no speech input')) {
-      errorMessage =
-          'No speech input detected. Please speak louder or check your microphone.';
+      errorMessage = l10n.noSpeechInputDetected;
     } else if (error.toString().contains('recognizer not available')) {
-      errorMessage =
-          'Speech recognizer not available. Please check microphone permissions.';
+      errorMessage = l10n.speechRecognizerNotAvailable;
     } else if (error.toString().contains('permission')) {
-      errorMessage =
-          'Microphone permission denied. Please enable microphone access in settings.';
+      errorMessage = l10n.microphonePermissionDenied;
     } else if (error.toString().contains('network')) {
-      errorMessage = 'Network error. Please check your internet connection.';
+      errorMessage = l10n.speechNetworkError;
     } else if (error.toString().contains('timeout')) {
-      errorMessage = 'Speech recognition timed out. Please try again.';
+      errorMessage = l10n.speechRecognitionTimeout;
     }
 
     if (context.mounted) {
@@ -82,11 +81,12 @@ class SpeechUtils {
 
   /// Show platform not supported message
   static void showPlatformNotSupportedMessage(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (context.mounted) {
       FloatingSnackbar.show(
         context,
         message: PlatformUtils.getSpeechRecognitionMessage(),
-        actionLabel: 'Got it',
+        actionLabel: l10n.gotIt,
         onActionPressed: () {},
         duration: const Duration(seconds: 6),
       );

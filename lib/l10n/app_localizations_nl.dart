@@ -449,4 +449,69 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get memorySaved => 'Herinnering opgeslagen';
+
+  @override
+  String get apiKeyRequired => 'API-sleutel vereist';
+
+  @override
+  String get configureApiKeyInSettings =>
+      'Configureer uw Ollama API-sleutel in Instellingen om de app te gebruiken.';
+
+  @override
+  String get pinFieldHint => '1234';
+
+  @override
+  String get speechRecognitionError => 'Spraakherkenning fout';
+
+  @override
+  String get noSpeechInputDetected =>
+      'Geen spraakinvoer gedetecteerd. Spreek harder of controleer uw microfoon.';
+
+  @override
+  String get speechRecognizerNotAvailable =>
+      'Spraakherkenning niet beschikbaar. Controleer de microfoonrechten.';
+
+  @override
+  String get microphonePermissionDenied =>
+      'Microfoonrechten geweigerd. Schakel microfoontoegang in in de instellingen.';
+
+  @override
+  String get speechNetworkError =>
+      'Netwerkfout. Controleer uw internetverbinding.';
+
+  @override
+  String get speechRecognitionTimeout =>
+      'Spraakherkenning time-out. Probeer het opnieuw.';
+
+  @override
+  String get gotIt => 'Begrepen';
+
+  @override
+  String get messageProcessingError =>
+      'Sorry, ik kon uw bericht nu niet verwerken.';
+
+  @override
+  String get startUsingAlexDescription =>
+      'Om Alex te gebruiken, moet u uw Ollama API-sleutel configureren.';
+
+  @override
+  String get updateApiConfiguration => 'Update de Ollama API-configuratie.';
+
+  @override
+  String get getApiKeyUrl =>
+      'Haal uw API-sleutel van https://ollama.com/settings/keys\n\nUw API-sleutel wordt veilig alleen op uw apparaat opgeslagen.';
+
+  @override
+  String get ageVerificationText =>
+      'Ik ben 18 jaar of ouder (ontgrendelt volledige persoonlijkheid)';
+
+  @override
+  String get getStarted => 'Aan de slag';
+
+  @override
+  String get enterApiKeyError => 'Voer alstublieft uw API-sleutel in';
+
+  @override
+  String get saveApiKeyError =>
+      'Kan API-sleutel niet opslaan. Probeer het opnieuw.';
 }

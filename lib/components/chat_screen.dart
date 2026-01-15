@@ -11,6 +11,7 @@ import '../services/chat_safety_handler.dart';
 import '../services/conversation_service.dart';
 import '../services/settings_service.dart';
 import '../utils/logger.dart';
+import '../l10n/app_localizations.dart';
 import 'settings_screen.dart';
 
 /// Main chat screen component that handles the chat interface
@@ -26,6 +27,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final ChatState _state = ChatState();
   late FocusNode _focusNode;
+  late AppLocalizations _l10n;
 
   @override
   void initState() {
@@ -34,6 +36,12 @@ class _ChatScreenState extends State<ChatScreen> {
     _initializeServices();
     _startSummarizationTimer();
     ChatSafetyHandler.resetSafetyDialogFlag(_state);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _l10n = AppLocalizations.of(context)!;
   }
 
   @override
@@ -93,11 +101,11 @@ class _ChatScreenState extends State<ChatScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'API Key Required',
+            _l10n.apiKeyRequired,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           content: Text(
-            'Please configure your Ollama API key in Settings to use the app.',
+            _l10n.configureApiKeyInSettings,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           actions: [
@@ -105,7 +113,7 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              child: Text(_l10n.cancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -120,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   widget.onApiKeyMissing?.call();
                 });
               },
-              child: const Text('Configure API Key'),
+              child: Text(_l10n.apiKey),
             ),
           ],
         );
@@ -159,7 +167,7 @@ class _ChatScreenState extends State<ChatScreen> {
           child: _state.messages.isEmpty
               ? ChatUIComponents.buildEmptyState(
                   context,
-                  _state.currentWelcomeMessage,
+                  _state.getLocalizedWelcomeMessage(context),
                 )
               : _state.messages.isNotEmpty
               ? Center(child: _state.messages[0])

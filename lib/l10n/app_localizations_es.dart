@@ -453,4 +453,70 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get memorySaved => 'Recuerdo guardado';
+
+  @override
+  String get apiKeyRequired => 'Clave API requerida';
+
+  @override
+  String get configureApiKeyInSettings =>
+      'Configure su clave API de Ollama en Configuración para usar la aplicación.';
+
+  @override
+  String get pinFieldHint => '1234';
+
+  @override
+  String get speechRecognitionError => 'Error de reconocimiento de voz';
+
+  @override
+  String get noSpeechInputDetected =>
+      'No se detectó entrada de voz. Por favor, hable más fuerte o verifique su micrófono.';
+
+  @override
+  String get speechRecognizerNotAvailable =>
+      'Reconocimiento de voz no disponible. Por favor, verifique los permisos del micrófono.';
+
+  @override
+  String get microphonePermissionDenied =>
+      'Permiso de micrófono denegado. Por favor, habilite el acceso al micrófono en la configuración.';
+
+  @override
+  String get speechNetworkError =>
+      'Error de red. Por favor, verifique su conexión a internet.';
+
+  @override
+  String get speechRecognitionTimeout =>
+      'Tiempo de reconocimiento de voz agotado. Por favor, inténtelo de nuevo.';
+
+  @override
+  String get gotIt => 'Entendido';
+
+  @override
+  String get messageProcessingError =>
+      'Lo siento, no pude procesar su mensaje en este momento.';
+
+  @override
+  String get startUsingAlexDescription =>
+      'Para comenzar a usar Alex, necesita configurar su clave API de Ollama.';
+
+  @override
+  String get updateApiConfiguration =>
+      'Actualizar la configuración de la API de Ollama.';
+
+  @override
+  String get getApiKeyUrl =>
+      'Obtenga su clave API de https://ollama.com/settings/keys\n\nSu clave API se almacena de forma segura solo en su dispositivo.';
+
+  @override
+  String get ageVerificationText =>
+      'Tengo 18 años o más (desbloquea la personalidad completa)';
+
+  @override
+  String get getStarted => 'Comenzar';
+
+  @override
+  String get enterApiKeyError => 'Por favor, ingrese su clave API';
+
+  @override
+  String get saveApiKeyError =>
+      'Error al guardar la clave API. Por favor, inténtelo de nuevo.';
 }

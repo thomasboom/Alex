@@ -6,6 +6,7 @@ import '../services/ollama_service.dart';
 import '../services/safety_service.dart';
 import '../utils/logger.dart';
 import '../widgets/chat_message.dart';
+import '../l10n/app_localizations.dart';
 
 /// Business logic service for chat functionality
 class ChatBusinessLogic {
@@ -65,9 +66,10 @@ class ChatBusinessLogic {
       AppLogger.i('AI response sent to user, length: ${aiResponse.length}');
     } catch (e) {
       AppLogger.e('Failed to get AI response', e);
+      final l10n = AppLocalizations.of(context)!;
       updateMessages([
         ChatMessage(
-          text: "Sorry, I couldn't process your message right now.",
+          text: l10n.messageProcessingError,
           isUser: false,
           timestamp: DateTime.now(),
           isLoading: false,

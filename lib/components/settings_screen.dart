@@ -1570,7 +1570,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: '1234',
+                      hintText: _l10n.pinFieldHint,
                     ),
                     keyboardType: TextInputType.number,
                     maxLength: 4,
@@ -1586,7 +1586,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: '1234',
+                      hintText: _l10n.pinFieldHint,
                     ),
                     keyboardType: TextInputType.number,
                     maxLength: 4,
@@ -1705,7 +1705,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: '1234',
+                      hintText: _l10n.pinFieldHint,
                     ),
                     keyboardType: TextInputType.number,
                     maxLength: 4,
@@ -1721,7 +1721,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      hintText: '1234',
+                      hintText: _l10n.pinFieldHint,
                     ),
                     keyboardType: TextInputType.number,
                     maxLength: 4,

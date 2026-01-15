@@ -947,6 +947,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Memory saved'**
   String get memorySaved;
+
+  /// No description provided for @apiKeyRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'API Key Required'**
+  String get apiKeyRequired;
+
+  /// No description provided for @configureApiKeyInSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Please configure your Ollama API key in Settings to use the app.'**
+  String get configureApiKeyInSettings;
+
+  /// No description provided for @pinFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'1234'**
+  String get pinFieldHint;
+
+  /// No description provided for @speechRecognitionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech recognition error occurred'**
+  String get speechRecognitionError;
+
+  /// No description provided for @noSpeechInputDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'No speech input detected. Please speak louder or check your microphone.'**
+  String get noSpeechInputDetected;
+
+  /// No description provided for @speechRecognizerNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech recognizer not available. Please check microphone permissions.'**
+  String get speechRecognizerNotAvailable;
+
+  /// No description provided for @microphonePermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission denied. Please enable microphone access in settings.'**
+  String get microphonePermissionDenied;
+
+  /// No description provided for @speechNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your internet connection.'**
+  String get speechNetworkError;
+
+  /// No description provided for @speechRecognitionTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech recognition timed out. Please try again.'**
+  String get speechRecognitionTimeout;
+
+  /// No description provided for @gotIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Got it'**
+  String get gotIt;
+
+  /// No description provided for @messageProcessingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, I couldn\'t process your message right now.'**
+  String get messageProcessingError;
+
+  /// No description provided for @startUsingAlexDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'To start using Alex, you need to configure your Ollama API key.'**
+  String get startUsingAlexDescription;
+
+  /// No description provided for @updateApiConfiguration.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your Ollama API configuration.'**
+  String get updateApiConfiguration;
+
+  /// No description provided for @getApiKeyUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Get your API key from https://ollama.com/settings/keys\n\nYour API key is stored securely on your device only.'**
+  String get getApiKeyUrl;
+
+  /// No description provided for @ageVerificationText.
+  ///
+  /// In en, this message translates to:
+  /// **'I am 18 or older (unlocks full personality)'**
+  String get ageVerificationText;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @enterApiKeyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your API key'**
+  String get enterApiKeyError;
+
+  /// No description provided for @saveApiKeyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save API key. Please try again.'**
+  String get saveApiKeyError;
 }
 
 class _AppLocalizationsDelegate

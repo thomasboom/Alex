@@ -457,4 +457,70 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get memorySaved => 'Mémoire sauvegardée';
+
+  @override
+  String get apiKeyRequired => 'Clé API requise';
+
+  @override
+  String get configureApiKeyInSettings =>
+      'Veuillez configurer votre clé API Ollama dans les Paramètres pour utiliser l\'application.';
+
+  @override
+  String get pinFieldHint => '1234';
+
+  @override
+  String get speechRecognitionError => 'Erreur de reconnaissance vocale';
+
+  @override
+  String get noSpeechInputDetected =>
+      'Aucune entrée vocale détectée. Parlez plus fort ou vérifiez votre microphone.';
+
+  @override
+  String get speechRecognizerNotAvailable =>
+      'Reconnaissance vocale non disponible. Veuillez vérifier les permissions du microphone.';
+
+  @override
+  String get microphonePermissionDenied =>
+      'Permission du microphone refusée. Veuillez activer l\'accès au microphone dans les paramètres.';
+
+  @override
+  String get speechNetworkError =>
+      'Erreur réseau. Veuillez vérifier votre connexion internet.';
+
+  @override
+  String get speechRecognitionTimeout =>
+      'Délai de reconnaissance vocale dépassé. Veuillez réessayer.';
+
+  @override
+  String get gotIt => 'Compris';
+
+  @override
+  String get messageProcessingError =>
+      'Désolé, je n\'ai pas pu traiter votre message pour le moment.';
+
+  @override
+  String get startUsingAlexDescription =>
+      'Pour commencer à utiliser Alex, vous devez configurer votre clé API Ollama.';
+
+  @override
+  String get updateApiConfiguration =>
+      'Mettre à jour la configuration de l\'API Ollama.';
+
+  @override
+  String get getApiKeyUrl =>
+      'Obtenez votre clé API sur https://ollama.com/settings/keys\n\nVotre clé API est stockée en toute sécurité uniquement sur votre appareil.';
+
+  @override
+  String get ageVerificationText =>
+      'J\'ai 18 ans ou plus (déverrouille la personnalité complète)';
+
+  @override
+  String get getStarted => 'Commencer';
+
+  @override
+  String get enterApiKeyError => 'Veuillez entrer votre clé API';
+
+  @override
+  String get saveApiKeyError =>
+      'Échec de l\'enregistrement de la clé API. Veuillez réessayer.';
 }

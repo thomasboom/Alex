@@ -446,4 +446,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get memorySaved => 'Memory saved';
+
+  @override
+  String get apiKeyRequired => 'API Key Required';
+
+  @override
+  String get configureApiKeyInSettings =>
+      'Please configure your Ollama API key in Settings to use the app.';
+
+  @override
+  String get pinFieldHint => '1234';
+
+  @override
+  String get speechRecognitionError => 'Speech recognition error occurred';
+
+  @override
+  String get noSpeechInputDetected =>
+      'No speech input detected. Please speak louder or check your microphone.';
+
+  @override
+  String get speechRecognizerNotAvailable =>
+      'Speech recognizer not available. Please check microphone permissions.';
+
+  @override
+  String get microphonePermissionDenied =>
+      'Microphone permission denied. Please enable microphone access in settings.';
+
+  @override
+  String get speechNetworkError =>
+      'Network error. Please check your internet connection.';
+
+  @override
+  String get speechRecognitionTimeout =>
+      'Speech recognition timed out. Please try again.';
+
+  @override
+  String get gotIt => 'Got it';
+
+  @override
+  String get messageProcessingError =>
+      'Sorry, I couldn\'t process your message right now.';
+
+  @override
+  String get startUsingAlexDescription =>
+      'To start using Alex, you need to configure your Ollama API key.';
+
+  @override
+  String get updateApiConfiguration => 'Update your Ollama API configuration.';
+
+  @override
+  String get getApiKeyUrl =>
+      'Get your API key from https://ollama.com/settings/keys\n\nYour API key is stored securely on your device only.';
+
+  @override
+  String get ageVerificationText =>
+      'I am 18 or older (unlocks full personality)';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get enterApiKeyError => 'Please enter your API key';
+
+  @override
+  String get saveApiKeyError => 'Failed to save API key. Please try again.';
 }
