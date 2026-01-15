@@ -348,4 +348,113 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get disclaimerText =>
       'Cette application est une Proof of Concept (PoC) et NON une application de production complète. Il s\'agit d\'un logiciel expérimental à des fins de démonstration et de développement uniquement. L\'IA peut produire des réponses inattendues, inexactes ou inappropriées. Les fonctionnalités de sécurité sont destinées à la démonstration uniquement et ne sont pas adaptées à la protection de données sensibles. Utilisez à vos propres risques.';
+
+  @override
+  String get profile => 'Profil';
+
+  @override
+  String get yourName => 'Votre nom';
+
+  @override
+  String get nickname => 'Surnom';
+
+  @override
+  String get nicknameDescription => 'Comment Alex doit vous appeler';
+
+  @override
+  String get nicknameHint => 'Entrez votre surnom préféré';
+
+  @override
+  String get displayName => 'Nom d\'affichage';
+
+  @override
+  String get displayNameDescription => 'Votre nom complet (optionnel)';
+
+  @override
+  String get displayNameHint => 'Entrez votre nom';
+
+  @override
+  String get communicationStyle => 'Style de communication';
+
+  @override
+  String get formal => 'Formel';
+
+  @override
+  String get formalDescription => 'Langage professionnel et poli';
+
+  @override
+  String get semiFormal => 'Semi-formel';
+
+  @override
+  String get semiFormalDescription => 'Amical mais professionnel';
+
+  @override
+  String get balanced => 'Équilibré';
+
+  @override
+  String get balancedDescription => 'Conversation naturelle et amicale';
+
+  @override
+  String get casual => 'Décontracté';
+
+  @override
+  String get casualDescription => 'Relax et informel';
+
+  @override
+  String get humorLevel => 'Niveau d\'humour';
+
+  @override
+  String get minimal => 'Minimal';
+
+  @override
+  String get low => 'Faible';
+
+  @override
+  String get high => 'Élevé';
+
+  @override
+  String get emotionalSupport => 'Soutien émotionnel';
+
+  @override
+  String get customInstructions => 'Instructions personnalisées';
+
+  @override
+  String get noCustomInstructions =>
+      'Pas encore d\'instructions personnalisées';
+
+  @override
+  String get customInstructionsHint =>
+      'Ajoutez des instructions comme \"Appelle-moi Alex\" ou \"Je préfère les réponses courtes\" pour personnaliser votre expérience';
+
+  @override
+  String get addCustomInstruction => 'Ajouter une instruction personnalisée';
+
+  @override
+  String get instructionHint => 'ex., Appelle-moi par mon surnom';
+
+  @override
+  String get addInstruction => 'Ajouter une instruction';
+
+  @override
+  String get deleteInstruction => 'Supprimer l\'instruction ?';
+
+  @override
+  String get deleteInstructionConfirm =>
+      'Êtes-vous sûr de vouloir supprimer cette instruction ?';
+
+  @override
+  String get delete => 'Supprimer';
+
+  @override
+  String get personalization => 'Personnalisation';
+
+  @override
+  String get personalizationDesc =>
+      'Personnalisez la façon dont Alex interagit avec vous';
+
+  @override
+  String get rememberThis => 'Se souvenir de ceci';
+
+  @override
+  String get memorySaved => 'Mémoire sauvegardée';
 }

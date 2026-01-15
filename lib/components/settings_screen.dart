@@ -5,6 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import '../services/settings_service.dart';
 import '../services/summarization_service.dart';
 import '../services/conversation_service.dart';
+import '../components/profile_screen.dart';
+import '../components/custom_instructions_screen.dart';
+import '../services/user_profile_service.dart';
+import '../services/custom_instructions_service.dart';
 import '../utils/logger.dart';
 import '../l10n/app_localizations.dart';
 
@@ -64,6 +68,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _buildColorPaletteSection(),
         const SizedBox(height: 24),
         _buildApiSection(),
+        const SizedBox(height: 24),
+        _buildPersonalizationSection(),
         const SizedBox(height: 24),
         _buildSecuritySection(),
         const SizedBox(height: 24),
@@ -727,6 +733,133 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Widget _buildPersonalizationSection() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person_outline,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 24,
+                ),
+                const SizedBox(width: 12),
+                Text(
+                  _l10n.personalization,
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: 1),
+          _buildPersonalizationOption(
+            _l10n.profile,
+            _l10n.personalizationDesc,
+            Icons.edit_outlined,
+            () => _openProfileScreen(),
+          ),
+          Divider(
+            height: 1,
+            color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+          ),
+          _buildPersonalizationOption(
+            _l10n.customInstructions,
+            _l10n.customInstructionsHint,
+            Icons.lightbulb_outline,
+            () => _openCustomInstructionsScreen(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPersonalizationOption(
+    String title,
+    String subtitle,
+    IconData icon,
+    VoidCallback onTap,
+  ) {
+    return ListTile(
+      leading: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        width: 40,
+        height: 40,
+        child: Icon(
+          icon,
+          color: Theme.of(context).colorScheme.primary,
+          size: 20,
+        ),
+      ),
+      title: Text(
+        title,
+        style: GoogleFonts.playfairDisplay(
+          fontWeight: FontWeight.w500,
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: GoogleFonts.playfairDisplay(
+          fontSize: 12,
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+          height: 1.3,
+        ),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: Icon(
+        Icons.chevron_right,
+        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+      ),
+      onTap: onTap,
+    );
+  }
+
+  void _openProfileScreen() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ProfileScreen()),
+    );
+    if (result == true && mounted) {
+      setState(() {});
+    }
+  }
+
+  void _openCustomInstructionsScreen() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CustomInstructionsScreen()),
+    );
+    if (result == true && mounted) {
+      setState(() {});
+    }
+  }
+
   Widget _buildSecuritySection() {
     return Container(
       decoration: BoxDecoration(
@@ -1294,6 +1427,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     try {
       await SettingsService.clearAllHistory();
       SummarizationService.clearAllMemories();
+      UserProfileService.clearProfile();
+      CustomInstructionsService.clearAllInstructions();
       SettingsService.resetSettings();
       await SettingsService.saveSettings();
       if (mounted) {

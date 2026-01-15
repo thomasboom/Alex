@@ -342,4 +342,111 @@ class AppLocalizationsNl extends AppLocalizations {
   @override
   String get disclaimerText =>
       'Deze applicatie is een Proof of Concept (PoC) en GEEN volledige productie-applicatie. Het is experimentele software alleen voor demonstratie- en ontwikkelingsdoeleinden. De AI kan onverwachte, onnauwkeurige of ongepaste reacties produceren. Beveiligingsfuncties zijn alleen voor demonstratie en niet geschikt voor het beschermen van gevoelige gegevens. Gebruik op eigen risico.';
+
+  @override
+  String get profile => 'Profiel';
+
+  @override
+  String get yourName => 'Jouw naam';
+
+  @override
+  String get nickname => 'Bijnaam';
+
+  @override
+  String get nicknameDescription => 'Hoe Alex je moet aanspreken';
+
+  @override
+  String get nicknameHint => 'Voer je gewenste bijnaam in';
+
+  @override
+  String get displayName => 'Weergavenaam';
+
+  @override
+  String get displayNameDescription => 'Je volledige naam (optioneel)';
+
+  @override
+  String get displayNameHint => 'Voer je naam in';
+
+  @override
+  String get communicationStyle => 'Communicatiestijl';
+
+  @override
+  String get formal => 'Formeel';
+
+  @override
+  String get formalDescription => 'Professionele en beleefde taal';
+
+  @override
+  String get semiFormal => 'Semi-formaal';
+
+  @override
+  String get semiFormalDescription => 'Vriendelijk maar professioneel';
+
+  @override
+  String get balanced => 'Gebalanceerd';
+
+  @override
+  String get balancedDescription => 'Natuurlijke en vriendelijke conversatie';
+
+  @override
+  String get casual => 'Informeel';
+
+  @override
+  String get casualDescription => 'Ontspannen en informeel';
+
+  @override
+  String get humorLevel => 'Humor niveau';
+
+  @override
+  String get minimal => 'Minimaal';
+
+  @override
+  String get low => 'Laag';
+
+  @override
+  String get high => 'Hoog';
+
+  @override
+  String get emotionalSupport => 'Emotionele ondersteuning';
+
+  @override
+  String get customInstructions => 'Aangepaste instructies';
+
+  @override
+  String get noCustomInstructions => 'Nog geen aangepaste instructies';
+
+  @override
+  String get customInstructionsHint =>
+      'Voeg instructies toe zoals \'Noem me Alex\' of \'Ik geef de voorkeur aan korte antwoorden\' om je ervaring aan te passen';
+
+  @override
+  String get addCustomInstruction => 'Aangepaste instructie toevoegen';
+
+  @override
+  String get instructionHint => 'bijv., Noem me bij mijn bijnaam';
+
+  @override
+  String get addInstruction => 'Instructie toevoegen';
+
+  @override
+  String get deleteInstruction => 'Instructie verwijderen?';
+
+  @override
+  String get deleteInstructionConfirm =>
+      'Weet je zeker dat je deze instructie wilt verwijderen?';
+
+  @override
+  String get delete => 'Verwijderen';
+
+  @override
+  String get personalization => 'Personalisatie';
+
+  @override
+  String get personalizationDesc => 'Pas aan hoe Alex met je communiceert';
+
+  @override
+  String get rememberThis => 'Onthoud dit';
+
+  @override
+  String get memorySaved => 'Herinnering opgeslagen';
 }

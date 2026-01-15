@@ -737,6 +737,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This application is a Proof of Concept (PoC) and NOT a full-featured production application. It is experimental software for demonstration and development purposes only. The AI may produce unexpected, inaccurate, or inappropriate responses. Security features are for demonstration only and not suitable for protecting sensitive data. Use at your own risk.'**
   String get disclaimerText;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @yourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Name'**
+  String get yourName;
+
+  /// No description provided for @nickname.
+  ///
+  /// In en, this message translates to:
+  /// **'Nickname'**
+  String get nickname;
+
+  /// No description provided for @nicknameDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'How Alex should address you'**
+  String get nicknameDescription;
+
+  /// No description provided for @nicknameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your preferred nickname'**
+  String get nicknameHint;
+
+  /// No description provided for @displayName.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Name'**
+  String get displayName;
+
+  /// No description provided for @displayNameDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your full name (optional)'**
+  String get displayNameDescription;
+
+  /// No description provided for @displayNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get displayNameHint;
+
+  /// No description provided for @communicationStyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Communication Style'**
+  String get communicationStyle;
+
+  /// No description provided for @formal.
+  ///
+  /// In en, this message translates to:
+  /// **'Formal'**
+  String get formal;
+
+  /// No description provided for @formalDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Professional and polite language'**
+  String get formalDescription;
+
+  /// No description provided for @semiFormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Semi-Formal'**
+  String get semiFormal;
+
+  /// No description provided for @semiFormalDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Friendly but professional'**
+  String get semiFormalDescription;
+
+  /// No description provided for @balanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced'**
+  String get balanced;
+
+  /// No description provided for @balancedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Natural and friendly conversation'**
+  String get balancedDescription;
+
+  /// No description provided for @casual.
+  ///
+  /// In en, this message translates to:
+  /// **'Casual'**
+  String get casual;
+
+  /// No description provided for @casualDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Relaxed and informal'**
+  String get casualDescription;
+
+  /// No description provided for @humorLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Humor Level'**
+  String get humorLevel;
+
+  /// No description provided for @minimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimal'**
+  String get minimal;
+
+  /// No description provided for @low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get low;
+
+  /// No description provided for @high.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get high;
+
+  /// No description provided for @emotionalSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional Support'**
+  String get emotionalSupport;
+
+  /// No description provided for @customInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Instructions'**
+  String get customInstructions;
+
+  /// No description provided for @noCustomInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom instructions yet'**
+  String get noCustomInstructions;
+
+  /// No description provided for @customInstructionsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add instructions like \"Call me Alex\" or \"I prefer short responses\" to customize your experience'**
+  String get customInstructionsHint;
+
+  /// No description provided for @addCustomInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Custom Instruction'**
+  String get addCustomInstruction;
+
+  /// No description provided for @instructionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Call me by my nickname'**
+  String get instructionHint;
+
+  /// No description provided for @addInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Instruction'**
+  String get addInstruction;
+
+  /// No description provided for @deleteInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Instruction?'**
+  String get deleteInstruction;
+
+  /// No description provided for @deleteInstructionConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this instruction?'**
+  String get deleteInstructionConfirm;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @personalization.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalization'**
+  String get personalization;
+
+  /// No description provided for @personalizationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize how Alex interacts with you'**
+  String get personalizationDesc;
+
+  /// No description provided for @rememberThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Remember This'**
+  String get rememberThis;
+
+  /// No description provided for @memorySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory saved'**
+  String get memorySaved;
 }
 
 class _AppLocalizationsDelegate

@@ -339,4 +339,111 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get disclaimerText =>
       'This application is a Proof of Concept (PoC) and NOT a full-featured production application. It is experimental software for demonstration and development purposes only. The AI may produce unexpected, inaccurate, or inappropriate responses. Security features are for demonstration only and not suitable for protecting sensitive data. Use at your own risk.';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get yourName => 'Your Name';
+
+  @override
+  String get nickname => 'Nickname';
+
+  @override
+  String get nicknameDescription => 'How Alex should address you';
+
+  @override
+  String get nicknameHint => 'Enter your preferred nickname';
+
+  @override
+  String get displayName => 'Display Name';
+
+  @override
+  String get displayNameDescription => 'Your full name (optional)';
+
+  @override
+  String get displayNameHint => 'Enter your name';
+
+  @override
+  String get communicationStyle => 'Communication Style';
+
+  @override
+  String get formal => 'Formal';
+
+  @override
+  String get formalDescription => 'Professional and polite language';
+
+  @override
+  String get semiFormal => 'Semi-Formal';
+
+  @override
+  String get semiFormalDescription => 'Friendly but professional';
+
+  @override
+  String get balanced => 'Balanced';
+
+  @override
+  String get balancedDescription => 'Natural and friendly conversation';
+
+  @override
+  String get casual => 'Casual';
+
+  @override
+  String get casualDescription => 'Relaxed and informal';
+
+  @override
+  String get humorLevel => 'Humor Level';
+
+  @override
+  String get minimal => 'Minimal';
+
+  @override
+  String get low => 'Low';
+
+  @override
+  String get high => 'High';
+
+  @override
+  String get emotionalSupport => 'Emotional Support';
+
+  @override
+  String get customInstructions => 'Custom Instructions';
+
+  @override
+  String get noCustomInstructions => 'No custom instructions yet';
+
+  @override
+  String get customInstructionsHint =>
+      'Add instructions like \"Call me Alex\" or \"I prefer short responses\" to customize your experience';
+
+  @override
+  String get addCustomInstruction => 'Add Custom Instruction';
+
+  @override
+  String get instructionHint => 'e.g., Call me by my nickname';
+
+  @override
+  String get addInstruction => 'Add Instruction';
+
+  @override
+  String get deleteInstruction => 'Delete Instruction?';
+
+  @override
+  String get deleteInstructionConfirm =>
+      'Are you sure you want to delete this instruction?';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get personalization => 'Personalization';
+
+  @override
+  String get personalizationDesc => 'Customize how Alex interacts with you';
+
+  @override
+  String get rememberThis => 'Remember This';
+
+  @override
+  String get memorySaved => 'Memory saved';
 }

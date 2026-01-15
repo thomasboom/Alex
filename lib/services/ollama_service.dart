@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart' show rootBundle;
 import '../models/conversation_context.dart';
+import '../models/user_profile.dart';
 import 'conversation_service.dart';
 import 'settings_service.dart';
+import 'user_profile_service.dart';
+import 'custom_instructions_service.dart';
 import '../utils/logger.dart';
 
 class OllamaService {
@@ -55,33 +58,135 @@ class OllamaService {
   }
 
   static String _buildContextPrompt(ConversationContext context) {
-    if (context.messages.isEmpty && context.summary.isEmpty) {
-      return 'This is the beginning of our conversation. Get to know the user and start building a friendship.';
-    }
-
     final buffer = StringBuffer();
-    buffer.writeln('CONVERSATION CONTEXT:');
-    buffer.writeln('===================');
 
-    // Add conversation summary if available
-    if (context.summary.isNotEmpty) {
-      buffer.writeln('SUMMARY OF OUR CONVERSATION SO FAR:');
-      buffer.writeln(context.summary);
+    if (context.messages.isEmpty && context.summary.isEmpty) {
+      buffer.writeln('CONVERSATION START:');
+      buffer.writeln(
+        'This is the beginning of our conversation. Get to know the user and start building a friendship.',
+      );
+    } else {
+      buffer.writeln('CONVERSATION CONTEXT:');
+      buffer.writeln('===================');
+
+      if (context.summary.isNotEmpty) {
+        buffer.writeln('SUMMARY OF OUR CONVERSATION SO FAR:');
+        buffer.writeln(context.summary);
+        buffer.writeln();
+      }
+
+      if (context.messages.isNotEmpty) {
+        final recentMessages = ConversationService.getRecentMessages(limit: 10);
+        buffer.writeln(
+          'RECENT CONVERSATION (last ${recentMessages.length} exchanges):',
+        );
+        buffer.writeln();
+
+        for (var message in recentMessages) {
+          final speaker = message.isUser ? 'User' : 'Alex';
+          buffer.writeln('$speaker: ${message.text}');
+        }
+        buffer.writeln();
+      }
+    }
+
+    if (UserProfileService.hasProfile) {
+      final profile = UserProfileService.profile;
+      buffer.writeln('USER PROFILE:');
+      buffer.writeln('=============');
+
+      if (profile.nickname.isNotEmpty) {
+        buffer.writeln('- User prefers to be called: ${profile.nickname}');
+      }
+      if (profile.displayName.isNotEmpty) {
+        buffer.writeln('- Display name: ${profile.displayName}');
+      }
+
+      switch (profile.communicationStyle) {
+        case CommunicationStyle.formal:
+          buffer.writeln(
+            '- Communication style: Formal - use professional language',
+          );
+          break;
+        case CommunicationStyle.semiFormal:
+          buffer.writeln(
+            '- Communication style: Semi-formal - friendly but professional',
+          );
+          break;
+        case CommunicationStyle.balanced:
+          buffer.writeln(
+            '- Communication style: Balanced - natural and friendly',
+          );
+          break;
+        case CommunicationStyle.casual:
+          buffer.writeln(
+            '- Communication style: Casual - relaxed and informal',
+          );
+          break;
+        case CommunicationStyle.veryCasual:
+          buffer.writeln(
+            '- Communication style: Very casual - casual and relaxed',
+          );
+          break;
+      }
+
+      switch (profile.humorLevel) {
+        case HumorLevel.minimal:
+          buffer.writeln('- Humor: Minimal - serious and focused');
+          break;
+        case HumorLevel.low:
+          buffer.writeln('- Humor: Low - occasional light touches');
+          break;
+        case HumorLevel.balanced:
+          buffer.writeln('- Humor: Balanced - natural wit');
+          break;
+        case HumorLevel.high:
+          buffer.writeln('- Humor: High - playful and witty');
+          break;
+        case HumorLevel.veryHigh:
+          buffer.writeln('- Humor: Very high - very playful and humorous');
+          break;
+      }
+
+      switch (profile.emotionalSupportIntensity) {
+        case EmotionalSupportIntensity.minimal:
+          buffer.writeln('- Emotional support: Minimal - matter-of-fact');
+          break;
+        case EmotionalSupportIntensity.low:
+          buffer.writeln('- Emotional support: Low - supportive but brief');
+          break;
+        case EmotionalSupportIntensity.balanced:
+          buffer.writeln('- Emotional support: Balanced - warm and caring');
+          break;
+        case EmotionalSupportIntensity.high:
+          buffer.writeln('- Emotional support: High - very empathetic');
+          break;
+        case EmotionalSupportIntensity.veryHigh:
+          buffer.writeln('- Emotional support: Very high - deeply empathetic');
+          break;
+      }
+
+      if (profile.preferredTopics.isNotEmpty) {
+        buffer.writeln(
+          '- Preferred topics: ${profile.preferredTopics.join(', ')}',
+        );
+      }
+
+      if (profile.avoidedTopics.isNotEmpty) {
+        buffer.writeln(
+          '- Topics to avoid: ${profile.avoidedTopics.join(', ')}',
+        );
+      }
+
       buffer.writeln();
     }
 
-    // Add recent messages for immediate context (last 10 messages)
-    if (context.messages.isNotEmpty) {
-      final recentMessages = ConversationService.getRecentMessages(limit: 10);
-      buffer.writeln(
-        'RECENT CONVERSATION (last ${recentMessages.length} exchanges):',
-      );
-      buffer.writeln();
-
-      for (var message in recentMessages) {
-        final speaker = message.isUser ? 'User' : 'Alex';
-        buffer.writeln('$speaker: ${message.text}');
-      }
+    final customInstructions =
+        CustomInstructionsService.getInstructionsAsText();
+    if (customInstructions.isNotEmpty) {
+      buffer.writeln('CUSTOM INSTRUCTIONS:');
+      buffer.writeln('====================');
+      buffer.writeln(customInstructions);
       buffer.writeln();
     }
 
@@ -97,6 +202,11 @@ class OllamaService {
     buffer.writeln(
       '- Be consistent with your personality and our relationship',
     );
+    if (UserProfileService.hasProfile) {
+      buffer.writeln(
+        '- Follow the user preferences and custom instructions above',
+      );
+    }
 
     return buffer.toString();
   }

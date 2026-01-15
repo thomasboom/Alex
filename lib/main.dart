@@ -6,6 +6,8 @@ import 'components/chat_screen.dart';
 import 'constants/app_theme.dart';
 import 'constants/app_constants.dart';
 import 'services/settings_service.dart';
+import 'services/user_profile_service.dart';
+import 'services/custom_instructions_service.dart';
 import 'utils/logger.dart';
 import 'widgets/pin_entry_dialog.dart';
 import 'l10n/app_localizations.dart';
@@ -115,6 +117,8 @@ void main() async {
   await dotenv.load(fileName: AppConstants.envFileName);
   AppLogger.init();
   await SettingsService.initialize();
+  await UserProfileService.initialize();
+  await CustomInstructionsService.initialize();
 
   WidgetsFlutterBinding.ensureInitialized();
 
