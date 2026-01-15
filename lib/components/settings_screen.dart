@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/settings_service.dart';
 import '../services/summarization_service.dart';
@@ -532,14 +533,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Widget _buildApiKeySetting() {
-    final apiKeySource = SettingsService.apiKeySource;
-    final hasCustomApiKey = SettingsService.customApiKey.isNotEmpty;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          _l10n.apiKeySource,
+          _l10n.customApiKey,
           style: GoogleFonts.playfairDisplay(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -548,7 +546,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         const SizedBox(height: 12),
         Text(
-          _l10n.chooseApiKeySource,
+          _l10n.enterCustomApiKeyDesc,
           style: GoogleFonts.playfairDisplay(
             fontSize: 13,
             color: Theme.of(
@@ -557,162 +555,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             height: 1.4,
           ),
         ),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.error.withValues(alpha: 0.3),
-            ),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                Icons.warning_amber_outlined,
-                color: Theme.of(context).colorScheme.error,
-                size: 18,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  _l10n.inbuiltApiKeyWarning,
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 12,
-                    color: Theme.of(context).colorScheme.error,
-                    height: 1.3,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 16),
-        Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Theme.of(
-                context,
-              ).colorScheme.outline.withValues(alpha: 0.2),
-            ),
-          ),
-          child: Column(
-            children: [
-              _buildApiSourceOption(
-                title: _l10n.inbuiltApiKey,
-                subtitle: _l10n.usePreconfiguredKey,
-                value: 'inbuilt',
-                icon: Icons.key_outlined,
-              ),
-              Divider(
-                height: 1,
-                color: Theme.of(
-                  context,
-                ).colorScheme.outline.withValues(alpha: 0.2),
-              ),
-              _buildApiSourceOption(
-                title: _l10n.customApiKey,
-                subtitle: hasCustomApiKey
-                    ? _l10n.customKeyConfigured
-                    : _l10n.enterOwnApiKey,
-                value: 'custom',
-                icon: Icons.edit_outlined,
-              ),
-            ],
-          ),
-        ),
-        if (apiKeySource == 'custom') ...[
-          const SizedBox(height: 20),
-          _buildCustomApiKeyInput(),
-          const SizedBox(height: 24),
-          _buildModelSetting(),
-          const SizedBox(height: 24),
-          _buildEndpointSetting(),
-        ],
+        const SizedBox(height: 20),
+        _buildCustomApiKeyInput(),
+        const SizedBox(height: 24),
+        _buildModelSetting(),
+        const SizedBox(height: 24),
+        _buildEndpointSetting(),
       ],
-    );
-  }
-
-  Widget _buildApiSourceOption({
-    required String title,
-    required String subtitle,
-    required String value,
-    required IconData icon,
-  }) {
-    final isSelected = SettingsService.apiKeySource == value;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: isSelected
-            ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.08)
-            : null,
-      ),
-      child: ListTile(
-        leading: Container(
-          decoration: BoxDecoration(
-            color: isSelected
-                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.1)
-                : Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(
-                      context,
-                    ).colorScheme.outline.withValues(alpha: 0.3),
-            ),
-          ),
-          width: 40,
-          height: 40,
-          child: Icon(
-            icon,
-            color: isSelected
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.7),
-            size: 20,
-          ),
-        ),
-        title: Text(
-          title,
-          style: GoogleFonts.playfairDisplay(
-            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: GoogleFonts.playfairDisplay(
-            fontSize: 12,
-            color: Theme.of(
-              context,
-            ).colorScheme.onSurface.withValues(alpha: 0.7),
-            height: 1.3,
-          ),
-        ),
-        trailing: isSelected
-            ? Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  shape: BoxShape.circle,
-                ),
-                width: 24,
-                height: 24,
-                child: Icon(
-                  Icons.check,
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  size: 16,
-                ),
-              )
-            : null,
-        onTap: () => _updateSetting('apiKeySource', value),
-      ),
     );
   }
 
@@ -1282,8 +1131,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _deleteAllHistory() async {
     try {
       await SettingsService.clearAllHistory();
-      // Also clear all cached memories from summarization service
       SummarizationService.clearAllMemories();
+      SettingsService.resetSettings();
+      await SettingsService.saveSettings();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -1294,6 +1144,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             backgroundColor: Theme.of(context).colorScheme.primary,
           ),
         );
+        Future.delayed(const Duration(seconds: 2), () {
+          SystemNavigator.pop();
+        });
       }
     } catch (e) {
       AppLogger.e('Error deleting history', e);
@@ -1636,26 +1489,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          _l10n.customApiKeyLabel,
-          style: GoogleFonts.playfairDisplay(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          _l10n.enterCustomApiKeyDesc,
-          style: GoogleFonts.playfairDisplay(
-            fontSize: 13,
-            color: Theme.of(
-              context,
-            ).colorScheme.onSurface.withValues(alpha: 0.7),
-            height: 1.4,
-          ),
-        ),
-        const SizedBox(height: 16),
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(

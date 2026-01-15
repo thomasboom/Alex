@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../components/api_key_setup_screen.dart';
 import '../models/chat_state.dart';
 import '../widgets/chat_ui_components.dart';
 import '../services/chat_business_logic.dart';
@@ -8,12 +9,15 @@ import '../services/chat_speech_handler.dart';
 import '../services/chat_summarization_handler.dart';
 import '../services/chat_safety_handler.dart';
 import '../services/conversation_service.dart';
+import '../services/settings_service.dart';
 import '../utils/logger.dart';
 import 'settings_screen.dart';
 
 /// Main chat screen component that handles the chat interface
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  final VoidCallback? onApiKeyMissing;
+
+  const ChatScreen({super.key, this.onApiKeyMissing});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -65,6 +69,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   /// Send a message using the business logic service
   Future<void> _sendMessage(String message) async {
+    if (!SettingsService.hasApiKeyConfigured) {
+      _showApiKeyRequiredDialog();
+      return;
+    }
+
     await ChatBusinessLogic.sendMessage(
       context,
       _state,
@@ -74,6 +83,48 @@ class _ChatScreenState extends State<ChatScreen> {
         _state.messages.clear();
         _state.messages.addAll(messages);
       }),
+    );
+  }
+
+  void _showApiKeyRequiredDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'API Key Required',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          content: Text(
+            'Please configure your Ollama API key in Settings to use the app.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const ApiKeySetupScreen(isInitialSetup: false),
+                  ),
+                ).then((_) {
+                  widget.onApiKeyMissing?.call();
+                });
+              },
+              child: const Text('Configure API Key'),
+            ),
+          ],
+        );
+      },
     );
   }
 

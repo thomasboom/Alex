@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../models/conversation_context.dart';
 import 'conversation_service.dart';
@@ -16,8 +15,7 @@ class OllamaService {
     if (apiKeySource == 'custom') {
       return SettingsService.customApiKey;
     }
-    // Use inbuilt API key from .env
-    return dotenv.env['OLLAMA_API_KEY'] ?? '';
+    return '';
   }
 
   static Future<String> _loadSystemPrompt() async {
@@ -100,9 +98,11 @@ class OllamaService {
 
   static Future<String> getCompletion(String prompt) async {
     AppLogger.d('Starting AI completion request');
-    if (_apiKey.isEmpty || _apiKey.contains('your-ollama-api-key-here')) {
-      AppLogger.w('OLLAMA_API_KEY not properly configured');
-      throw Exception('Please set your OLLAMA_API_KEY in assets/.env file');
+    if (_apiKey.isEmpty) {
+      AppLogger.w('Custom API key not configured');
+      throw Exception(
+        'Please configure your Ollama API key in Settings to use the app.',
+      );
     }
 
     try {

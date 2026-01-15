@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'components/api_key_setup_screen.dart';
 import 'components/chat_screen.dart';
 import 'constants/app_theme.dart';
 import 'constants/app_constants.dart';
@@ -115,17 +116,19 @@ void main() async {
   AppLogger.init();
   await SettingsService.loadSettings();
 
-  // Check if PIN lock is enabled and show PIN entry if needed
   WidgetsFlutterBinding.ensureInitialized();
 
   AppLogger.d('PIN Lock Enabled: ${SettingsService.pinLockEnabled}');
   AppLogger.d('PIN Code Set: ${SettingsService.pinCode.isNotEmpty}');
+  AppLogger.d('API Key Configured: ${SettingsService.hasApiKeyConfigured}');
 
-  runApp(const FraintedApp());
+  runApp(FraintedApp(hasApiKey: SettingsService.hasApiKeyConfigured));
 }
 
 class FraintedApp extends StatefulWidget {
-  const FraintedApp({super.key});
+  final bool hasApiKey;
+
+  const FraintedApp({super.key, required this.hasApiKey});
 
   @override
   State<FraintedApp> createState() => _FraintedAppState();
@@ -136,6 +139,7 @@ class _FraintedAppState extends State<FraintedApp> {
   late Stream<String> _colorStream;
   late Stream<String> _localeStream;
   Locale _currentLocale = const Locale('en');
+  bool _apiKeyConfigured = false;
 
   @override
   void initState() {
@@ -144,6 +148,7 @@ class _FraintedAppState extends State<FraintedApp> {
     _colorStream = SettingsService.colorChangeStream;
     _localeStream = SettingsService.localeChangeStream;
     _currentLocale = SettingsService.locale;
+    _apiKeyConfigured = widget.hasApiKey;
     _localeStream.listen((localeCode) {
       if (mounted) {
         setState(() {
@@ -166,8 +171,42 @@ class _FraintedAppState extends State<FraintedApp> {
     }
   }
 
+  void _onApiKeyConfigured() {
+    setState(() {
+      _apiKeyConfigured = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!_apiKeyConfigured) {
+      return MaterialApp(
+        title: AppConstants.appName,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: _getThemeMode(),
+        locale: _currentLocale,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'),
+          Locale('nl'),
+          Locale('es'),
+          Locale('fr'),
+        ],
+        home: ApiKeySetupScreen(
+          isInitialSetup: true,
+          onCompleted: _onApiKeyConfigured,
+          key: const ValueKey('api_key_setup'),
+        ),
+      );
+    }
+
     return StreamBuilder<String>(
       stream: _themeStream,
       builder: (context, themeSnapshot) {
@@ -193,7 +232,9 @@ class _FraintedAppState extends State<FraintedApp> {
                 Locale('es'),
                 Locale('fr'),
               ],
-              home: const PinLockWrapper(child: ChatScreen()),
+              home: PinLockWrapper(
+                child: ChatScreen(onApiKeyMissing: () => _onApiKeyConfigured()),
+              ),
             );
           },
         );

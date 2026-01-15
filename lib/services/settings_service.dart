@@ -16,16 +16,16 @@ class SettingsService {
 
   // Default settings - theme and security preferences
   static const Map<String, dynamic> _defaultSettings = {
-    'themeMode': 'system', // 'light', 'dark', 'system'
-    'pinLockEnabled': false, // Whether PIN lock is enabled
-    'pinCode': '', // Hashed PIN code for security
-    'apiKeySource': 'inbuilt', // 'inbuilt' or 'custom'
-    'customApiKey': '', // Custom API key if using custom source
-    'primaryColor': 'blue', // Primary color for theme
-    'accentColor': 'blue', // Accent color for highlights
-    'apiEndpoint': 'https://ollama.com/api', // Custom API endpoint
-    'customModel': 'deepseek-v3.1:671b', // Custom model selection
-    'locale': 'en', // App locale: 'en', 'nl', 'es', 'fr'
+    'themeMode': 'system',
+    'pinLockEnabled': false,
+    'pinCode': '',
+    'apiKeySource': 'custom',
+    'customApiKey': '',
+    'primaryColor': 'blue',
+    'accentColor': 'blue',
+    'apiEndpoint': 'https://ollama.com/api',
+    'customModel': 'deepseek-v3.1:671b',
+    'locale': 'en',
   };
 
   static Map<String, dynamic> _settings = Map.from(_defaultSettings);
@@ -134,7 +134,7 @@ class SettingsService {
   static String get themeMode => getSetting('themeMode', 'system');
   static bool get pinLockEnabled => getSetting('pinLockEnabled', false);
   static String get pinCode => getSetting('pinCode', '');
-  static String get apiKeySource => getSetting('apiKeySource', 'inbuilt');
+  static String get apiKeySource => getSetting('apiKeySource', 'custom');
   static String get customApiKey => getSetting('customApiKey', '');
   static String get primaryColor => getSetting('primaryColor', 'blue');
   static String get accentColor => getSetting('accentColor', 'blue');
@@ -146,6 +146,10 @@ class SettingsService {
   static String get localeCode {
     final locale = getSetting('locale', 'en');
     return supportedLocales.contains(locale) ? locale : 'en';
+  }
+
+  static bool get hasApiKeyConfigured {
+    return apiKeySource == 'custom' && customApiKey.isNotEmpty;
   }
 
   static Locale get locale => Locale(localeCode);
@@ -203,8 +207,7 @@ class SettingsService {
     if (apiKeySource == 'custom' && customApiKey.isNotEmpty) {
       return customApiKey;
     }
-    // Return inbuilt API key from .env (this would need to be handled by the calling service)
-    return 'INBUILT_API_KEY'; // Placeholder - OllamaService will handle reading from .env
+    return '';
   }
 
   /// Set custom API endpoint
