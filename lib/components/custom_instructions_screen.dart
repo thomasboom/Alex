@@ -140,67 +140,51 @@ class _CustomInstructionsScreenState extends State<CustomInstructionsScreen> {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Text(
-                    instruction.text,
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 15,
-                      color: instruction.isActive
-                          ? Theme.of(context).colorScheme.onSurface
-                          : Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withValues(alpha: 0.5),
-                      height: 1.4,
-                    ),
-                  ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Text(
+                instruction.text,
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 15,
+                  color: instruction.isActive
+                      ? Theme.of(context).colorScheme.onSurface
+                      : Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.5),
+                  height: 1.4,
                 ),
-              ],
+              ),
             ),
-          ),
-          const Divider(height: 1),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    instruction.isActive
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    size: 20,
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.onSurface.withValues(alpha: 0.5),
-                  ),
-                  onPressed: () {
-                    CustomInstructionsService.toggleInstruction(instruction.id);
-                  },
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.delete_outline,
-                    size: 20,
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.error.withValues(alpha: 0.7),
-                  ),
-                  onPressed: () {
-                    _showDeleteDialog(instruction);
-                  },
-                ),
-              ],
+            IconButton(
+              icon: Icon(
+                instruction.isActive ? Icons.visibility : Icons.visibility_off,
+                size: 20,
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.5),
+              ),
+              onPressed: () {
+                CustomInstructionsService.toggleInstruction(instruction.id);
+              },
             ),
-          ),
-        ],
+            IconButton(
+              icon: Icon(
+                Icons.delete_outline,
+                size: 20,
+                color: Theme.of(
+                  context,
+                ).colorScheme.error.withValues(alpha: 0.7),
+              ),
+              onPressed: () {
+                _showDeleteDialog(instruction);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -224,15 +208,6 @@ class _CustomInstructionsScreenState extends State<CustomInstructionsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              _l10n.addCustomInstruction,
-              style: GoogleFonts.playfairDisplay(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-            const SizedBox(height: 16),
             TextField(
               controller: _instructionController,
               decoration: InputDecoration(
