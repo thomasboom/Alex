@@ -332,4 +332,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get colorYellow => 'Yellow';
+
+  @override
+  String get disclaimer => 'Proof of Concept';
+
+  @override
+  String get disclaimerText =>
+      'This application is a Proof of Concept (PoC) and NOT a full-featured production application. It is experimental software for demonstration and development purposes only. The AI may produce unexpected, inaccurate, or inappropriate responses. Security features are for demonstration only and not suitable for protecting sensitive data. Use at your own risk.';
 }

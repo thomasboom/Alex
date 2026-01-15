@@ -339,4 +339,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get colorYellow => 'Amarillo';
+
+  @override
+  String get disclaimer => 'Proof of Concept';
+
+  @override
+  String get disclaimerText =>
+      'Esta aplicación es una Prueba de Concepto (PoC) y NO es una aplicación de producción completa. Es software experimental solo para propósitos de demostración y desarrollo. La IA puede producir respuestas inesperadas, inexactas o inapropiadas. Las funciones de seguridad son solo para demostración y no son adecuadas para proteger datos sensibles. Úselo bajo su propia responsabilidad.';
 }

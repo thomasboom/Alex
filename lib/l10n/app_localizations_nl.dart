@@ -335,4 +335,11 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get colorYellow => 'Geel';
+
+  @override
+  String get disclaimer => 'Proof of Concept';
+
+  @override
+  String get disclaimerText =>
+      'Deze applicatie is een Proof of Concept (PoC) en GEEN volledige productie-applicatie. Het is experimentele software alleen voor demonstratie- en ontwikkelingsdoeleinden. De AI kan onverwachte, onnauwkeurige of ongepaste reacties produceren. Beveiligingsfuncties zijn alleen voor demonstratie en niet geschikt voor het beschermen van gevoelige gegevens. Gebruik op eigen risico.';
 }

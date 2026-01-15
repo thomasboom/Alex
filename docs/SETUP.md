@@ -1,5 +1,17 @@
 # Setup Guide
 
+> **⚠️ Proof of Concept Disclaimer**
+>
+> This application is a **Proof of Concept (PoC)** and **NOT a full-featured production application**.
+>
+> - This is experimental software for demonstration and development purposes only
+> - It should NOT be used as a primary AI companion or for real-world applications
+> - The AI may produce unexpected, inaccurate, or inappropriate responses
+> - Security features are for demonstration only and not suitable for protecting sensitive data
+> - This software is provided "as-is" without warranty of any kind
+>
+> **Use at your own risk and for educational/experimental purposes only.**
+
 ## Prerequisites
 
 ### System Requirements
