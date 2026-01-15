@@ -422,6 +422,102 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         value: 'indigo',
                         settingKey: 'primaryColor',
                       ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorCyan,
+                        color: Colors.cyan,
+                        value: 'cyan',
+                        settingKey: 'primaryColor',
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorAmber,
+                        color: Colors.amber,
+                        value: 'amber',
+                        settingKey: 'primaryColor',
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorLime,
+                        color: Colors.lime,
+                        value: 'lime',
+                        settingKey: 'primaryColor',
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorBrown,
+                        color: Colors.brown,
+                        value: 'brown',
+                        settingKey: 'primaryColor',
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorDeepPurple,
+                        color: Colors.deepPurple,
+                        value: 'deepPurple',
+                        settingKey: 'primaryColor',
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorDeepOrange,
+                        color: Colors.deepOrange,
+                        value: 'deepOrange',
+                        settingKey: 'primaryColor',
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorLightBlue,
+                        color: Colors.lightBlue,
+                        value: 'lightBlue',
+                        settingKey: 'primaryColor',
+                      ),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildColorOption(
+                        title: _l10n.colorYellow,
+                        color: Colors.yellow,
+                        value: 'yellow',
+                        settingKey: 'primaryColor',
+                      ),
                     ],
                   ),
                 ),

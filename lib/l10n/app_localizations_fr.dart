@@ -317,4 +317,28 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get colorIndigo => 'Indigo';
+
+  @override
+  String get colorCyan => 'Cyan';
+
+  @override
+  String get colorAmber => 'Ambre';
+
+  @override
+  String get colorLime => 'Citron vert';
+
+  @override
+  String get colorBrown => 'Marron';
+
+  @override
+  String get colorDeepPurple => 'Violet foncé';
+
+  @override
+  String get colorDeepOrange => 'Orange foncé';
+
+  @override
+  String get colorLightBlue => 'Bleu clair';
+
+  @override
+  String get colorYellow => 'Jaune';
 }

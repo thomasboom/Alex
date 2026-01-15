@@ -21,6 +21,22 @@ class AppTheme {
         return Colors.indigo;
       case 'red':
         return Colors.red;
+      case 'cyan':
+        return Colors.cyan;
+      case 'amber':
+        return Colors.amber;
+      case 'lime':
+        return Colors.lime;
+      case 'brown':
+        return Colors.brown;
+      case 'deepPurple':
+        return Colors.deepPurple;
+      case 'deepOrange':
+        return Colors.deepOrange;
+      case 'lightBlue':
+        return Colors.lightBlue;
+      case 'yellow':
+        return Colors.yellow;
       case 'blue':
       default:
         return Colors.blue;

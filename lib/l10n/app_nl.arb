@@ -95,5 +95,13 @@
   "colorOrange": "Oranje",
   "colorPink": "Roze",
   "colorTeal": "Groenblauw",
-  "colorIndigo": "Indigo"
+  "colorIndigo": "Indigo",
+  "colorCyan": "Cyaan",
+  "colorAmber": "Amber",
+  "colorLime": "Limoen",
+  "colorBrown": "Bruin",
+  "colorDeepPurple": "Donkerpaars",
+  "colorDeepOrange": "Donkeroranje",
+  "colorLightBlue": "Lichtblauw",
+  "colorYellow": "Geel"
 }

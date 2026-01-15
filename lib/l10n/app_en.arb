@@ -95,5 +95,13 @@
   "colorOrange": "Orange",
   "colorPink": "Pink",
   "colorTeal": "Teal",
-  "colorIndigo": "Indigo"
+  "colorIndigo": "Indigo",
+  "colorCyan": "Cyan",
+  "colorAmber": "Amber",
+  "colorLime": "Lime",
+  "colorBrown": "Brown",
+  "colorDeepPurple": "Deep Purple",
+  "colorDeepOrange": "Deep Orange",
+  "colorLightBlue": "Light Blue",
+  "colorYellow": "Yellow"
 }

@@ -677,6 +677,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Indigo'**
   String get colorIndigo;
+
+  /// No description provided for @colorCyan.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyan'**
+  String get colorCyan;
+
+  /// No description provided for @colorAmber.
+  ///
+  /// In en, this message translates to:
+  /// **'Amber'**
+  String get colorAmber;
+
+  /// No description provided for @colorLime.
+  ///
+  /// In en, this message translates to:
+  /// **'Lime'**
+  String get colorLime;
+
+  /// No description provided for @colorBrown.
+  ///
+  /// In en, this message translates to:
+  /// **'Brown'**
+  String get colorBrown;
+
+  /// No description provided for @colorDeepPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Purple'**
+  String get colorDeepPurple;
+
+  /// No description provided for @colorDeepOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Orange'**
+  String get colorDeepOrange;
+
+  /// No description provided for @colorLightBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Blue'**
+  String get colorLightBlue;
+
+  /// No description provided for @colorYellow.
+  ///
+  /// In en, this message translates to:
+  /// **'Yellow'**
+  String get colorYellow;
 }
 
 class _AppLocalizationsDelegate

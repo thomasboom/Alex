@@ -311,4 +311,28 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get colorIndigo => 'Indigo';
+
+  @override
+  String get colorCyan => 'Cyaan';
+
+  @override
+  String get colorAmber => 'Amber';
+
+  @override
+  String get colorLime => 'Limoen';
+
+  @override
+  String get colorBrown => 'Bruin';
+
+  @override
+  String get colorDeepPurple => 'Donkerpaars';
+
+  @override
+  String get colorDeepOrange => 'Donkeroranje';
+
+  @override
+  String get colorLightBlue => 'Lichtblauw';
+
+  @override
+  String get colorYellow => 'Geel';
 }
