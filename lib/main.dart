@@ -114,7 +114,7 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
 void main() async {
   await dotenv.load(fileName: AppConstants.envFileName);
   AppLogger.init();
-  await SettingsService.loadSettings();
+  await SettingsService.initialize();
 
   WidgetsFlutterBinding.ensureInitialized();
 
