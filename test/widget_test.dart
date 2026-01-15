@@ -12,7 +12,7 @@ import 'package:alex/main.dart';
 
 void main() {
   testWidgets('Alex app loads correctly', (WidgetTester tester) async {
-    await tester.pumpWidget(const FraintedApp());
+    await tester.pumpWidget(const AlexApp(hasApiKey: true));
 
     expect(find.byType(TextField), findsOneWidget);
     expect(find.byIcon(Icons.send), findsOneWidget);

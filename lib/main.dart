@@ -122,19 +122,19 @@ void main() async {
   AppLogger.d('PIN Code Set: ${SettingsService.pinCode.isNotEmpty}');
   AppLogger.d('API Key Configured: ${SettingsService.hasApiKeyConfigured}');
 
-  runApp(FraintedApp(hasApiKey: SettingsService.hasApiKeyConfigured));
+  runApp(AlexApp(hasApiKey: SettingsService.hasApiKeyConfigured));
 }
 
-class FraintedApp extends StatefulWidget {
+class AlexApp extends StatefulWidget {
   final bool hasApiKey;
 
-  const FraintedApp({super.key, required this.hasApiKey});
+  const AlexApp({super.key, required this.hasApiKey});
 
   @override
-  State<FraintedApp> createState() => _FraintedAppState();
+  State<AlexApp> createState() => _AlexAppState();
 }
 
-class _FraintedAppState extends State<FraintedApp> {
+class _AlexAppState extends State<AlexApp> {
   late Stream<String> _themeStream;
   late Stream<String> _colorStream;
   late Stream<String> _localeStream;
