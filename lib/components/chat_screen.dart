@@ -239,10 +239,12 @@ class _ChatScreenState extends State<ChatScreen> {
                       FloatingActionButton(
                         heroTag: 'ghost',
                         onPressed: _toggleGhostMode,
-                        backgroundColor: _state.isGhostMode
-                            ? Colors.grey[700]
-                            : Theme.of(themedContext).colorScheme.primary,
-                        foregroundColor: Colors.white,
+                        backgroundColor: Theme.of(
+                          themedContext,
+                        ).colorScheme.primary,
+                        foregroundColor: Theme.of(
+                          themedContext,
+                        ).colorScheme.onPrimary,
                         mini: true,
                         child: Icon(
                           _state.isGhostMode
