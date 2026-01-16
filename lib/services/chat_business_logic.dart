@@ -16,8 +16,9 @@ class ChatBusinessLogic {
     ChatState state,
     String message,
     Function(bool) setLoading,
-    Function(List<ChatMessage>) updateMessages,
-  ) async {
+    Function(List<ChatMessage>) updateMessages, {
+    bool skipHistory = false,
+  }) async {
     if (message.trim().isEmpty) return;
 
     AppLogger.userAction('Send message');
@@ -25,14 +26,20 @@ class ChatBusinessLogic {
     // Check for sensitive content before processing
     if (SafetyService.containsSensitiveContent(message)) {
       AppLogger.w('Sensitive content detected in user message');
-      await handleSensitiveContent(context, state, setLoading, updateMessages);
+      await handleSensitiveContent(
+        context,
+        state,
+        setLoading,
+        updateMessages,
+        skipHistory: skipHistory,
+      );
       return;
     }
 
-    // Save user message to conversation history
-    ConversationService.addMessage(message, true);
+    if (!skipHistory) {
+      ConversationService.addMessage(message, true);
+    }
 
-    // Clear input immediately
     state.messageController.clear();
     state.focusNode.requestFocus();
 
@@ -48,11 +55,11 @@ class ChatBusinessLogic {
 
     try {
       AppLogger.d('Getting AI response for user message');
-      // Get AI response
       final aiResponse = await getAIResponse(message);
 
-      // Save AI response to conversation history
-      ConversationService.addMessage(aiResponse, false);
+      if (!skipHistory) {
+        ConversationService.addMessage(aiResponse, false);
+      }
 
       updateMessages([
         ChatMessage(
@@ -77,7 +84,9 @@ class ChatBusinessLogic {
       ]);
     } finally {
       setLoading(false);
-      await ConversationService.saveContext();
+      if (!skipHistory) {
+        await ConversationService.saveContext();
+      }
     }
   }
 
@@ -91,15 +100,14 @@ class ChatBusinessLogic {
     BuildContext context,
     ChatState state,
     Function(bool) setLoading,
-    Function(List<ChatMessage>) updateMessages,
-  ) async {
+    Function(List<ChatMessage>) updateMessages, {
+    bool skipHistory = false,
+  }) async {
     AppLogger.i('Handling sensitive content with help resources');
 
-    // Clear input
     state.messageController.clear();
     state.focusNode.requestFocus();
 
-    // Check if dialog already shown this session
     if (state.safetyDialogShownThisSession) {
       AppLogger.i(
         'Safety dialog already shown this session, showing brief reminder',
@@ -118,7 +126,6 @@ class ChatBusinessLogic {
       return;
     }
 
-    // Get help resources
     final helpResources = SafetyService.getHelpResources();
     final safeResponse = SafetyService.generateSafeResponse();
 
@@ -133,7 +140,6 @@ class ChatBusinessLogic {
 
     setLoading(false);
 
-    // Show help resources dialog after a brief delay
     await Future.delayed(const Duration(milliseconds: 500));
     if (context.mounted) {
       showHelpResourcesDialog(context, helpResources, state);

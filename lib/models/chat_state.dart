@@ -31,6 +31,10 @@ class ChatState {
   // Safety state
   bool safetyDialogShownThisSession = false;
 
+  // Ghost mode state
+  bool isGhostMode = false;
+  final List<ChatMessage> _originalMessages = [];
+
   /// Constructor - initialize dynamic content
   ChatState() {
     currentWelcomeMessage = _getRandomWelcomeMessage();
@@ -59,6 +63,18 @@ class ChatState {
   /// Refresh the welcome message with localized version
   void refreshWelcomeMessage() {
     currentWelcomeMessage = _getRandomWelcomeMessage();
+  }
+
+  /// Get original messages (for ghost mode restoration)
+  List<ChatMessage> getOriginalMessages() => List.from(_originalMessages);
+
+  /// Clear original messages
+  void clearOriginalMessages() => _originalMessages.clear();
+
+  /// Save current messages as original (for ghost mode)
+  void saveOriginalMessages(List<ChatMessage> messages) {
+    _originalMessages.clear();
+    _originalMessages.addAll(messages);
   }
 
   /// Dispose of all resources

@@ -12,6 +12,7 @@ import '../services/conversation_service.dart';
 import '../services/settings_service.dart';
 import '../utils/logger.dart';
 import '../l10n/app_localizations.dart';
+import '../constants/app_theme.dart';
 import 'settings_screen.dart';
 
 /// Main chat screen component that handles the chat interface
@@ -91,6 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
         _state.messages.clear();
         _state.messages.addAll(messages);
       }),
+      skipHistory: _state.isGhostMode,
     );
   }
 
@@ -142,69 +144,138 @@ class _ChatScreenState extends State<ChatScreen> {
     setState(() {});
   }
 
+  /// Toggle ghost mode
+  void _toggleGhostMode() {
+    AppLogger.userAction('Toggle ghost mode: ${!_state.isGhostMode}');
+
+    if (!_state.isGhostMode) {
+      _state.saveOriginalMessages(_state.messages);
+    }
+
+    _state.isGhostMode = !_state.isGhostMode;
+
+    if (_state.isGhostMode) {
+      _state.messages.clear();
+    } else {
+      _state.messages.clear();
+      _state.messages.addAll(_state.getOriginalMessages());
+      _state.clearOriginalMessages();
+    }
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Focus(
-      autofocus: true,
-      child: KeyboardListener(
-        focusNode: _focusNode,
-        onKeyEvent: (KeyEvent event) {
-          if (event is KeyDownEvent) {
-            if (event.logicalKey == LogicalKeyboardKey.keyQ &&
-                HardwareKeyboard.instance.isControlPressed) {
-              exit(0);
-            } else if (event.logicalKey == LogicalKeyboardKey.comma &&
-                HardwareKeyboard.instance.isControlPressed) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-            }
-          }
-        },
-        child: ChatUIComponents.buildChatLayout(
-          context: context,
-          child: _state.messages.isEmpty
-              ? ChatUIComponents.buildEmptyState(
-                  context,
-                  _state.getLocalizedWelcomeMessage(context),
-                )
-              : _state.messages.isNotEmpty
-              ? Center(child: _state.messages[0])
-              : ChatUIComponents.buildEmptyState(
-                  context,
-                  _state.getLocalizedWelcomeMessage(context),
-                ),
-          bottomInput: Row(
-            children: [
-              Expanded(
-                child: ChatUIComponents.buildInputField(
-                  context,
-                  _state,
-                  _state.getLocalizedPlaceholderText(context),
-                  _sendMessage,
-                  _toggleSpeechRecognition,
-                ),
-              ),
-              const SizedBox(width: 12),
-              ChatUIComponents.buildSendButton(
-                context,
-                _state.isLoading,
-                () => _sendMessage(_state.messageController.text),
-              ),
-            ],
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
+    final currentTheme = _state.isGhostMode
+        ? AppTheme.ghostTheme
+        : Theme.of(context);
+
+    return Theme(
+      data: currentTheme,
+      child: Builder(
+        builder: (themedContext) => Focus(
+          autofocus: true,
+          child: KeyboardListener(
+            focusNode: _focusNode,
+            onKeyEvent: (KeyEvent event) {
+              if (event is KeyDownEvent) {
+                if (event.logicalKey == LogicalKeyboardKey.keyQ &&
+                    HardwareKeyboard.instance.isControlPressed) {
+                  exit(0);
+                } else if (event.logicalKey == LogicalKeyboardKey.comma &&
+                    HardwareKeyboard.instance.isControlPressed) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsScreen(),
+                    ),
+                  );
+                }
+              }
             },
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            mini: true,
-            child: const Icon(Icons.settings, size: 16),
+            child: Stack(
+              children: [
+                ChatUIComponents.buildChatLayout(
+                  context: themedContext,
+                  child: _state.messages.isEmpty
+                      ? ChatUIComponents.buildEmptyState(
+                          themedContext,
+                          _state.getLocalizedWelcomeMessage(themedContext),
+                        )
+                      : _state.messages.isNotEmpty
+                      ? Center(child: _state.messages[0])
+                      : ChatUIComponents.buildEmptyState(
+                          themedContext,
+                          _state.getLocalizedWelcomeMessage(themedContext),
+                        ),
+                  bottomInput: Row(
+                    children: [
+                      Expanded(
+                        child: ChatUIComponents.buildInputField(
+                          themedContext,
+                          _state,
+                          _state.getLocalizedPlaceholderText(themedContext),
+                          _sendMessage,
+                          _toggleSpeechRecognition,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      ChatUIComponents.buildSendButton(
+                        themedContext,
+                        _state.isLoading,
+                        () => _sendMessage(_state.messageController.text),
+                      ),
+                    ],
+                  ),
+                  floatingActionButton: null,
+                ),
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FloatingActionButton(
+                        heroTag: 'ghost',
+                        onPressed: _toggleGhostMode,
+                        backgroundColor: _state.isGhostMode
+                            ? Colors.grey[700]
+                            : Theme.of(themedContext).colorScheme.primary,
+                        foregroundColor: Colors.white,
+                        mini: true,
+                        child: Icon(
+                          _state.isGhostMode
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          size: 16,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      FloatingActionButton(
+                        heroTag: 'settings',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingsScreen(),
+                            ),
+                          );
+                        },
+                        backgroundColor: Theme.of(
+                          themedContext,
+                        ).colorScheme.primary,
+                        foregroundColor: Theme.of(
+                          themedContext,
+                        ).colorScheme.onPrimary,
+                        mini: true,
+                        child: const Icon(Icons.settings, size: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

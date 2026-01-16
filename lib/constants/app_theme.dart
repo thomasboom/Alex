@@ -84,4 +84,17 @@ class AppTheme {
     final alpha = isLoading ? 0.1 : 0.06;
     return baseColor.withValues(alpha: alpha);
   }
+
+  /// Ghost mode theme configuration (grey/dark)
+  static ThemeData get ghostTheme {
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.grey,
+        brightness: Brightness.dark,
+        primary: Colors.grey[400]!,
+        secondary: Colors.grey[600]!,
+      ),
+      useMaterial3: true,
+    );
+  }
 }
