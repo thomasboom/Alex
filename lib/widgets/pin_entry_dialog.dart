@@ -271,19 +271,6 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                       textAlign: TextAlign.center,
                     ),
                   ],
-                  if (_isVerifying) ...[
-                    SizedBox(height: 16),
-                    SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),
