@@ -246,7 +246,9 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                                     width: 2,
                                   ),
                                 ),
-                                contentPadding: EdgeInsets.zero,
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 8,
+                                ),
                                 counterText: '',
                               ),
                               onChanged: (value) =>
