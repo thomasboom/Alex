@@ -18,7 +18,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get welcomeBack => 'Welkom Terug';
 
   @override
-  String get enterPinSubtitle => 'Voer uw PIN in om toegang te krijgen tot de app';
+  String get enterPinSubtitle =>
+      'Voer uw PIN in om toegang te krijgen tot de app';
 
   @override
   String get incorrectPin => 'Onjuiste PIN. Probeer het opnieuw.';
@@ -45,16 +46,19 @@ class AppLocalizationsNl extends AppLocalizations {
   String get apiKeySource => 'API Sleutelbron';
 
   @override
-  String get chooseApiKeySource => 'Kies of u de ingebouwde API-sleutel wilt gebruiken of uw eigen aangepaste sleutel opgeven';
+  String get chooseApiKeySource =>
+      'Kies of u de ingebouwde API-sleutel wilt gebruiken of uw eigen aangepaste sleutel opgeven';
 
   @override
-  String get inbuiltApiKeyWarning => '⚠️ De ingebouwde API-sleutel raakt sneller de limieten. Aangepaste sleutels bieden hogere limieten en betere prestaties.';
+  String get inbuiltApiKeyWarning =>
+      '⚠️ De ingebouwde API-sleutel raakt sneller de limieten. Aangepaste sleutels bieden hogere limieten en betere prestaties.';
 
   @override
   String get inbuiltApiKey => 'Ingebouwde API-sleutel';
 
   @override
-  String get usePreconfiguredKey => 'Gebruik de vooraf geconfigureerde API-sleutel';
+  String get usePreconfiguredKey =>
+      'Gebruik de vooraf geconfigureerde API-sleutel';
 
   @override
   String get customApiKey => 'Aangepaste API-sleutel';
@@ -87,7 +91,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get exportConversations => 'Gesprekken exporteren';
 
   @override
-  String get exportConversationsDesc => 'Exporteer uw gespreksgeschiedenis naar een tekstbestand voor back-up of delen.';
+  String get exportConversationsDesc =>
+      'Exporteer uw gespreksgeschiedenis naar een tekstbestand voor back-up of delen.';
 
   @override
   String get exportToPlainText => 'Exporteren naar platte tekst';
@@ -99,7 +104,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get clearData => 'Gegevens wissen';
 
   @override
-  String get clearDataWarning => 'Wis Alex permanent, inclusief alle gespreksgeschiedenis en herinneringen. Deze actie kan niet ongedaan worden gemaakt.';
+  String get clearDataWarning =>
+      'Wis Alex permanent, inclusief alle gespreksgeschiedenis en herinneringen. Deze actie kan niet ongedaan worden gemaakt.';
 
   @override
   String get permanentlyDeleteAlex => 'Alex permanent verwijderen';
@@ -132,7 +138,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get permanentlyDeleteConfirmTitle => 'Alex permanent verwijderen?';
 
   @override
-  String get permanentlyDeleteConfirmDesc => 'Deze actie kan niet ongedaan worden gemaakt. Alex en alle gespreksgeschiedenis worden permanent verwijderd.';
+  String get permanentlyDeleteConfirmDesc =>
+      'Deze actie kan niet ongedaan worden gemaakt. Alex en alle gespreksgeschiedenis worden permanent verwijderd.';
 
   @override
   String get cancel => 'Annuleren';
@@ -141,10 +148,12 @@ class AppLocalizationsNl extends AppLocalizations {
   String get deletePermanently => 'Permanent verwijderen';
 
   @override
-  String get alexDeletedSuccess => 'Alex permanent verwijderd. Alle herinneringen en gespreksgeschiedenis verwijderd.';
+  String get alexDeletedSuccess =>
+      'Alex permanent verwijderd. Alle herinneringen en gespreksgeschiedenis verwijderd.';
 
   @override
-  String get deleteFailed => 'Kon Alex niet permanent verwijderen. Probeer het opnieuw.';
+  String get deleteFailed =>
+      'Kon Alex niet permanent verwijderen. Probeer het opnieuw.';
 
   @override
   String get exportSuccess => 'Gesprekken succesvol geëxporteerd';
@@ -153,19 +162,22 @@ class AppLocalizationsNl extends AppLocalizations {
   String get exportJSONSuccess => 'Gesprekken succesvol geëxporteerd naar JSON';
 
   @override
-  String get exportFailed => 'Kon gesprekken niet exporteren. Probeer het opnieuw.';
+  String get exportFailed =>
+      'Kon gesprekken niet exporteren. Probeer het opnieuw.';
 
   @override
   String get saveExportedConversations => 'Geëxporteerde gesprekken opslaan';
 
   @override
-  String get saveExportedConversationsJSON => 'Geëxporteerde gesprekken opslaan (JSON)';
+  String get saveExportedConversationsJSON =>
+      'Geëxporteerde gesprekken opslaan (JSON)';
 
   @override
   String get setPinLock => 'PIN-slot instellen';
 
   @override
-  String get enterPinToSecure => 'Voer een 4-cijferige PIN in om uw app te beveiligen';
+  String get enterPinToSecure =>
+      'Voer een 4-cijferige PIN in om uw app te beveiligen';
 
   @override
   String get newPin => 'Nieuwe PIN';
@@ -183,7 +195,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get disablePinLock => 'PIN-slot uitschakelen?';
 
   @override
-  String get disablePinLockDesc => 'Weet u zeker dat u het PIN-slot wilt uitschakelen? Uw app vereist geen PIN meer voor toegang.';
+  String get disablePinLockDesc =>
+      'Weet u zeker dat u het PIN-slot wilt uitschakelen? Uw app vereist geen PIN meer voor toegang.';
 
   @override
   String get pinLockDisabledSuccess => 'PIN-slot uitgeschakeld';
@@ -204,10 +217,12 @@ class AppLocalizationsNl extends AppLocalizations {
   String get customApiKeyLabel => 'Aangepaste API-sleutel';
 
   @override
-  String get enterCustomApiKeyDesc => 'Voer uw aangepaste Ollama API-sleutel in. U kunt er een krijgen op https://ollama.com/settings/keys';
+  String get enterCustomApiKeyDesc =>
+      'Voer uw aangepaste Ollama API-sleutel in. U kunt er een krijgen op https://ollama.com/settings/keys';
 
   @override
-  String get apiKeySecurityNote => '🔒 Uw API-sleutel wordt veilig alleen op uw apparaat opgeslagen en wordt nooit naar onze servers verzonden.';
+  String get apiKeySecurityNote =>
+      '🔒 Uw API-sleutel wordt veilig alleen op uw apparaat opgeslagen en wordt nooit naar onze servers verzonden.';
 
   @override
   String get apiKey => 'API-sleutel';
@@ -219,7 +234,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get model => 'Model';
 
   @override
-  String get enterModelDesc => 'Voer het Ollama-model in dat u wilt gebruiken (bijv. llama3, mistral)';
+  String get enterModelDesc =>
+      'Voer het Ollama-model in dat u wilt gebruiken (bijv. llama3, mistral)';
 
   @override
   String get modelPlaceholder => 'bijv. llama3';
@@ -327,7 +343,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get disclaimer => 'Proof of Concept';
 
   @override
-  String get disclaimerText => 'Deze applicatie is een Proof of Concept (PoC) en GEEN volledige productie-applicatie. Het is experimentele software alleen voor demonstratie- en ontwikkelingsdoeleinden. De AI kan onverwachte, onnauwkeurige of ongepaste reacties produceren. Beveiligingsfuncties zijn alleen voor demonstratie en niet geschikt voor het beschermen van gevoelige gegevens. Gebruik op eigen risico.';
+  String get disclaimerText =>
+      'Deze applicatie is een Proof of Concept (PoC) en GEEN volledige productie-applicatie. Het is experimentele software alleen voor demonstratie- en ontwikkelingsdoeleinden. De AI kan onverwachte, onnauwkeurige of ongepaste reacties produceren. Beveiligingsfuncties zijn alleen voor demonstratie en niet geschikt voor het beschermen van gevoelige gegevens. Gebruik op eigen risico.';
 
   @override
   String get profile => 'Profiel';
@@ -402,7 +419,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get noCustomInstructions => 'Nog geen aangepaste instructies';
 
   @override
-  String get customInstructionsHint => 'Voeg instructies toe zoals \'Noem me Alex\' of \'Ik geef de voorkeur aan korte antwoorden\' om je ervaring aan te passen';
+  String get customInstructionsHint =>
+      'Voeg instructies toe zoals \'Noem me Alex\' of \'Ik geef de voorkeur aan korte antwoorden\' om je ervaring aan te passen';
 
   @override
   String get addCustomInstruction => 'Aangepaste instructie toevoegen';
@@ -417,7 +435,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get deleteInstruction => 'Instructie verwijderen?';
 
   @override
-  String get deleteInstructionConfirm => 'Weet je zeker dat je deze instructie wilt verwijderen?';
+  String get deleteInstructionConfirm =>
+      'Weet je zeker dat je deze instructie wilt verwijderen?';
 
   @override
   String get delete => 'Verwijderen';
@@ -438,7 +457,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get apiKeyRequired => 'API-sleutel vereist';
 
   @override
-  String get configureApiKeyInSettings => 'Configureer uw Ollama API-sleutel in Instellingen om de app te gebruiken.';
+  String get configureApiKeyInSettings =>
+      'Configureer uw Ollama API-sleutel in Instellingen om de app te gebruiken.';
 
   @override
   String get pinFieldHint => '1234';
@@ -447,37 +467,46 @@ class AppLocalizationsNl extends AppLocalizations {
   String get speechRecognitionError => 'Spraakherkenning fout';
 
   @override
-  String get noSpeechInputDetected => 'Geen spraakinvoer gedetecteerd. Spreek harder of controleer uw microfoon.';
+  String get noSpeechInputDetected =>
+      'Geen spraakinvoer gedetecteerd. Spreek harder of controleer uw microfoon.';
 
   @override
-  String get speechRecognizerNotAvailable => 'Spraakherkenning niet beschikbaar. Controleer de microfoonrechten.';
+  String get speechRecognizerNotAvailable =>
+      'Spraakherkenning niet beschikbaar. Controleer de microfoonrechten.';
 
   @override
-  String get microphonePermissionDenied => 'Microfoonrechten geweigerd. Schakel microfoontoegang in in de instellingen.';
+  String get microphonePermissionDenied =>
+      'Microfoonrechten geweigerd. Schakel microfoontoegang in in de instellingen.';
 
   @override
-  String get speechNetworkError => 'Netwerkfout. Controleer uw internetverbinding.';
+  String get speechNetworkError =>
+      'Netwerkfout. Controleer uw internetverbinding.';
 
   @override
-  String get speechRecognitionTimeout => 'Spraakherkenning time-out. Probeer het opnieuw.';
+  String get speechRecognitionTimeout =>
+      'Spraakherkenning time-out. Probeer het opnieuw.';
 
   @override
   String get gotIt => 'Begrepen';
 
   @override
-  String get messageProcessingError => 'Sorry, ik kon uw bericht nu niet verwerken.';
+  String get messageProcessingError =>
+      'Sorry, ik kon uw bericht nu niet verwerken.';
 
   @override
-  String get startUsingAlexDescription => 'Om Alex te gebruiken, moet u uw Ollama API-sleutel configureren.';
+  String get startUsingAlexDescription =>
+      'Om Alex te gebruiken, moet u uw Ollama API-sleutel configureren.';
 
   @override
   String get updateApiConfiguration => 'Update de Ollama API-configuratie.';
 
   @override
-  String get getApiKeyUrl => 'Haal uw API-sleutel van https://ollama.com/settings/keys\n\nUw API-sleutel wordt veilig alleen op uw apparaat opgeslagen.';
+  String get getApiKeyUrl =>
+      'Haal uw API-sleutel van https://ollama.com/settings/keys\n\nUw API-sleutel wordt veilig alleen op uw apparaat opgeslagen.';
 
   @override
-  String get ageVerificationText => 'Ik ben 18 jaar of ouder (ontgrendelt volledige persoonlijkheid)';
+  String get ageVerificationText =>
+      'Ik ben 18 jaar of ouder (ontgrendelt volledige persoonlijkheid)';
 
   @override
   String get getStarted => 'Aan de slag';
@@ -486,5 +515,6 @@ class AppLocalizationsNl extends AppLocalizations {
   String get enterApiKeyError => 'Voer alstublieft uw API-sleutel in';
 
   @override
-  String get saveApiKeyError => 'Kan API-sleutel niet opslaan. Probeer het opnieuw.';
+  String get saveApiKeyError =>
+      'Kan API-sleutel niet opslaan. Probeer het opnieuw.';
 }

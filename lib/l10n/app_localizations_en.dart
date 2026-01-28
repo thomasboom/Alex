@@ -45,10 +45,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get apiKeySource => 'API Key Source';
 
   @override
-  String get chooseApiKeySource => 'Choose whether to use the inbuilt API key or provide your own custom key';
+  String get chooseApiKeySource =>
+      'Choose whether to use the inbuilt API key or provide your own custom key';
 
   @override
-  String get inbuiltApiKeyWarning => '⚠️ Inbuilt API key will hit rate limits much sooner. Custom keys provide higher limits and better performance.';
+  String get inbuiltApiKeyWarning =>
+      '⚠️ Inbuilt API key will hit rate limits much sooner. Custom keys provide higher limits and better performance.';
 
   @override
   String get inbuiltApiKey => 'Inbuilt API Key';
@@ -87,7 +89,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exportConversations => 'Export Conversations';
 
   @override
-  String get exportConversationsDesc => 'Export your conversation history to a plain text file for backup or sharing.';
+  String get exportConversationsDesc =>
+      'Export your conversation history to a plain text file for backup or sharing.';
 
   @override
   String get exportToPlainText => 'Export to Plain Text';
@@ -99,7 +102,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearData => 'Clear Data';
 
   @override
-  String get clearDataWarning => 'Permanently delete Alex, including all conversation history and memories. This action cannot be undone.';
+  String get clearDataWarning =>
+      'Permanently delete Alex, including all conversation history and memories. This action cannot be undone.';
 
   @override
   String get permanentlyDeleteAlex => 'Permanently Delete Alex';
@@ -132,7 +136,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get permanentlyDeleteConfirmTitle => 'Permanently Delete Alex?';
 
   @override
-  String get permanentlyDeleteConfirmDesc => 'This action cannot be undone. Alex and all conversation history will be permanently deleted.';
+  String get permanentlyDeleteConfirmDesc =>
+      'This action cannot be undone. Alex and all conversation history will be permanently deleted.';
 
   @override
   String get cancel => 'Cancel';
@@ -141,10 +146,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deletePermanently => 'Delete Permanently';
 
   @override
-  String get alexDeletedSuccess => 'Alex permanently deleted. All memories and conversation history removed.';
+  String get alexDeletedSuccess =>
+      'Alex permanently deleted. All memories and conversation history removed.';
 
   @override
-  String get deleteFailed => 'Failed to permanently delete Alex. Please try again.';
+  String get deleteFailed =>
+      'Failed to permanently delete Alex. Please try again.';
 
   @override
   String get exportSuccess => 'Conversations exported successfully';
@@ -153,13 +160,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exportJSONSuccess => 'Conversations exported to JSON successfully';
 
   @override
-  String get exportFailed => 'Failed to export conversations. Please try again.';
+  String get exportFailed =>
+      'Failed to export conversations. Please try again.';
 
   @override
   String get saveExportedConversations => 'Save Exported Conversations';
 
   @override
-  String get saveExportedConversationsJSON => 'Save Exported Conversations (JSON)';
+  String get saveExportedConversationsJSON =>
+      'Save Exported Conversations (JSON)';
 
   @override
   String get setPinLock => 'Set PIN Lock';
@@ -183,7 +192,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get disablePinLock => 'Disable PIN Lock?';
 
   @override
-  String get disablePinLockDesc => 'Are you sure you want to disable PIN lock? Your app will no longer require a PIN to access.';
+  String get disablePinLockDesc =>
+      'Are you sure you want to disable PIN lock? Your app will no longer require a PIN to access.';
 
   @override
   String get pinLockDisabledSuccess => 'PIN lock disabled';
@@ -204,10 +214,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get customApiKeyLabel => 'Custom API Key';
 
   @override
-  String get enterCustomApiKeyDesc => 'Enter your custom Ollama API key. You can get one from https://ollama.com/settings/keys';
+  String get enterCustomApiKeyDesc =>
+      'Enter your custom Ollama API key. You can get one from https://ollama.com/settings/keys';
 
   @override
-  String get apiKeySecurityNote => '🔒 Your API key is stored securely on your device only and is never transmitted to our servers.';
+  String get apiKeySecurityNote =>
+      '🔒 Your API key is stored securely on your device only and is never transmitted to our servers.';
 
   @override
   String get apiKey => 'API Key';
@@ -219,7 +231,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get model => 'Model';
 
   @override
-  String get enterModelDesc => 'Enter the Ollama model to use (e.g., llama3, mistral)';
+  String get enterModelDesc =>
+      'Enter the Ollama model to use (e.g., llama3, mistral)';
 
   @override
   String get modelPlaceholder => 'e.g. llama3';
@@ -327,7 +340,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get disclaimer => 'Proof of Concept';
 
   @override
-  String get disclaimerText => 'This application is a Proof of Concept (PoC) and NOT a full-featured production application. It is experimental software for demonstration and development purposes only. The AI may produce unexpected, inaccurate, or inappropriate responses. Security features are for demonstration only and not suitable for protecting sensitive data. Use at your own risk.';
+  String get disclaimerText =>
+      'This application is a Proof of Concept (PoC) and NOT a full-featured production application. It is experimental software for demonstration and development purposes only. The AI may produce unexpected, inaccurate, or inappropriate responses. Security features are for demonstration only and not suitable for protecting sensitive data. Use at your own risk.';
 
   @override
   String get profile => 'Profile';
@@ -402,7 +416,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noCustomInstructions => 'No custom instructions yet';
 
   @override
-  String get customInstructionsHint => 'Add instructions like \"Call me Alex\" or \"I prefer short responses\" to customize your experience';
+  String get customInstructionsHint =>
+      'Add instructions like \"Call me Alex\" or \"I prefer short responses\" to customize your experience';
 
   @override
   String get addCustomInstruction => 'Add Custom Instruction';
@@ -417,7 +432,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteInstruction => 'Delete Instruction?';
 
   @override
-  String get deleteInstructionConfirm => 'Are you sure you want to delete this instruction?';
+  String get deleteInstructionConfirm =>
+      'Are you sure you want to delete this instruction?';
 
   @override
   String get delete => 'Delete';
@@ -438,7 +454,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get apiKeyRequired => 'API Key Required';
 
   @override
-  String get configureApiKeyInSettings => 'Please configure your Ollama API key in Settings to use the app.';
+  String get configureApiKeyInSettings =>
+      'Please configure your Ollama API key in Settings to use the app.';
 
   @override
   String get pinFieldHint => '1234';
@@ -447,37 +464,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get speechRecognitionError => 'Speech recognition error occurred';
 
   @override
-  String get noSpeechInputDetected => 'No speech input detected. Please speak louder or check your microphone.';
+  String get noSpeechInputDetected =>
+      'No speech input detected. Please speak louder or check your microphone.';
 
   @override
-  String get speechRecognizerNotAvailable => 'Speech recognizer not available. Please check microphone permissions.';
+  String get speechRecognizerNotAvailable =>
+      'Speech recognizer not available. Please check microphone permissions.';
 
   @override
-  String get microphonePermissionDenied => 'Microphone permission denied. Please enable microphone access in settings.';
+  String get microphonePermissionDenied =>
+      'Microphone permission denied. Please enable microphone access in settings.';
 
   @override
-  String get speechNetworkError => 'Network error. Please check your internet connection.';
+  String get speechNetworkError =>
+      'Network error. Please check your internet connection.';
 
   @override
-  String get speechRecognitionTimeout => 'Speech recognition timed out. Please try again.';
+  String get speechRecognitionTimeout =>
+      'Speech recognition timed out. Please try again.';
 
   @override
   String get gotIt => 'Got it';
 
   @override
-  String get messageProcessingError => 'Sorry, I couldn\'t process your message right now.';
+  String get messageProcessingError =>
+      'Sorry, I couldn\'t process your message right now.';
 
   @override
-  String get startUsingAlexDescription => 'To start using Alex, you need to configure your Ollama API key.';
+  String get startUsingAlexDescription =>
+      'To start using Alex, you need to configure your Ollama API key.';
 
   @override
   String get updateApiConfiguration => 'Update your Ollama API configuration.';
 
   @override
-  String get getApiKeyUrl => 'Get your API key from https://ollama.com/settings/keys\n\nYour API key is stored securely on your device only.';
+  String get getApiKeyUrl =>
+      'Get your API key from https://ollama.com/settings/keys\n\nYour API key is stored securely on your device only.';
 
   @override
-  String get ageVerificationText => 'I am 18 or older (unlocks full personality)';
+  String get ageVerificationText =>
+      'I am 18 or older (unlocks full personality)';
 
   @override
   String get getStarted => 'Get Started';
