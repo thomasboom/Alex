@@ -298,6 +298,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get french => 'Français';
 
   @override
+  String get german => 'Allemand';
+
+  @override
   String get colorBlue => 'Bleu';
 
   @override

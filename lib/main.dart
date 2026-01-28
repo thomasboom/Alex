@@ -202,6 +202,7 @@ class _AlexAppState extends State<AlexApp> {
           Locale('nl'),
           Locale('es'),
           Locale('fr'),
+          Locale('de'),
         ],
         home: ApiKeySetupScreen(
           isInitialSetup: true,
@@ -230,12 +231,13 @@ class _AlexAppState extends State<AlexApp> {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              supportedLocales: const [
-                Locale('en'),
-                Locale('nl'),
-                Locale('es'),
-                Locale('fr'),
-              ],
+        supportedLocales: const [
+          Locale('en'),
+          Locale('nl'),
+          Locale('es'),
+          Locale('fr'),
+          Locale('de'),
+        ],
               home: PinLockWrapper(
                 child: ChatScreen(onApiKeyMissing: () => _onApiKeyConfigured()),
               ),

@@ -80,10 +80,12 @@ flutter:
     - assets/system_prompt_nl.json
     - assets/system_prompt_es.json
     - assets/system_prompt_fr.json
+    - assets/system_prompt_de.json
     - assets/system_prompt_en_safe.json
     - assets/system_prompt_nl_safe.json
     - assets/system_prompt_es_safe.json
     - assets/system_prompt_fr_safe.json
+    - assets/system_prompt_de_safe.json
     - assets/help_resources.json
     - assets/sensitive_keywords.json
     - assets/summarization_prompt.json

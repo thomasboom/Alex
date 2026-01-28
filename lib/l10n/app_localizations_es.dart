@@ -296,6 +296,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get french => 'Francés';
 
   @override
+  String get german => 'Alemán';
+
+  @override
   String get colorBlue => 'Azul';
 
   @override

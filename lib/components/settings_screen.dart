@@ -235,6 +235,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ).colorScheme.outline.withValues(alpha: 0.2),
                       ),
                       _buildLanguageOption(title: _l10n.french, value: 'fr'),
+                      Divider(
+                        height: 1,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                      ),
+                      _buildLanguageOption(title: _l10n.german, value: 'de'),
                     ],
                   ),
                 ),

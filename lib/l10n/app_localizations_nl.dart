@@ -292,6 +292,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get french => 'Frans';
 
   @override
+  String get german => 'Duits';
+
+  @override
   String get colorBlue => 'Blauw';
 
   @override
