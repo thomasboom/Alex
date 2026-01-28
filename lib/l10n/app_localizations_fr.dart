@@ -18,8 +18,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get welcomeBack => 'Bon retour';
 
   @override
-  String get enterPinSubtitle =>
-      'Entrez votre PIN pour accéder à l\'application';
+  String get enterPinSubtitle => 'Entrez votre PIN pour accéder à l\'application';
 
   @override
   String get incorrectPin => 'PIN incorrect. Veuillez réessayer.';
@@ -37,8 +36,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get primaryColor => 'Couleur principale';
 
   @override
-  String get chooseColorTheme =>
-      'Choisissez le thème de couleur principal de l\'application';
+  String get chooseColorTheme => 'Choisissez le thème de couleur principal de l\'application';
 
   @override
   String get apiConfiguration => 'Configuration de l\'API';
@@ -47,12 +45,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get apiKeySource => 'Source de clé API';
 
   @override
-  String get chooseApiKeySource =>
-      'Choisissez d\'utiliser la clé API intégrée ou de fournir votre propre clé personnalisée';
+  String get chooseApiKeySource => 'Choisissez d\'utiliser la clé API intégrée ou de fournir votre propre clé personnalisée';
 
   @override
-  String get inbuiltApiKeyWarning =>
-      '⚠️ La clé API intégrée atteindra les limites de taux beaucoup plus tôt. Les clés personnalisées offrent des limites plus élevées et de meilleures performances.';
+  String get inbuiltApiKeyWarning => '⚠️ La clé API intégrée atteindra les limites de taux beaucoup plus tôt. Les clés personnalisées offrent des limites plus élevées et de meilleures performances.';
 
   @override
   String get inbuiltApiKey => 'Clé API intégrée';
@@ -76,12 +72,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pinLock => 'Verrouillage PIN';
 
   @override
-  String get pinLockEnabledDesc =>
-      'L\'application est protégée par un code PIN';
+  String get pinLockEnabledDesc => 'L\'application est protégée par un code PIN';
 
   @override
-  String get pinLockDisabledDesc =>
-      'Sécurisez votre application avec un code PIN à 4 chiffres';
+  String get pinLockDisabledDesc => 'Sécurisez votre application avec un code PIN à 4 chiffres';
 
   @override
   String get changePin => 'Changer le PIN';
@@ -93,8 +87,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get exportConversations => 'Exporter les conversations';
 
   @override
-  String get exportConversationsDesc =>
-      'Exportez votre historique de conversations vers un fichier texte pour sauvegarde ou partage.';
+  String get exportConversationsDesc => 'Exportez votre historique de conversations vers un fichier texte pour sauvegarde ou partage.';
 
   @override
   String get exportToPlainText => 'Exporter en texte brut';
@@ -106,8 +99,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get clearData => 'Effacer les données';
 
   @override
-  String get clearDataWarning =>
-      'Supprimez définitivement Alex, y compris tout l\'historique des conversations et les souvenirs. Cette action ne peut pas être annulée.';
+  String get clearDataWarning => 'Supprimez définitivement Alex, y compris tout l\'historique des conversations et les souvenirs. Cette action ne peut pas être annulée.';
 
   @override
   String get permanentlyDeleteAlex => 'Supprimer définitivement Alex';
@@ -116,8 +108,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get themePreference => 'Préférence de thème';
 
   @override
-  String get chooseThemeDesc =>
-      'Choisissez l\'apparence et le ressenti de l\'application';
+  String get chooseThemeDesc => 'Choisissez l\'apparence et le ressenti de l\'application';
 
   @override
   String get system => 'Système';
@@ -141,8 +132,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get permanentlyDeleteConfirmTitle => 'Supprimer définitivement Alex ?';
 
   @override
-  String get permanentlyDeleteConfirmDesc =>
-      'Cette action ne peut pas être annulée. Alex et tout l\'historique des conversations seront définitivement supprimés.';
+  String get permanentlyDeleteConfirmDesc => 'Cette action ne peut pas être annulée. Alex et tout l\'historique des conversations seront définitivement supprimés.';
 
   @override
   String get cancel => 'Annuler';
@@ -151,12 +141,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deletePermanently => 'Supprimer définitivement';
 
   @override
-  String get alexDeletedSuccess =>
-      'Alex supprimé définitivement. Tous les souvenirs et l\'historique des conversations ont été supprimés.';
+  String get alexDeletedSuccess => 'Alex supprimé définitivement. Tous les souvenirs et l\'historique des conversations ont été supprimés.';
 
   @override
-  String get deleteFailed =>
-      'Échec de la suppression définitive d\'Alex. Veuillez réessayer.';
+  String get deleteFailed => 'Échec de la suppression définitive d\'Alex. Veuillez réessayer.';
 
   @override
   String get exportSuccess => 'Conversations exportées avec succès';
@@ -165,23 +153,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get exportJSONSuccess => 'Conversations exportées avec succès en JSON';
 
   @override
-  String get exportFailed =>
-      'Échec de l\'export des conversations. Veuillez réessayer.';
+  String get exportFailed => 'Échec de l\'export des conversations. Veuillez réessayer.';
 
   @override
-  String get saveExportedConversations =>
-      'Enregistrer les conversations exportées';
+  String get saveExportedConversations => 'Enregistrer les conversations exportées';
 
   @override
-  String get saveExportedConversationsJSON =>
-      'Enregistrer les conversations exportées (JSON)';
+  String get saveExportedConversationsJSON => 'Enregistrer les conversations exportées (JSON)';
 
   @override
   String get setPinLock => 'Définir le verrouillage PIN';
 
   @override
-  String get enterPinToSecure =>
-      'Entrez un code PIN à 4 chiffres pour sécuriser votre application';
+  String get enterPinToSecure => 'Entrez un code PIN à 4 chiffres pour sécuriser votre application';
 
   @override
   String get newPin => 'Nouveau PIN';
@@ -199,8 +183,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get disablePinLock => 'Désactiver le verrouillage PIN ?';
 
   @override
-  String get disablePinLockDesc =>
-      'Êtes-vous sûr de vouloir désactiver le verrouillage PIN ? Votre application ne nécessitera plus de PIN pour y accéder.';
+  String get disablePinLockDesc => 'Êtes-vous sûr de vouloir désactiver le verrouillage PIN ? Votre application ne nécessitera plus de PIN pour y accéder.';
 
   @override
   String get pinLockDisabledSuccess => 'Verrouillage PIN désactivé';
@@ -221,12 +204,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get customApiKeyLabel => 'Clé API personnalisée';
 
   @override
-  String get enterCustomApiKeyDesc =>
-      'Entrez votre clé API personnalisée d\'Ollama. Vous pouvez en obtenir une sur https://ollama.com/settings/keys';
+  String get enterCustomApiKeyDesc => 'Entrez votre clé API personnalisée d\'Ollama. Vous pouvez en obtenir une sur https://ollama.com/settings/keys';
 
   @override
-  String get apiKeySecurityNote =>
-      '🔒 Votre clé API est stockée de manière sécurisée uniquement sur votre appareil et n\'est jamais transmise à nos serveurs.';
+  String get apiKeySecurityNote => '🔒 Votre clé API est stockée de manière sécurisée uniquement sur votre appareil et n\'est jamais transmise à nos serveurs.';
 
   @override
   String get apiKey => 'Clé API';
@@ -238,8 +219,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get model => 'Modèle';
 
   @override
-  String get enterModelDesc =>
-      'Entrez le modèle Ollama à utiliser (ex: llama3, mistral)';
+  String get enterModelDesc => 'Entrez le modèle Ollama à utiliser (ex: llama3, mistral)';
 
   @override
   String get modelPlaceholder => 'ex: llama3';
@@ -248,8 +228,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get apiEndpoint => 'Point de terminaison API';
 
   @override
-  String get enterEndpointDesc =>
-      'Entrez l\'URL du point de terminaison de l\'API Ollama';
+  String get enterEndpointDesc => 'Entrez l\'URL du point de terminaison de l\'API Ollama';
 
   @override
   String get endpointPlaceholder => 'https://api.ollama.com';
@@ -261,8 +240,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get enterPin => 'Entrer le PIN';
 
   @override
-  String get enterPinToContinue =>
-      'Veuillez entrer votre code PIN à 4 chiffres pour continuer';
+  String get enterPinToContinue => 'Veuillez entrer votre code PIN à 4 chiffres pour continuer';
 
   @override
   String get useDifferentMethod => 'Utiliser une méthode différente';
@@ -349,8 +327,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get disclaimer => 'Proof of Concept';
 
   @override
-  String get disclaimerText =>
-      'Cette application est une Proof of Concept (PoC) et NON une application de production complète. Il s\'agit d\'un logiciel expérimental à des fins de démonstration et de développement uniquement. L\'IA peut produire des réponses inattendues, inexactes ou inappropriées. Les fonctionnalités de sécurité sont destinées à la démonstration uniquement et ne sont pas adaptées à la protection de données sensibles. Utilisez à vos propres risques.';
+  String get disclaimerText => 'Cette application est une Proof of Concept (PoC) et NON une application de production complète. Il s\'agit d\'un logiciel expérimental à des fins de démonstration et de développement uniquement. L\'IA peut produire des réponses inattendues, inexactes ou inappropriées. Les fonctionnalités de sécurité sont destinées à la démonstration uniquement et ne sont pas adaptées à la protection de données sensibles. Utilisez à vos propres risques.';
 
   @override
   String get profile => 'Profil';
@@ -422,12 +399,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get customInstructions => 'Instructions personnalisées';
 
   @override
-  String get noCustomInstructions =>
-      'Pas encore d\'instructions personnalisées';
+  String get noCustomInstructions => 'Pas encore d\'instructions personnalisées';
 
   @override
-  String get customInstructionsHint =>
-      'Ajoutez des instructions comme \"Appelle-moi Alex\" ou \"Je préfère les réponses courtes\" pour personnaliser votre expérience';
+  String get customInstructionsHint => 'Ajoutez des instructions comme \"Appelle-moi Alex\" ou \"Je préfère les réponses courtes\" pour personnaliser votre expérience';
 
   @override
   String get addCustomInstruction => 'Ajouter une instruction personnalisée';
@@ -442,8 +417,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get deleteInstruction => 'Supprimer l\'instruction ?';
 
   @override
-  String get deleteInstructionConfirm =>
-      'Êtes-vous sûr de vouloir supprimer cette instruction ?';
+  String get deleteInstructionConfirm => 'Êtes-vous sûr de vouloir supprimer cette instruction ?';
 
   @override
   String get delete => 'Supprimer';
@@ -452,8 +426,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get personalization => 'Personnalisation';
 
   @override
-  String get personalizationDesc =>
-      'Personnalisez la façon dont Alex interagit avec vous';
+  String get personalizationDesc => 'Personnalisez la façon dont Alex interagit avec vous';
 
   @override
   String get rememberThis => 'Se souvenir de ceci';
@@ -465,8 +438,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get apiKeyRequired => 'Clé API requise';
 
   @override
-  String get configureApiKeyInSettings =>
-      'Veuillez configurer votre clé API Ollama dans les Paramètres pour utiliser l\'application.';
+  String get configureApiKeyInSettings => 'Veuillez configurer votre clé API Ollama dans les Paramètres pour utiliser l\'application.';
 
   @override
   String get pinFieldHint => '1234';
@@ -475,47 +447,37 @@ class AppLocalizationsFr extends AppLocalizations {
   String get speechRecognitionError => 'Erreur de reconnaissance vocale';
 
   @override
-  String get noSpeechInputDetected =>
-      'Aucune entrée vocale détectée. Parlez plus fort ou vérifiez votre microphone.';
+  String get noSpeechInputDetected => 'Aucune entrée vocale détectée. Parlez plus fort ou vérifiez votre microphone.';
 
   @override
-  String get speechRecognizerNotAvailable =>
-      'Reconnaissance vocale non disponible. Veuillez vérifier les permissions du microphone.';
+  String get speechRecognizerNotAvailable => 'Reconnaissance vocale non disponible. Veuillez vérifier les permissions du microphone.';
 
   @override
-  String get microphonePermissionDenied =>
-      'Permission du microphone refusée. Veuillez activer l\'accès au microphone dans les paramètres.';
+  String get microphonePermissionDenied => 'Permission du microphone refusée. Veuillez activer l\'accès au microphone dans les paramètres.';
 
   @override
-  String get speechNetworkError =>
-      'Erreur réseau. Veuillez vérifier votre connexion internet.';
+  String get speechNetworkError => 'Erreur réseau. Veuillez vérifier votre connexion internet.';
 
   @override
-  String get speechRecognitionTimeout =>
-      'Délai de reconnaissance vocale dépassé. Veuillez réessayer.';
+  String get speechRecognitionTimeout => 'Délai de reconnaissance vocale dépassé. Veuillez réessayer.';
 
   @override
   String get gotIt => 'Compris';
 
   @override
-  String get messageProcessingError =>
-      'Désolé, je n\'ai pas pu traiter votre message pour le moment.';
+  String get messageProcessingError => 'Désolé, je n\'ai pas pu traiter votre message pour le moment.';
 
   @override
-  String get startUsingAlexDescription =>
-      'Pour commencer à utiliser Alex, vous devez configurer votre clé API Ollama.';
+  String get startUsingAlexDescription => 'Pour commencer à utiliser Alex, vous devez configurer votre clé API Ollama.';
 
   @override
-  String get updateApiConfiguration =>
-      'Mettre à jour la configuration de l\'API Ollama.';
+  String get updateApiConfiguration => 'Mettre à jour la configuration de l\'API Ollama.';
 
   @override
-  String get getApiKeyUrl =>
-      'Obtenez votre clé API sur https://ollama.com/settings/keys\n\nVotre clé API est stockée en toute sécurité uniquement sur votre appareil.';
+  String get getApiKeyUrl => 'Obtenez votre clé API sur https://ollama.com/settings/keys\n\nVotre clé API est stockée en toute sécurité uniquement sur votre appareil.';
 
   @override
-  String get ageVerificationText =>
-      'J\'ai 18 ans ou plus (déverrouille la personnalité complète)';
+  String get ageVerificationText => 'J\'ai 18 ans ou plus (déverrouille la personnalité complète)';
 
   @override
   String get getStarted => 'Commencer';
@@ -524,6 +486,5 @@ class AppLocalizationsFr extends AppLocalizations {
   String get enterApiKeyError => 'Veuillez entrer votre clé API';
 
   @override
-  String get saveApiKeyError =>
-      'Échec de l\'enregistrement de la clé API. Veuillez réessayer.';
+  String get saveApiKeyError => 'Échec de l\'enregistrement de la clé API. Veuillez réessayer.';
 }
