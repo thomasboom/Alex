@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../components/api_key_setup_screen.dart';
 import '../models/chat_state.dart';
-import '../widgets/chat_ui_components.dart';
 import '../services/chat_business_logic.dart';
 import '../services/chat_speech_handler.dart';
 import '../services/chat_summarization_handler.dart';
@@ -11,6 +10,8 @@ import '../services/chat_safety_handler.dart';
 import '../services/conversation_service.dart';
 import '../services/settings_service.dart';
 import '../utils/logger.dart';
+import '../widgets/chat_message.dart';
+import '../widgets/chat_ui_components.dart';
 import '../l10n/app_localizations.dart';
 import '../constants/app_theme.dart';
 import 'settings_screen.dart';
@@ -57,6 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> _initializeServices() async {
     AppLogger.i('Initializing chat screen services');
     await ConversationService.initialize();
+    _restoreConversationHistory();
     await ChatSafetyHandler.initializeSafetyService();
     if (mounted) {
       await ChatSpeechHandler.initializeSpeech(
@@ -66,6 +68,29 @@ class _ChatScreenState extends State<ChatScreen> {
       );
     }
     AppLogger.i('Chat screen services initialized');
+  }
+
+  void _restoreConversationHistory() {
+    final savedMessages = ConversationService.context.messages;
+    if (!mounted || savedMessages.isEmpty) return;
+
+    final restoredWidgets = savedMessages
+        .map(
+          (message) => ChatMessage(
+            text: message.text,
+            isUser: message.isUser,
+            timestamp: message.timestamp,
+          ),
+        )
+        .toList();
+
+    setState(() {
+      _state.messages
+        ..clear()
+        ..addAll(restoredWidgets);
+    });
+
+    AppLogger.i('Restored ${restoredWidgets.length} saved chat messages');
   }
 
   /// Start periodic timer for time-based summarization
