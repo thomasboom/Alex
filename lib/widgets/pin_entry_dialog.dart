@@ -29,8 +29,11 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     (index) => TextEditingController(),
   );
   final List<FocusNode> _focusNodes = List.generate(4, (index) => FocusNode());
+  final List<FocusNode> _keyboardFocusNodes = List.generate(
+    4,
+    (index) => FocusNode(),
+  );
   String _errorMessage = '';
-  bool _isVerifying = false;
   late AppLocalizations _l10n;
 
   @override
@@ -55,6 +58,9 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     for (var focusNode in _focusNodes) {
       focusNode.dispose();
     }
+    for (var focusNode in _keyboardFocusNodes) {
+      focusNode.dispose();
+    }
     super.dispose();
   }
 
@@ -77,8 +83,8 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     }
   }
 
-  void _handleKeyEvent(RawKeyEvent event, int index) {
-    if (event is RawKeyDownEvent) {
+  void _handleKeyEvent(KeyEvent event, int index) {
+    if (event is KeyDownEvent) {
       if (event.logicalKey == LogicalKeyboardKey.backspace) {
         if (_controllers[index].text.isEmpty && index > 0) {
           _focusNodes[index - 1].requestFocus();
@@ -93,7 +99,6 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     if (pin.length != 4) return;
 
     setState(() {
-      _isVerifying = true;
       _errorMessage = '';
     });
 
@@ -107,7 +112,6 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
     } else {
       setState(() {
         _errorMessage = _l10n.incorrectPin;
-        _isVerifying = false;
         for (var controller in _controllers) {
           controller.clear();
         }
@@ -179,9 +183,9 @@ class _PinEntryDialogState extends State<PinEntryDialog> {
                         padding: EdgeInsets.symmetric(
                           horizontal: isDesktop ? 6 : 12,
                         ),
-                        child: RawKeyboardListener(
-                          focusNode: FocusNode(),
-                          onKey: (event) => _handleKeyEvent(event, index),
+                        child: KeyboardListener(
+                          focusNode: _keyboardFocusNodes[index],
+                          onKeyEvent: (event) => _handleKeyEvent(event, index),
                           child: SizedBox(
                             width: fieldSize,
                             height: fieldSize,

@@ -73,6 +73,7 @@ class ChatBusinessLogic {
       AppLogger.i('AI response sent to user, length: ${aiResponse.length}');
     } catch (e) {
       AppLogger.e('Failed to get AI response', e);
+      if (!context.mounted) return;
       final l10n = AppLocalizations.of(context)!;
       updateMessages([
         ChatMessage(
