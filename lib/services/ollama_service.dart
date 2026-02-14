@@ -21,6 +21,34 @@ class OllamaService {
     return '';
   }
 
+  // Style descriptions as const maps for cleaner code
+  static const Map<CommunicationStyle, String> _communicationStyleDescriptions =
+      {
+        CommunicationStyle.formal: 'Formal - use professional language',
+        CommunicationStyle.semiFormal:
+            'Semi-formal - friendly but professional',
+        CommunicationStyle.balanced: 'Balanced - natural and friendly',
+        CommunicationStyle.casual: 'Casual - relaxed and informal',
+        CommunicationStyle.veryCasual: 'Very casual - casual and relaxed',
+      };
+
+  static const Map<HumorLevel, String> _humorLevelDescriptions = {
+    HumorLevel.minimal: 'Minimal - serious and focused',
+    HumorLevel.low: 'Low - occasional light touches',
+    HumorLevel.balanced: 'Balanced - natural wit',
+    HumorLevel.high: 'High - playful and witty',
+    HumorLevel.veryHigh: 'Very high - very playful and humorous',
+  };
+
+  static const Map<EmotionalSupportIntensity, String>
+  _emotionalSupportDescriptions = {
+    EmotionalSupportIntensity.minimal: 'Minimal - matter-of-fact',
+    EmotionalSupportIntensity.low: 'Low - supportive but brief',
+    EmotionalSupportIntensity.balanced: 'Balanced - warm and caring',
+    EmotionalSupportIntensity.high: 'High - very empathetic',
+    EmotionalSupportIntensity.veryHigh: 'Very high - deeply empathetic',
+  };
+
   static Future<String> _loadSystemPrompt() async {
     final localeCode = SettingsService.localeCode;
     final isOver18 = SettingsService.isOver18;
@@ -61,16 +89,18 @@ class OllamaService {
     final buffer = StringBuffer();
 
     if (context.summary.isNotEmpty) {
-      buffer.writeln('CONVERSATION SUMMARY:');
-      buffer.writeln('=====================');
-      buffer.writeln(context.summary);
-      buffer.writeln();
+      buffer
+        ..writeln('CONVERSATION SUMMARY:')
+        ..writeln('=====================')
+        ..writeln(context.summary)
+        ..writeln();
     }
 
     if (UserProfileService.hasProfile) {
       final profile = UserProfileService.profile;
-      buffer.writeln('USER PROFILE:');
-      buffer.writeln('=============');
+      buffer
+        ..writeln('USER PROFILE:')
+        ..writeln('=============');
 
       if (profile.nickname.isNotEmpty) {
         buffer.writeln('- User prefers to be called: ${profile.nickname}');
@@ -79,76 +109,19 @@ class OllamaService {
         buffer.writeln('- Display name: ${profile.displayName}');
       }
 
-      switch (profile.communicationStyle) {
-        case CommunicationStyle.formal:
-          buffer.writeln(
-            '- Communication style: Formal - use professional language',
-          );
-          break;
-        case CommunicationStyle.semiFormal:
-          buffer.writeln(
-            '- Communication style: Semi-formal - friendly but professional',
-          );
-          break;
-        case CommunicationStyle.balanced:
-          buffer.writeln(
-            '- Communication style: Balanced - natural and friendly',
-          );
-          break;
-        case CommunicationStyle.casual:
-          buffer.writeln(
-            '- Communication style: Casual - relaxed and informal',
-          );
-          break;
-        case CommunicationStyle.veryCasual:
-          buffer.writeln(
-            '- Communication style: Very casual - casual and relaxed',
-          );
-          break;
-      }
-
-      switch (profile.humorLevel) {
-        case HumorLevel.minimal:
-          buffer.writeln('- Humor: Minimal - serious and focused');
-          break;
-        case HumorLevel.low:
-          buffer.writeln('- Humor: Low - occasional light touches');
-          break;
-        case HumorLevel.balanced:
-          buffer.writeln('- Humor: Balanced - natural wit');
-          break;
-        case HumorLevel.high:
-          buffer.writeln('- Humor: High - playful and witty');
-          break;
-        case HumorLevel.veryHigh:
-          buffer.writeln('- Humor: Very high - very playful and humorous');
-          break;
-      }
-
-      switch (profile.emotionalSupportIntensity) {
-        case EmotionalSupportIntensity.minimal:
-          buffer.writeln('- Emotional support: Minimal - matter-of-fact');
-          break;
-        case EmotionalSupportIntensity.low:
-          buffer.writeln('- Emotional support: Low - supportive but brief');
-          break;
-        case EmotionalSupportIntensity.balanced:
-          buffer.writeln('- Emotional support: Balanced - warm and caring');
-          break;
-        case EmotionalSupportIntensity.high:
-          buffer.writeln('- Emotional support: High - very empathetic');
-          break;
-        case EmotionalSupportIntensity.veryHigh:
-          buffer.writeln('- Emotional support: Very high - deeply empathetic');
-          break;
-      }
+      buffer.writeln(
+        '- Communication style: ${_communicationStyleDescriptions[profile.communicationStyle]}',
+      );
+      buffer.writeln('- Humor: ${_humorLevelDescriptions[profile.humorLevel]}');
+      buffer.writeln(
+        '- Emotional support: ${_emotionalSupportDescriptions[profile.emotionalSupportIntensity]}',
+      );
 
       if (profile.preferredTopics.isNotEmpty) {
         buffer.writeln(
           '- Preferred topics: ${profile.preferredTopics.join(', ')}',
         );
       }
-
       if (profile.avoidedTopics.isNotEmpty) {
         buffer.writeln(
           '- Topics to avoid: ${profile.avoidedTopics.join(', ')}',
@@ -161,24 +134,25 @@ class OllamaService {
     final customInstructions =
         CustomInstructionsService.getInstructionsAsText();
     if (customInstructions.isNotEmpty) {
-      buffer.writeln('CUSTOM INSTRUCTIONS:');
-      buffer.writeln('====================');
-      buffer.writeln(customInstructions);
-      buffer.writeln();
+      buffer
+        ..writeln('CUSTOM INSTRUCTIONS:')
+        ..writeln('====================')
+        ..writeln(customInstructions)
+        ..writeln();
     }
 
-    buffer.writeln('INSTRUCTIONS:');
-    buffer.writeln(
-      '- Use this context to inform your responses and maintain continuity',
-    );
-    buffer.writeln('- Reference previous topics naturally when relevant');
-    buffer.writeln('- Remember important details the user has shared');
-    buffer.writeln(
-      '- Build on our established friendship and conversation history',
-    );
-    buffer.writeln(
-      '- Be consistent with your personality and our relationship',
-    );
+    buffer
+      ..writeln('INSTRUCTIONS:')
+      ..writeln(
+        '- Use this context to inform your responses and maintain continuity',
+      )
+      ..writeln('- Reference previous topics naturally when relevant')
+      ..writeln('- Remember important details the user has shared')
+      ..writeln(
+        '- Build on our established friendship and conversation history',
+      )
+      ..writeln('- Be consistent with your personality and our relationship');
+
     if (UserProfileService.hasProfile) {
       buffer.writeln(
         '- Follow the user preferences and custom instructions above',

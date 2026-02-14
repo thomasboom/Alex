@@ -142,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   style: GoogleFonts.playfairDisplay(),
                   onChanged: (value) {
-                    UserProfileService.updateNickname(value);
+                    UserProfileService.updateField(nickname: value);
                   },
                 ),
                 const SizedBox(height: 20),
@@ -169,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   style: GoogleFonts.playfairDisplay(),
                   onChanged: (value) {
-                    UserProfileService.updateDisplayName(value);
+                    UserProfileService.updateField(displayName: value);
                   },
                 ),
               ],
@@ -462,7 +462,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             : null,
         onTap: () {
           setState(() {
-            UserProfileService.updateCommunicationStyle(value);
+            UserProfileService.updateField(communicationStyle: value);
           });
         },
       ),
@@ -506,7 +506,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             : null,
         onTap: () {
           setState(() {
-            UserProfileService.updateHumorLevel(value);
+            UserProfileService.updateField(humorLevel: value);
           });
         },
       ),
@@ -550,7 +550,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             : null,
         onTap: () {
           setState(() {
-            UserProfileService.updateEmotionalSupportIntensity(value);
+            UserProfileService.updateField(emotionalSupportIntensity: value);
           });
         },
       ),

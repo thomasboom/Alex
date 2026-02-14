@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'dart:async';
-import '../constants/chat_constants.dart';
+import '../constants/app_constants.dart';
 import '../widgets/chat_message.dart';
 import '../l10n/app_localizations.dart';
 
@@ -44,8 +44,8 @@ class ChatState {
   String _getRandomWelcomeMessage() {
     final random =
         DateTime.now().millisecondsSinceEpoch %
-        ChatConstants.welcomeMessages.length;
-    return ChatConstants.welcomeMessages[random];
+        AppConstants.welcomeMessages.length;
+    return AppConstants.welcomeMessages[random];
   }
 
   /// Get localized welcome message

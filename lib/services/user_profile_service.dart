@@ -61,110 +61,61 @@ class UserProfileService {
 
   static bool get hasProfile => _profile != null;
 
+  /// Generic method to update profile fields
+  static void updateField({
+    String? nickname,
+    String? displayName,
+    CommunicationStyle? communicationStyle,
+    HumorLevel? humorLevel,
+    EmotionalSupportIntensity? emotionalSupportIntensity,
+    String? customInstructions,
+    List<String>? preferredTopics,
+    List<String>? avoidedTopics,
+  }) {
+    if (_profile == null) return;
+    _profile = _profile!.copyWith(
+      nickname: nickname,
+      displayName: displayName,
+      communicationStyle: communicationStyle,
+      humorLevel: humorLevel,
+      emotionalSupportIntensity: emotionalSupportIntensity,
+      customInstructions: customInstructions,
+      preferredTopics: preferredTopics,
+      avoidedTopics: avoidedTopics,
+      updatedAt: DateTime.now(),
+    );
+    saveProfile();
+  }
+
+  /// Update entire profile
   static void updateProfile(UserProfile updatedProfile) {
     _profile = updatedProfile.copyWith(updatedAt: DateTime.now());
     saveProfile();
   }
 
-  static void updateNickname(String nickname) {
+  /// Toggle a topic in the preferred or avoided list
+  static void toggleTopic(
+    String topic, {
+    required bool isPreferred,
+    required bool add,
+  }) {
     if (_profile == null) return;
-    _profile = _profile!.copyWith(
-      nickname: nickname,
-      updatedAt: DateTime.now(),
-    );
-    saveProfile();
-  }
+    final currentList = isPreferred
+        ? List<String>.from(_profile!.preferredTopics)
+        : List<String>.from(_profile!.avoidedTopics);
 
-  static void updateDisplayName(String displayName) {
-    if (_profile == null) return;
-    _profile = _profile!.copyWith(
-      displayName: displayName,
-      updatedAt: DateTime.now(),
-    );
-    saveProfile();
-  }
-
-  static void updateCommunicationStyle(CommunicationStyle style) {
-    if (_profile == null) return;
-    _profile = _profile!.copyWith(
-      communicationStyle: style,
-      updatedAt: DateTime.now(),
-    );
-    saveProfile();
-  }
-
-  static void updateHumorLevel(HumorLevel level) {
-    if (_profile == null) return;
-    _profile = _profile!.copyWith(humorLevel: level, updatedAt: DateTime.now());
-    saveProfile();
-  }
-
-  static void updateEmotionalSupportIntensity(
-    EmotionalSupportIntensity intensity,
-  ) {
-    if (_profile == null) return;
-    _profile = _profile!.copyWith(
-      emotionalSupportIntensity: intensity,
-      updatedAt: DateTime.now(),
-    );
-    saveProfile();
-  }
-
-  static void addPreferredTopic(String topic) {
-    if (_profile == null) return;
-    final topics = List<String>.from(_profile!.preferredTopics);
-    if (!topics.contains(topic)) {
-      topics.add(topic);
-      _profile = _profile!.copyWith(
-        preferredTopics: topics,
-        updatedAt: DateTime.now(),
-      );
-      saveProfile();
+    if (add && !currentList.contains(topic)) {
+      currentList.add(topic);
+    } else if (!add) {
+      currentList.remove(topic);
+    } else {
+      return; // No change needed
     }
-  }
 
-  static void removePreferredTopic(String topic) {
-    if (_profile == null) return;
-    final topics = List<String>.from(_profile!.preferredTopics);
-    topics.remove(topic);
-    _profile = _profile!.copyWith(
-      preferredTopics: topics,
-      updatedAt: DateTime.now(),
+    updateField(
+      preferredTopics: isPreferred ? currentList : null,
+      avoidedTopics: isPreferred ? null : currentList,
     );
-    saveProfile();
-  }
-
-  static void addAvoidedTopic(String topic) {
-    if (_profile == null) return;
-    final topics = List<String>.from(_profile!.avoidedTopics);
-    if (!topics.contains(topic)) {
-      topics.add(topic);
-      _profile = _profile!.copyWith(
-        avoidedTopics: topics,
-        updatedAt: DateTime.now(),
-      );
-      saveProfile();
-    }
-  }
-
-  static void removeAvoidedTopic(String topic) {
-    if (_profile == null) return;
-    final topics = List<String>.from(_profile!.avoidedTopics);
-    topics.remove(topic);
-    _profile = _profile!.copyWith(
-      avoidedTopics: topics,
-      updatedAt: DateTime.now(),
-    );
-    saveProfile();
-  }
-
-  static void updateCustomInstructions(String instructions) {
-    if (_profile == null) return;
-    _profile = _profile!.copyWith(
-      customInstructions: instructions,
-      updatedAt: DateTime.now(),
-    );
-    saveProfile();
   }
 
   static String getUserName() {

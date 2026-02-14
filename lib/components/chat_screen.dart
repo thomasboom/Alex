@@ -6,7 +6,7 @@ import '../models/chat_state.dart';
 import '../services/chat_business_logic.dart';
 import '../services/chat_speech_handler.dart';
 import '../services/chat_summarization_handler.dart';
-import '../services/chat_safety_handler.dart';
+import '../services/safety_service.dart';
 import '../services/conversation_service.dart';
 import '../services/settings_service.dart';
 import '../utils/logger.dart';
@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _focusNode = FocusNode()..requestFocus();
     _initializeServices();
     _startSummarizationTimer();
-    ChatSafetyHandler.resetSafetyDialogFlag(_state);
+    _state.safetyDialogShownThisSession = false;
   }
 
   @override
@@ -59,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
     AppLogger.i('Initializing chat screen services');
     await ConversationService.initialize();
     _restoreConversationHistory();
-    await ChatSafetyHandler.initializeSafetyService();
+    await SafetyService.initialize();
     if (mounted) {
       await ChatSpeechHandler.initializeSpeech(
         context,

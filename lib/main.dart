@@ -12,16 +12,28 @@ import 'utils/logger.dart';
 import 'widgets/pin_entry_dialog.dart';
 import 'l10n/app_localizations.dart';
 
+/// Supported locales for the app
+const List<Locale> _supportedLocales = [
+  Locale('en'),
+  Locale('nl'),
+  Locale('es'),
+  Locale('fr'),
+  Locale('de'),
+];
+
+/// Localizations delegates for internationalization
+const List<LocalizationsDelegate<dynamic>> _localizationsDelegates = [
+  AppLocalizations.delegate,
+  GlobalMaterialLocalizations.delegate,
+  GlobalWidgetsLocalizations.delegate,
+  GlobalCupertinoLocalizations.delegate,
+];
+
 /// Widget that wraps the main app content and handles PIN lock
 class PinLockWrapper extends StatefulWidget {
   final Widget child;
-  final bool showPinDialog;
 
-  const PinLockWrapper({
-    super.key,
-    required this.child,
-    this.showPinDialog = false,
-  });
+  const PinLockWrapper({super.key, required this.child});
 
   @override
   State<PinLockWrapper> createState() => _PinLockWrapperState();
@@ -36,12 +48,6 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
     _checkPinLockStatus();
   }
 
-  @override
-  void didUpdateWidget(PinLockWrapper oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _checkPinLockStatus();
-  }
-
   void _checkPinLockStatus() {
     final isPinLockEnabled = SettingsService.pinLockEnabled;
     final hasPinCode = SettingsService.pinCode.isNotEmpty;
@@ -52,23 +58,14 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
 
     if (isPinLockEnabled && hasPinCode && !_showPinDialog) {
       AppLogger.i('PIN lock is active, showing PIN dialog');
-      setState(() {
-        _showPinDialog = true;
-      });
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showPinEntryDialog();
-      });
+      setState(() => _showPinDialog = true);
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _showPinEntryDialog(),
+      );
     } else if (!isPinLockEnabled || !hasPinCode) {
       AppLogger.d('PIN lock not active, hiding PIN dialog');
-      setState(() {
-        _showPinDialog = false;
-      });
+      setState(() => _showPinDialog = false);
     }
-  }
-
-  /// Method to refresh PIN lock status (can be called when settings change)
-  void refreshPinLockStatus() {
-    _checkPinLockStatus();
   }
 
   Future<void> _showPinEntryDialog() async {
@@ -80,9 +77,7 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
     );
 
     if (pinCorrect && mounted) {
-      setState(() {
-        _showPinDialog = false;
-      });
+      setState(() => _showPinDialog = false);
     } else if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -91,36 +86,35 @@ class _PinLockWrapperState extends State<PinLockWrapper> {
         ),
       );
       Future.delayed(const Duration(seconds: 1), () {
-        if (mounted) {
-          _showPinEntryDialog();
-        }
+        if (mounted) _showPinEntryDialog();
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!_showPinDialog) return widget.child;
+
+    final l10n = AppLocalizations.of(context)!;
     return Stack(
       children: [
         widget.child,
-        if (_showPinDialog)
-          const PinEntryDialog(
-            title: 'Welcome Back',
-            subtitle: 'Enter your PIN to access the app',
-          ),
+        PinEntryDialog(
+          title: l10n.welcomeBack,
+          subtitle: l10n.enterPinSubtitle,
+        ),
       ],
     );
   }
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: AppConstants.envFileName);
   AppLogger.init();
   await SettingsService.initialize();
   await UserProfileService.initialize();
   await CustomInstructionsService.initialize();
-
-  WidgetsFlutterBinding.ensureInitialized();
 
   AppLogger.d('PIN Lock Enabled: ${SettingsService.pinLockEnabled}');
   AppLogger.d('PIN Code Set: ${SettingsService.pinCode.isNotEmpty}');
@@ -128,6 +122,13 @@ void main() async {
 
   runApp(AlexApp(hasApiKey: SettingsService.hasApiKeyConfigured));
 }
+
+/// Theme mode mapping
+const Map<String, ThemeMode> _themeModeMap = {
+  'light': ThemeMode.light,
+  'dark': ThemeMode.dark,
+  'system': ThemeMode.system,
+};
 
 class AlexApp extends StatefulWidget {
   final bool hasApiKey;
@@ -139,9 +140,9 @@ class AlexApp extends StatefulWidget {
 }
 
 class _AlexAppState extends State<AlexApp> {
-  late Stream<String> _themeStream;
-  late Stream<String> _colorStream;
-  late Stream<String> _localeStream;
+  late final Stream<String> _themeStream;
+  late final Stream<String> _colorStream;
+  late final Stream<String> _localeStream;
   Locale _currentLocale = const Locale('en');
   bool _apiKeyConfigured = false;
 
@@ -154,56 +155,35 @@ class _AlexAppState extends State<AlexApp> {
     _currentLocale = SettingsService.locale;
     _apiKeyConfigured = widget.hasApiKey;
     _localeStream.listen((localeCode) {
-      if (mounted) {
-        setState(() {
-          _currentLocale = Locale(localeCode);
-        });
-      }
+      if (mounted) setState(() => _currentLocale = Locale(localeCode));
     });
   }
 
-  ThemeMode _getThemeMode() {
-    final themeMode = SettingsService.themeMode;
-    switch (themeMode) {
-      case 'light':
-        return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
-      case 'system':
-      default:
-        return ThemeMode.system;
-    }
-  }
+  ThemeMode _getThemeMode() =>
+      _themeModeMap[SettingsService.themeMode] ?? ThemeMode.system;
 
   void _onApiKeyConfigured() {
-    setState(() {
-      _apiKeyConfigured = true;
-    });
+    setState(() => _apiKeyConfigured = true);
+  }
+
+  Widget _buildMaterialApp({required Widget home}) {
+    return MaterialApp(
+      title: AppConstants.appName,
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: _getThemeMode(),
+      locale: _currentLocale,
+      localizationsDelegates: _localizationsDelegates,
+      supportedLocales: _supportedLocales,
+      home: home,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     if (!_apiKeyConfigured) {
-      return MaterialApp(
-        title: AppConstants.appName,
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: _getThemeMode(),
-        locale: _currentLocale,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en'),
-          Locale('nl'),
-          Locale('es'),
-          Locale('fr'),
-          Locale('de'),
-        ],
+      return _buildMaterialApp(
         home: ApiKeySetupScreen(
           isInitialSetup: true,
           onCompleted: _onApiKeyConfigured,
@@ -214,37 +194,14 @@ class _AlexAppState extends State<AlexApp> {
 
     return StreamBuilder<String>(
       stream: _themeStream,
-      builder: (context, themeSnapshot) {
-        return StreamBuilder<String>(
-          stream: _colorStream,
-          builder: (context, colorSnapshot) {
-            return MaterialApp(
-              title: AppConstants.appName,
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme.lightTheme,
-              darkTheme: AppTheme.darkTheme,
-              themeMode: _getThemeMode(),
-              locale: _currentLocale,
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-        supportedLocales: const [
-          Locale('en'),
-          Locale('nl'),
-          Locale('es'),
-          Locale('fr'),
-          Locale('de'),
-        ],
-              home: PinLockWrapper(
-                child: ChatScreen(onApiKeyMissing: () => _onApiKeyConfigured()),
-              ),
-            );
-          },
-        );
-      },
+      builder: (context, _) => StreamBuilder<String>(
+        stream: _colorStream,
+        builder: (context, _) => _buildMaterialApp(
+          home: PinLockWrapper(
+            child: ChatScreen(onApiKeyMissing: _onApiKeyConfigured),
+          ),
+        ),
+      ),
     );
   }
 }
