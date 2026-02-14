@@ -40,14 +40,6 @@ class ChatSpeechHandler {
         'Speech recognition initialized - enabled: ${state.speechEnabled}',
       );
       setState(() {});
-
-      // Show platform-specific messages if needed
-      if (!state.speechEnabled && PlatformUtils.isLinux) {
-        AppLogger.i('Speech not supported on Linux platform');
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          SpeechUtils.showPlatformNotSupportedMessage(context);
-        });
-      }
     } catch (e) {
       AppLogger.e('Failed to initialize speech recognition', e);
       state.speechEnabled = false;
