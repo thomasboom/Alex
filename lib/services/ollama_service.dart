@@ -60,34 +60,11 @@ class OllamaService {
   static String _buildContextPrompt(ConversationContext context) {
     final buffer = StringBuffer();
 
-    if (context.messages.isEmpty && context.summary.isEmpty) {
-      buffer.writeln('CONVERSATION START:');
-      buffer.writeln(
-        'This is the beginning of our conversation. Get to know the user and start building a friendship.',
-      );
-    } else {
-      buffer.writeln('CONVERSATION CONTEXT:');
-      buffer.writeln('===================');
-
-      if (context.summary.isNotEmpty) {
-        buffer.writeln('SUMMARY OF OUR CONVERSATION SO FAR:');
-        buffer.writeln(context.summary);
-        buffer.writeln();
-      }
-
-      if (context.messages.isNotEmpty) {
-        final recentMessages = ConversationService.getRecentMessages(limit: 10);
-        buffer.writeln(
-          'RECENT CONVERSATION (last ${recentMessages.length} exchanges):',
-        );
-        buffer.writeln();
-
-        for (var message in recentMessages) {
-          final speaker = message.isUser ? 'User' : 'Alex';
-          buffer.writeln('$speaker: ${message.text}');
-        }
-        buffer.writeln();
-      }
+    if (context.summary.isNotEmpty) {
+      buffer.writeln('CONVERSATION SUMMARY:');
+      buffer.writeln('=====================');
+      buffer.writeln(context.summary);
+      buffer.writeln();
     }
 
     if (UserProfileService.hasProfile) {
@@ -239,6 +216,19 @@ class OllamaService {
       AppLogger.d('API POST $_baseUrl/chat');
       final stopwatch = Stopwatch()..start();
 
+      final chatMessages = <Map<String, String>>[
+        {'role': 'system', 'content': enhancedSystemPrompt},
+      ];
+
+      for (final message in conversationContext.messages) {
+        chatMessages.add({
+          'role': message.isUser ? 'user' : 'assistant',
+          'content': message.text,
+        });
+      }
+
+      chatMessages.add({'role': 'user', 'content': prompt});
+
       final response = await http.post(
         Uri.parse('$_baseUrl/chat'),
         headers: {
@@ -247,10 +237,7 @@ class OllamaService {
         },
         body: jsonEncode({
           'model': _model,
-          'messages': [
-            {'role': 'system', 'content': enhancedSystemPrompt},
-            {'role': 'user', 'content': prompt},
-          ],
+          'messages': chatMessages,
           'stream': false,
         }),
       );
